@@ -1,0 +1,4 @@
+[submodule "lib/nwawsoft-java-util"]
+	path = lib/nwawsoft-java-util
+	url = https://github.com/nwawrzyniak/nwawsoft-java-util
+	branch = master
