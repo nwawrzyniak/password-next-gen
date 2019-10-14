@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import static nwawsoft.util.MutatedVowels.*;
+
 public class GUI extends JFrame {
     private JTextField inputContainer;
     private JTextField jtxtInputField;
@@ -69,7 +71,7 @@ public class GUI extends JFrame {
         jlblMarker.setBounds(45, 155, 10, 10);
         cp.add(jlblMarker);
         jlblImprovements.setText("<HTML>Verwenden Sie Kleinbuchtaben<BR>" +
-                "<BR>Verwenden Sie Großbuchtaben<BR>" +
+                "<BR>Verwenden Sie Gro" + ss + "buchtaben<BR>" +
                 "<BR>Verwenden Sie Sonderzeichen<BR>" +
                 "<BR>Verwenden Sie Ziffern<BR>" +
                 "<BR>Verwenden Sie 14 Zeichen<BR>" +
@@ -160,25 +162,25 @@ public class GUI extends JFrame {
     }
 
     public void jmiAboutSafetyLevelsActionPerformed(final ActionEvent evt) {
-        new Help(this, "Erklärung der Sicherheitsstufen", true, language);
+        new Help(this, "Erkl" + ae + "rung der Sicherheitsstufen", true, language);
     }
 
     public void check() {
         String level;
         if (p.parse1(inputContainer.getText())) {
-            level = "Passwortstufe beträgt 1";
+            level = "Passwortstufe betr" + ae + "gt 1";
             levelValue = 1;
             if (p.parse2(inputContainer.getText())) {
-                level = "Passwortstufe beträgt 2";
+                level = "Passwortstufe betr" + ae + "gt 2";
                 levelValue = 2;
                 if (p.parse3(inputContainer.getText())) {
-                    level = "Passwortstufe beträgt 3";
+                    level = "Passwortstufe betr" + ae + "gt 3";
                     levelValue = 3;
                     if (p.parse4(inputContainer.getText())) {
-                        level = "Passwortstufe beträgt 4";
+                        level = "Passwortstufe betr" + ae + "gt 4";
                         levelValue = 4;
                         if (p.parse5(inputContainer.getText())) {
-                            level = "Passwortstufe beträgt 5";
+                            level = "Passwortstufe betr" + ae + "gt 5";
                             levelValue = 5;
                         }
                     }
@@ -188,7 +190,7 @@ public class GUI extends JFrame {
             level = "Ihr Passwort ist zu unsicher!";
             levelValue = 0;
         } if (!p.dictionaryCheck(inputContainer.getText())) {
-            level = "Teile Ihres Passworts stehen im Wörterbuch.";
+            level = "Teile Ihres Passworts stehen im W" + oe + "rterbuch.";
         }
         jtxtOutputField.setText(level);
     }

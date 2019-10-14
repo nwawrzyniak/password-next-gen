@@ -3,6 +3,8 @@ package nwawsoft.pwng.ui;
 import java.awt.*;
 import javax.swing.*;
 
+import static nwawsoft.util.MutatedVowels.ss;
+
 public class Help extends JDialog {
   private static final int LEVELS = 5;
   private JLabel[] jlblLevel = new JLabel[5];
@@ -52,7 +54,7 @@ public class Help extends JDialog {
               "<BR>  - Mindestens 14 Zeichen" +
               "<BR>  - Alle 4 Zeichentypen" +
               "<BR>  - Mindestens 8 Wechsel zwischen Zeichentypen</HTML>");
-      jlblTypes.setText("<HTML>Es gibt folgende 4 Zeichentypen: Groß- und Kleinbuchstaben, Zahlen und " +
+      jlblTypes.setText("<HTML>Es gibt folgende 4 Zeichentypen: Gro" + ss + "- und Kleinbuchstaben, Zahlen und " +
               "Sonderzeichen.<HTML>");
     } else if (language.equals("ENGLISH")) {
       jlblLevel[0].setText("<HTML><u>Password level 1:</u>" +
@@ -69,9 +71,9 @@ public class Help extends JDialog {
       jlblLevel[4].setText("<HTML><u>Password level 5:</u>" +
               "<BR>  - At least 14 characters" +
               "<BR>  - All 4 character types" +
-              "<BR>  - At least 8 Wechsel zwischen Zeichentypen</HTML>");
-      jlblTypes.setText("<HTML>Es gibt folgende 4 Zeichentypen: Groß- und Kleinbuchstaben, Zahlen und " +
-              "Sonderzeichen.<HTML>");
+              "<BR>  - At least 8 changes of character types</HTML>");
+      jlblTypes.setText("<HTML>A \"character type\" means one of these 4 categories: Upper case letters, lower case " +
+              "letters, digits, special characters.<HTML>");
     }
   }
 
