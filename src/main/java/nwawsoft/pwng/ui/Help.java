@@ -1,5 +1,8 @@
 package nwawsoft.pwng.ui;
 
+import nwawsoft.pwng.exceptions.UnknownLanguageException;
+import nwawsoft.pwng.model.Language;
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -9,11 +12,10 @@ public class Help extends JDialog {
   private static final int LEVELS = 5;
   private JLabel[] jlblLevel = new JLabel[5];
   private JLabel jlblTypes = new JLabel();
-  private String language;
+  private Language l;
   
-  public Help(final JFrame owner, final String title, final boolean modal, final String language) {
+  public Help(final JFrame owner, final String title, final boolean modal, final Language l) {
     super(owner, title, modal);
-    this.language = language;
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     int frameWidth = 300;
     int frameHeight = 380;
@@ -25,8 +27,13 @@ public class Help extends JDialog {
     Container cp = getContentPane();
     cp.setLayout(null);
     setResizable(false);
+    this.l = l;
     initHelpText();
-    setHelpText();
+    try {
+      setHelpText();
+    } catch (UnknownLanguageException e) {
+      e.printStackTrace();
+    }
     addHelpText(cp);
     setVisible(true);
   }
@@ -37,26 +44,8 @@ public class Help extends JDialog {
     }
   }
 
-  private void setHelpText() {
-    if (language.equals("GERMAN")) {
-      jlblLevel[0].setText("<HTML><u>Passwortstufe 1:</u>" +
-              "<BR>  - Mindestens 5 Zeichen</HTML>");
-      jlblLevel[1].setText("<HTML><u>Passwortstufe 2:</u>" +
-              "<BR>  - Mindestens 8 Zeichen" +
-              "<BR>  - Mindestens 2 Zeichentypen</HTML>");
-      jlblLevel[2].setText("<HTML><u>Passwortstufe 3:</u>" +
-              "<BR>  - Mindestens 10 Zeichen" +
-              "<BR>  - Mindestens 3 Zeichentypen</HTML>");
-      jlblLevel[3].setText("<HTML><u>Passwortstufe 4:</u>" +
-              "<BR>  - Mindestens 12 Zeichen" +
-              "<BR>  - Alle Zeichentypen</HTML>");
-      jlblLevel[4].setText("<HTML><u>Passwortstufe 5:</u>" +
-              "<BR>  - Mindestens 14 Zeichen" +
-              "<BR>  - Alle 4 Zeichentypen" +
-              "<BR>  - Mindestens 8 Wechsel zwischen Zeichentypen</HTML>");
-      jlblTypes.setText("<HTML>Es gibt folgende 4 Zeichentypen: Gro" + ss + "- und Kleinbuchstaben, Zahlen und " +
-              "Sonderzeichen.<HTML>");
-    } else if (language.equals("ENGLISH")) {
+  private void setHelpText() throws UnknownLanguageException {
+    if (l.equals(Language.ENGLISH)) {
       jlblLevel[0].setText("<HTML><u>Password level 1:</u>" +
               "<BR>  - At least 5 characters</HTML>");
       jlblLevel[1].setText("<HTML><u>Password level 2:</u>" +
@@ -74,6 +63,26 @@ public class Help extends JDialog {
               "<BR>  - At least 8 changes of character types</HTML>");
       jlblTypes.setText("<HTML>A \"character type\" means one of these 4 categories: Upper case letters, lower case " +
               "letters, digits, special characters.<HTML>");
+    } else if (l.equals(Language.GERMAN)) {
+      jlblLevel[0].setText("<HTML><u>Passwortstufe 1:</u>" +
+              "<BR>  - Mindestens 5 Zeichen</HTML>");
+      jlblLevel[1].setText("<HTML><u>Passwortstufe 2:</u>" +
+              "<BR>  - Mindestens 8 Zeichen" +
+              "<BR>  - Mindestens 2 Zeichentypen</HTML>");
+      jlblLevel[2].setText("<HTML><u>Passwortstufe 3:</u>" +
+              "<BR>  - Mindestens 10 Zeichen" +
+              "<BR>  - Mindestens 3 Zeichentypen</HTML>");
+      jlblLevel[3].setText("<HTML><u>Passwortstufe 4:</u>" +
+              "<BR>  - Mindestens 12 Zeichen" +
+              "<BR>  - Alle Zeichentypen</HTML>");
+      jlblLevel[4].setText("<HTML><u>Passwortstufe 5:</u>" +
+              "<BR>  - Mindestens 14 Zeichen" +
+              "<BR>  - Alle 4 Zeichentypen" +
+              "<BR>  - Mindestens 8 Wechsel zwischen Zeichentypen</HTML>");
+      jlblTypes.setText("<HTML>Es gibt folgende 4 Zeichentypen: Gro" + ss + "- und Kleinbuchstaben, Zahlen und " +
+              "Sonderzeichen.<HTML>");
+    } else {
+      throw new UnknownLanguageException(l);
     }
   }
 

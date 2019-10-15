@@ -1,9 +1,15 @@
 package nwawsoft.pwng;
 
+import nwawsoft.pwng.exceptions.UnknownLanguageException;
+import nwawsoft.pwng.model.Language;
 import nwawsoft.pwng.ui.GUI;
 
 public class Starter {
     public static void main(String[] args) {
-        new GUI("Your Password's Next Generator"); // complete overhaul update (based on "pw check'n'generate v15")
+        try {
+            new GUI("Password Next Gen", Language.ENGLISH); // complete overhaul still in progress
+        } catch (UnknownLanguageException e) {
+            e.printStackTrace();
+        }
     }
 }
