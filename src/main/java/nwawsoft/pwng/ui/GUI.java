@@ -1,6 +1,6 @@
 package nwawsoft.pwng.ui;
 
-import nwawsoft.pwng.exceptions.UnknownLanguageException;
+import nwawsoft.pwng.model.CharacterSet;
 import nwawsoft.pwng.model.Language;
 import nwawsoft.pwng.model.Parser;
 
@@ -30,12 +30,13 @@ public class GUI extends JFrame {
     private JLabel jlblCheck6 = new JLabel(iiCross);
     private JLabel jlblMarker = new JLabel(iiMarker);
     private int levelValue;
-    private Parser p = new Parser();
+    private Parser p;
     private Language l;
 
-    public GUI(final String title, final Language l) throws UnknownLanguageException {
+    public GUI(final String title, final Language l, final CharacterSet cs) {
         super(title);
         this.l = l;
+        this.p = new Parser(cs);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         int frameWidth = 560;
         int frameHeight = 280;
@@ -90,8 +91,6 @@ public class GUI extends JFrame {
                     "<BR>Verwenden Sie 14 Zeichen" +
                     "<BR>" +
                     "<BR>Verwenden Sie 8 Zeichentypwechsel");
-        } else {
-            throw new UnknownLanguageException(l);
         }
         jlblImprovements.setBounds(330, 0, 250, 260);
         cp.add(jlblImprovements);
@@ -99,43 +98,45 @@ public class GUI extends JFrame {
             jcbmiHidden = new JCheckBoxMenuItem("Hide password");
         } else if (l.equals(Language.GERMAN)) {
             jcbmiHidden = new JCheckBoxMenuItem("Passwort verstecken");
-        } else {
-            throw new UnknownLanguageException(l);
         }
         jcbmiHidden.addActionListener(this::jcbmiHiddenActionPerformed);
-        JCheckBoxMenuItem jcbmiCriteria;
-        if (l.equals(Language.ENGLISH)) {
-            jcbmiCriteria = new JCheckBoxMenuItem("Checklist");
-        } else if (l.equals(Language.GERMAN)) {
-            jcbmiCriteria = new JCheckBoxMenuItem("Checkliste");
-        } else {
-            throw new UnknownLanguageException(l);
+        JCheckBoxMenuItem jcbmiCriteria = null;
+        switch (l) {
+            case ENGLISH:
+                jcbmiCriteria = new JCheckBoxMenuItem("Checklist");
+                break;
+            case GERMAN:
+                jcbmiCriteria = new JCheckBoxMenuItem("Checkliste");
+                break;
         }
         jcbmiCriteria.setState(true);
         jcbmiCriteria.addActionListener(this::jcbmiBorderActionPerformed);
-        JMenuItem jmiSecurityLevels;
-        if (l.equals(Language.ENGLISH)) {
-            jmiSecurityLevels = new JMenuItem("Security levels");
-        } else if (l.equals(Language.GERMAN)) {
-            jmiSecurityLevels = new JMenuItem("Sicherheitsstufen");
-        } else {
-            throw new UnknownLanguageException(l);
+        JMenuItem jmiSecurityLevels = null;
+        switch (l) {
+            case ENGLISH:
+                jmiSecurityLevels = new JMenuItem("Security levels");
+                break;
+            case GERMAN:
+                jmiSecurityLevels = new JMenuItem("Sicherheitsstufen");
+                break;
         }
-        JMenu jmOptions;
-        if (l.equals(Language.ENGLISH)) {
-            jmOptions = new JMenu("Settings");
-        } else if (l.equals(Language.GERMAN)) {
-            jmOptions = new JMenu("Einstellungen");
-        } else {
-            throw new UnknownLanguageException(l);
+        JMenu jmOptions = null;
+        switch (l) {
+            case ENGLISH:
+                jmOptions = new JMenu("Settings");
+                break;
+            case GERMAN:
+                jmOptions = new JMenu("Einstellungen");
+                break;
         }
-        JMenu jmHelp;
-        if (l.equals(Language.ENGLISH)) {
-            jmHelp = new JMenu("Help");
-        } else if (l.equals(Language.GERMAN)) {
-            jmHelp = new JMenu("Hilfe");
-        } else {
-            throw new UnknownLanguageException(l);
+        JMenu jmHelp = null;
+        switch (l) {
+            case ENGLISH:
+                jmHelp = new JMenu("Help");
+                break;
+            case GERMAN:
+                jmHelp = new JMenu("Hilfe");
+                break;
         }
         JMenuBar jmbMainMenu = new JMenuBar();
         jmOptions.add(jcbmiHidden);
@@ -180,12 +181,13 @@ public class GUI extends JFrame {
         jtxtOutputField.setHorizontalAlignment(JTextField.CENTER);
         cp.add(jtxtOutputField);
         JButton jbtnCreateSafePW = new JButton();
-        if (l.equals(Language.ENGLISH)) {
-            jbtnCreateSafePW.setText("Generate");
-        } else if (l.equals(Language.GERMAN)) {
-            jbtnCreateSafePW.setText("Generieren");
-        } else {
-            throw new UnknownLanguageException(l);
+        switch (l) {
+            case ENGLISH:
+                jbtnCreateSafePW.setText("Generate");
+                break;
+            case GERMAN:
+                jbtnCreateSafePW.setText("Generieren");
+                break;
         }
         jbtnCreateSafePW.setBounds(90, 180, 120, 40);
         jbtnCreateSafePW.addActionListener(this::jbtnCreateSafePWActionPerformed);
@@ -219,58 +221,66 @@ public class GUI extends JFrame {
     }
 
     private void jmiAboutSafetyLevelsActionPerformed(final ActionEvent evt) {
-        if (l.equals(Language.ENGLISH)) {
-            new Help(this, "Explanation of security levels", true, l);
-        } else if (l.equals(Language.GERMAN)) {
-            new Help(this, "Erkl" + ae + "rung der Sicherheitsstufen", true, l);
+        switch (l) {
+            case ENGLISH:
+                new Help(this, "Explanation of security levels", true, l);
+                break;
+            case GERMAN:
+                new Help(this, "Erkl" + ae + "rung der Sicherheitsstufen", true, l);
+                break;
         }
     }
 
-    private void check() throws UnknownLanguageException {
-        String level;
+    private void check() {
+        String level = null;
         if (p.parse1(inputContainer.getText())) {
-            if (l.equals(Language.ENGLISH)) {
-                level = "Security level is 1";
-            } else if (l.equals(Language.GERMAN)) {
-                level = "Sicherheitsstufe betr" + ae + "gt 1";
-            } else {
-                throw new UnknownLanguageException(l);
+            switch (l) {
+                case ENGLISH:
+                    level = "Security level is 1";
+                    break;
+                case GERMAN:
+                    level = "Sicherheitsstufe betr" + ae + "gt 1";
+                    break;
             }
             levelValue = 1;
             if (p.parse2(inputContainer.getText())) {
-                if (l.equals(Language.ENGLISH)) {
-                    level = "Security level is 2";
-                } else if (l.equals(Language.GERMAN)) {
-                    level = "Sicherheitsstufe betr" + ae + "gt 2";
-                } else {
-                    throw new UnknownLanguageException(l);
+                switch (l) {
+                    case ENGLISH:
+                        level = "Security level is 2";
+                        break;
+                    case GERMAN:
+                        level = "Sicherheitsstufe betr" + ae + "gt 2";
+                        break;
                 }
                 levelValue = 2;
                 if (p.parse3(inputContainer.getText())) {
-                    if (l.equals(Language.ENGLISH)) {
-                        level = "Security level is 3";
-                    } else if (l.equals(Language.GERMAN)) {
-                        level = "Sicherheitsstufe betr" + ae + "gt 3";
-                    } else {
-                        throw new UnknownLanguageException(l);
+                    switch (l) {
+                        case ENGLISH:
+                            level = "Security level is 3";
+                            break;
+                        case GERMAN:
+                            level = "Sicherheitsstufe betr" + ae + "gt 3";
+                            break;
                     }
                     levelValue = 3;
                     if (p.parse4(inputContainer.getText())) {
-                        if (l.equals(Language.ENGLISH)) {
-                            level = "Security level is 4";
-                        } else if (l.equals(Language.GERMAN)) {
-                            level = "Sicherheitsstufe betr" + ae + "gt 4";
-                        } else {
-                            throw new UnknownLanguageException(l);
+                        switch (l) {
+                            case ENGLISH:
+                                level = "Security level is 4";
+                                break;
+                            case GERMAN:
+                                level = "Sicherheitsstufe betr" + ae + "gt 4";
+                                break;
                         }
                         levelValue = 4;
                         if (p.parse5(inputContainer.getText())) {
-                            if (l.equals(Language.ENGLISH)) {
-                                level = "Security level is 5";
-                            } else if (l.equals(Language.GERMAN)) {
-                                level = "Sicherheitsstufe betr" + ae + "gt 5";
-                            } else {
-                                throw new UnknownLanguageException(l);
+                            switch (l) {
+                                case ENGLISH:
+                                    level = "Security level is 5";
+                                    break;
+                                case GERMAN:
+                                    level = "Sicherheitsstufe betr" + ae + "gt 5";
+                                    break;
                             }
                             levelValue = 5;
                         }
@@ -278,24 +288,28 @@ public class GUI extends JFrame {
                 }
             }
         } else {
-            if (l.equals(Language.ENGLISH)) {
-                level = "The password is horribly bad";
-            } else if (l.equals(Language.GERMAN)) {
-                level = "Das Passwort ist furchtbar schlecht";
-            } else {
-                throw new UnknownLanguageException(l);
+            switch (l) {
+                case ENGLISH:
+                    level = "The password is horribly bad";
+                    break;
+                case GERMAN:
+                    level = "Das Passwort ist furchtbar schlecht";
+                    break;
             }
             levelValue = 0;
         } if (!p.dictionaryCheck(inputContainer.getText())) {
-            if (l.equals(Language.ENGLISH)) {
-                level = "Parts of your password are in the dictionary";
-            } else if (l.equals(Language.GERMAN)) {
-                level = "Teile Ihres Passworts stehen im W" + oe + "rterbuch";
-            } else {
-                throw new UnknownLanguageException(l);
+            switch (l) {
+                case ENGLISH:
+                    level = "Parts of your password are in the dictionary";
+                    break;
+                case GERMAN:
+                    level = "Teile Ihres Passworts stehen im W" + oe + "rterbuch";
+                    break;
             }
         }
-        jtxtOutputField.setText(level);
+        if (level != null) {
+            jtxtOutputField.setText(level);
+        }
     }
 
     private void changeSize() {
@@ -309,11 +323,7 @@ public class GUI extends JFrame {
     }
 
     private void updateSafetyCheckIcons() {
-        try {
-            check();
-        } catch (UnknownLanguageException e) {
-            e.printStackTrace();
-        }
+        check();
         if (p.hasLower(inputContainer.getText())) {
             jlblCheck1.setIcon(iiCheck);
         } else {

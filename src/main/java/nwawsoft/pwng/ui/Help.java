@@ -1,6 +1,5 @@
 package nwawsoft.pwng.ui;
 
-import nwawsoft.pwng.exceptions.UnknownLanguageException;
 import nwawsoft.pwng.model.Language;
 
 import java.awt.*;
@@ -29,11 +28,7 @@ public class Help extends JDialog {
     setResizable(false);
     this.l = l;
     initHelpText();
-    try {
-      setHelpText();
-    } catch (UnknownLanguageException e) {
-      e.printStackTrace();
-    }
+    setHelpText();
     addHelpText(cp);
     setVisible(true);
   }
@@ -44,7 +39,7 @@ public class Help extends JDialog {
     }
   }
 
-  private void setHelpText() throws UnknownLanguageException {
+  private void setHelpText() {
     if (l.equals(Language.ENGLISH)) {
       jlblLevel[0].setText("<HTML><u>Password level 1:</u>" +
               "<BR>  - At least 5 characters</HTML>");
@@ -81,8 +76,6 @@ public class Help extends JDialog {
               "<BR>  - Mindestens 8 Wechsel zwischen Zeichentypen</HTML>");
       jlblTypes.setText("<HTML>Es gibt folgende 4 Zeichentypen: Gro" + ss + "- und Kleinbuchstaben, Zahlen und " +
               "Sonderzeichen.<HTML>");
-    } else {
-      throw new UnknownLanguageException(l);
     }
   }
 
