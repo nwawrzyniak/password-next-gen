@@ -16,46 +16,6 @@ public class Parser {
         szArray = csf.getCharacterSet();
     }
 
-    public boolean hasLower(String input) {
-        char[] inputArray = input.toCharArray();
-        for (int i = 0; i < input.length(); i++) {
-            if (CharFunctions.isLowerCaseLetter(inputArray[i])) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean hasUpper(String input) {
-        char[] inputArray = input.toCharArray();
-        for (int i = 0; i < input.length(); i++) {
-            if (CharFunctions.isUpperCaseLetter(inputArray[i])) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean hasSZ(String input) {
-        char[] inputArray = input.toCharArray();
-        for (int i = 0; i < input.length(); i++) {
-            if (CharFunctions.isSpecialCharacter(inputArray[i])) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean hasDigit(String input) {
-        char[] inputArray = input.toCharArray();
-        for (int i = 0; i < input.length(); i++) {
-            if (CharFunctions.isDigit(inputArray[i])) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean has2(String input) {
         boolean hasLower = false;
         boolean hasUpper = false;
@@ -360,9 +320,9 @@ public class Parser {
     }
 
     public String createLevel5() {
-        rand = new Random(); // Randomizer
-        String output = ""; //String, der nach und nach mit dem Passwort gefüllt wird
-        int wantedLength = rand.nextInt(5) + 14; //Erzeugt eine Passwortlänge zwischen 14 und 18 Zeichen
+        rand = new Random();
+        String output = "";
+        int wantedLength = rand.nextInt(5) + 14;
         char[] symbol = new char[1];
         int lastUse = -1;
 
@@ -395,21 +355,5 @@ public class Parser {
         } else {
             return createLevel5();
         }
-    }
-
-    public boolean dictionaryCheck(String pLine) {
-        BufferedReader myReader;
-        String currentLine;
-        try {
-            myReader = new BufferedReader(new FileReader("dictionary_min_5.txt"));
-            while ((currentLine = myReader.readLine()) != null) {
-                if (pLine.toLowerCase().contains(currentLine.toLowerCase())) {
-                    return false;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return true;
     }
 }
