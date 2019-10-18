@@ -1,8 +1,11 @@
 package nwawsoft.pwng.ui;
 
+import nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
 import nwawsoft.pwng.model.CharacterSet;
 import nwawsoft.pwng.model.Language;
 import nwawsoft.pwng.model.Parser;
+import nwawsoft.pwng.model.Rating;
+import nwawsoft.util.StringFunctions;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,12 +34,14 @@ public class GUI extends JFrame {
     private JLabel jlblMarker = new JLabel(iiMarker);
     private int levelValue;
     private Parser p;
+    private Rating r;
     private Language l;
 
     public GUI(final String title, final Language l, final CharacterSet cs) {
         super(title);
         this.l = l;
         this.p = new Parser(cs);
+        this.r = new Rating();
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         int frameWidth = 560;
         int frameHeight = 280;
@@ -297,7 +302,7 @@ public class GUI extends JFrame {
                     break;
             }
             levelValue = 0;
-        } if (!p.dictionaryCheck(inputContainer.getText())) {
+        } if (!r.dictionaryCheck(inputContainer.getText())) {
             switch (l) {
                 case ENGLISH:
                     level = "Parts of your password are in the dictionary";
@@ -324,22 +329,22 @@ public class GUI extends JFrame {
 
     private void updateSafetyCheckIcons() {
         check();
-        if (p.hasLower(inputContainer.getText())) {
+        if (StringFunctions.containsLowerCaseCharacters(inputContainer.getText())) {
             jlblCheck1.setIcon(iiCheck);
         } else {
             jlblCheck1.setIcon(iiCross);
         }
-        if (p.hasUpper(inputContainer.getText())) {
+        if (StringFunctions.containsUpperCaseCharacters(inputContainer.getText())) {
             jlblCheck2.setIcon(iiCheck);
         } else {
             jlblCheck2.setIcon(iiCross);
         }
-        if (p.hasSZ(inputContainer.getText())) {
+        if (StringFunctions.containsSpecialCharacters(inputContainer.getText())) {
             jlblCheck3.setIcon(iiCheck);
         } else {
             jlblCheck3.setIcon(iiCross);
         }
-        if (p.hasDigit(inputContainer.getText())) {
+        if (StringFunctions.containsDigits(inputContainer.getText())) {
             jlblCheck4.setIcon(iiCheck);
         } else {
             jlblCheck4.setIcon(iiCross);
@@ -349,10 +354,14 @@ public class GUI extends JFrame {
         } else {
             jlblCheck5.setIcon(iiCross);
         }
-        if (p.has8changes(inputContainer.getText())) {
-            jlblCheck6.setIcon(iiCheck);
-        } else {
-            jlblCheck6.setIcon(iiCross);
+        try {
+            if (Rating.has8changes(inputContainer.getText())) {
+                jlblCheck6.setIcon(iiCheck);
+            } else {
+                jlblCheck6.setIcon(iiCross);
+            }
+        } catch (UnknownCharacterTypeException e) {
+            e.printStackTrace();
         }
         jlblMarker.setBounds(45 + (levelValue * 40), 155, 10, 10);
     }
