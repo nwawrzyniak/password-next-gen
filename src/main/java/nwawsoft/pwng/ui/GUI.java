@@ -1,17 +1,17 @@
 package nwawsoft.pwng.ui;
 
 import nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
-import nwawsoft.pwng.model.CharacterSet;
-import nwawsoft.pwng.model.Language;
-import nwawsoft.pwng.model.Parser;
-import nwawsoft.pwng.model.Rating;
+import nwawsoft.pwng.model.*;
 import nwawsoft.util.StringFunctions;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.io.InputStream;
 
 import static nwawsoft.util.MutatedVowels.*;
 
@@ -22,9 +22,33 @@ public class GUI extends JFrame {
     private JTextField jtxtOutputField;
     private JCheckBoxMenuItem jcbmiHidden;
     private int currentWindowWidth;
-    private ImageIcon iiCross = new ImageIcon("graphics/cross.png");
-    private ImageIcon iiCheck = new ImageIcon("graphics/check.png");
-    private ImageIcon iiMarker = new ImageIcon("graphics/marker.png");
+    private InputStream iiCrossStream = getClass().getResourceAsStream("/graphics/cross.png");
+    private InputStream iiCheckStream = getClass().getResourceAsStream("/graphics/check.png");
+    private InputStream iiMarkerStream = getClass().getResourceAsStream("/graphics/marker.png");
+    private ImageIcon iiCross;
+    {
+        try {
+            iiCross = new ImageIcon(ImageIO.read(iiCrossStream));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private ImageIcon iiCheck;
+    {
+        try {
+            iiCheck = new ImageIcon(ImageIO.read(iiCheckStream));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private ImageIcon iiMarker;
+    {
+        try {
+            iiMarker = new ImageIcon(ImageIO.read(iiMarkerStream));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private JLabel jlblCheck1 = new JLabel(iiCross);
     private JLabel jlblCheck2 = new JLabel(iiCross);
     private JLabel jlblCheck3 = new JLabel(iiCross);
@@ -33,15 +57,15 @@ public class GUI extends JFrame {
     private JLabel jlblCheck6 = new JLabel(iiCross);
     private JLabel jlblMarker = new JLabel(iiMarker);
     private int levelValue;
-    private Parser p;
     private Rating r;
     private Language l;
+    private Generator g;
 
     public GUI(final String title, final Language l, final CharacterSet cs) {
         super(title);
         this.l = l;
-        this.p = new Parser(cs);
         this.r = new Rating();
+        this.g = new Generator(cs);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         int frameWidth = 560;
         int frameHeight = 280;
@@ -65,7 +89,13 @@ public class GUI extends JFrame {
         cp.add(jlblCheck5);
         jlblCheck6.setBounds(310, 206, 10, 10);
         cp.add(jlblCheck6);
-        ImageIcon iiBar = new ImageIcon("graphics/bar.png");
+        InputStream iiBarStream = getClass().getResourceAsStream("/graphics/bar.png");
+        ImageIcon iiBar = null;
+        try {
+            iiBar = new ImageIcon(ImageIO.read(iiBarStream));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         JLabel jlblBar = new JLabel(iiBar);
         jlblBar.setBounds(50, 130, 200, 20);
         cp.add(jlblBar);
@@ -203,7 +233,7 @@ public class GUI extends JFrame {
     }
 
     private void jbtnCreateSafePWActionPerformed(final ActionEvent evt) {
-        jtxtOutputField.setText(p.createLevel5());
+        jtxtOutputField.setText(g.create());
     }
 
     private void jcbmiHiddenActionPerformed(final ActionEvent evt) {
@@ -238,7 +268,7 @@ public class GUI extends JFrame {
 
     private void check() {
         String level = null;
-        if (p.parse1(inputContainer.getText())) {
+        if (r.level1Criteria(inputContainer.getText())) {
             switch (l) {
                 case ENGLISH:
                     level = "Security level is 1";
@@ -248,7 +278,7 @@ public class GUI extends JFrame {
                     break;
             }
             levelValue = 1;
-            if (p.parse2(inputContainer.getText())) {
+            if (r.level2Criteria(inputContainer.getText())) {
                 switch (l) {
                     case ENGLISH:
                         level = "Security level is 2";
@@ -258,7 +288,7 @@ public class GUI extends JFrame {
                         break;
                 }
                 levelValue = 2;
-                if (p.parse3(inputContainer.getText())) {
+                if (r.level3Criteria(inputContainer.getText())) {
                     switch (l) {
                         case ENGLISH:
                             level = "Security level is 3";
@@ -268,7 +298,7 @@ public class GUI extends JFrame {
                             break;
                     }
                     levelValue = 3;
-                    if (p.parse4(inputContainer.getText())) {
+                    if (r.level4Criteria(inputContainer.getText())) {
                         switch (l) {
                             case ENGLISH:
                                 level = "Security level is 4";
@@ -278,7 +308,7 @@ public class GUI extends JFrame {
                                 break;
                         }
                         levelValue = 4;
-                        if (p.parse5(inputContainer.getText())) {
+                        if (r.level5Criteria(inputContainer.getText())) {
                             switch (l) {
                                 case ENGLISH:
                                     level = "Security level is 5";
@@ -312,9 +342,7 @@ public class GUI extends JFrame {
                     break;
             }
         }
-        if (level != null) {
-            jtxtOutputField.setText(level);
-        }
+        jtxtOutputField.setText(level);
     }
 
     private void changeSize() {
