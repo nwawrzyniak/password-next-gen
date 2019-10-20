@@ -75,7 +75,9 @@ public class CharacterSetFactory {
                 set[32] = '~';
                 // ToDo a-z, A-Z, 0-9
                 break;
-            case EASY_GERMAN:
+            case EASY_GERMAN: // contains the easiest to reach keys on a German keyboard. These are +, #, -, ., ,,
+                // <, +, the digits from 1 to 9 (no 0 because it can look like an O) and the small letters from a to z
+                // without l (because it can look like a one or an upper case i).
                 set = new char[AMOUNT_SET_EASY_GERMAN];
                 set[0] = '+';
                 set[1] = '#';
