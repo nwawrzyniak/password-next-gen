@@ -8,6 +8,7 @@ public class CharacterSetFactory {
     private static final int AMOUNT_CAPITALS_P_TO_Z = 11;
     private static final int AMOUNT_SMALLS_A_TO_K = 11;
     private static final int AMOUNT_SMALLS_M_TO_Z = 14;
+    private static final int AMOUNT_SET_EASY_GERMAN = 41;
 
     private static final int ASCII_ZERO = 48;
     private static final int ASCII_ONE = 49;
@@ -23,8 +24,8 @@ public class CharacterSetFactory {
     private static final int ASCII_SMALL_Z = 122;
 
     private static final int EASY_GERMAN_DIGIT_OFFSET = 7; // the set index for digits in the easy german set
-    private static final int EASY_GERMAN_LETTER_OFFSET_1 = 17; // the first set index for letters in the easy german set
-    private static final int EASY_GERMAN_LETTER_OFFSET_2 = 28; // the second set index for letters in the easy german set
+    private static final int EASY_GERMAN_LETTER_OFFSET_1 = 16; // the first set index for letters in the easy german set
+    private static final int EASY_GERMAN_LETTER_OFFSET_2 = 27; // the second set index for letters in the easy german set
 
     private final CharacterSet cs;
     private char[] specialCharacters;
@@ -75,7 +76,7 @@ public class CharacterSetFactory {
                 // ToDo a-z, A-Z, 0-9
                 break;
             case EASY_GERMAN:
-                set = new char[300];
+                set = new char[AMOUNT_SET_EASY_GERMAN];
                 set[0] = '+';
                 set[1] = '#';
                 set[2] = '-';
