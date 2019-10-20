@@ -2,7 +2,6 @@ package nwawsoft.pwng.model;
 
 import nwawsoft.pwng.exceptions.LogicErrorException;
 import nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
-import nwawsoft.pwng.exceptions.UnreachableException;
 import nwawsoft.util.CharFunctions;
 import nwawsoft.util.DebugPrinter;
 import nwawsoft.util.StringFunctions;
@@ -86,7 +85,7 @@ public class Rating {
      * Checks whether the specified String uses x or more different character types.
      *
      * @param input the String to check.
-     * @param x the amount of character types required to pass.
+     * @param x     the amount of character types required to pass.
      * @return true if the required amount of different character types was reached or if x is 0. Else false.
      */
     public boolean hasTypes(final String input, final int x) throws LogicErrorException {

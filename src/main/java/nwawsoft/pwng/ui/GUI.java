@@ -1,7 +1,10 @@
 package nwawsoft.pwng.ui;
 
 import nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
-import nwawsoft.pwng.model.*;
+import nwawsoft.pwng.model.CharacterSet;
+import nwawsoft.pwng.model.Generator;
+import nwawsoft.pwng.model.Language;
+import nwawsoft.pwng.model.Rating;
 import nwawsoft.util.StringFunctions;
 
 import javax.imageio.ImageIO;
@@ -22,40 +25,16 @@ public class GUI extends JFrame {
     private JTextField jtxtOutputField;
     private JCheckBoxMenuItem jcbmiHidden;
     private int currentWindowWidth;
-    private InputStream iiCrossStream = getClass().getResourceAsStream("/graphics/cross.png");
-    private InputStream iiCheckStream = getClass().getResourceAsStream("/graphics/check.png");
-    private InputStream iiMarkerStream = getClass().getResourceAsStream("/graphics/marker.png");
     private ImageIcon iiCross;
-    {
-        try {
-            iiCross = new ImageIcon(ImageIO.read(iiCrossStream));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     private ImageIcon iiCheck;
-    {
-        try {
-            iiCheck = new ImageIcon(ImageIO.read(iiCheckStream));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     private ImageIcon iiMarker;
-    {
-        try {
-            iiMarker = new ImageIcon(ImageIO.read(iiMarkerStream));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    private JLabel jlblCheck1 = new JLabel(iiCross);
-    private JLabel jlblCheck2 = new JLabel(iiCross);
-    private JLabel jlblCheck3 = new JLabel(iiCross);
-    private JLabel jlblCheck4 = new JLabel(iiCross);
-    private JLabel jlblCheck5 = new JLabel(iiCross);
-    private JLabel jlblCheck6 = new JLabel(iiCross);
-    private JLabel jlblMarker = new JLabel(iiMarker);
+    private JLabel jlblCheck1;
+    private JLabel jlblCheck2;
+    private JLabel jlblCheck3;
+    private JLabel jlblCheck4;
+    private JLabel jlblCheck5;
+    private JLabel jlblCheck6;
+    private JLabel jlblMarker;
     private int levelValue;
     private Rating r;
     private Language l;
@@ -77,6 +56,13 @@ public class GUI extends JFrame {
         setLocation(x, y);
         Container cp = getContentPane();
         cp.setLayout(null);
+        jlblCheck1 = new JLabel(iiCross);
+        jlblCheck2 = new JLabel(iiCross);
+        jlblCheck3 = new JLabel(iiCross);
+        jlblCheck4 = new JLabel(iiCross);
+        jlblCheck5 = new JLabel(iiCross);
+        jlblCheck6 = new JLabel(iiCross);
+        jlblMarker = new JLabel(iiMarker);
         jlblCheck1.setBounds(310, 46, 10, 10);
         cp.add(jlblCheck1);
         jlblCheck2.setBounds(310, 78, 10, 10);
@@ -89,6 +75,24 @@ public class GUI extends JFrame {
         cp.add(jlblCheck5);
         jlblCheck6.setBounds(310, 206, 10, 10);
         cp.add(jlblCheck6);
+        try {
+            InputStream iiCrossStream = getClass().getResourceAsStream("/graphics/cross.png");
+            iiCross = new ImageIcon(ImageIO.read(iiCrossStream));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            InputStream iiCheckStream = getClass().getResourceAsStream("/graphics/check.png");
+            iiCheck = new ImageIcon(ImageIO.read(iiCheckStream));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            InputStream iiMarkerStream = getClass().getResourceAsStream("/graphics/marker.png");
+            iiMarker = new ImageIcon(ImageIO.read(iiMarkerStream));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         InputStream iiBarStream = getClass().getResourceAsStream("/graphics/bar.png");
         ImageIcon iiBar = null;
         try {
@@ -185,8 +189,12 @@ public class GUI extends JFrame {
         jtxtInputField = new JTextField();
         jtxtInputField.setBounds(20, 50, 260, 30);
         jtxtInputField.addKeyListener(new KeyListener() {
-            public void keyTyped(KeyEvent e) {}
-            public void keyPressed(KeyEvent e) {}
+            public void keyTyped(KeyEvent e) {
+            }
+
+            public void keyPressed(KeyEvent e) {
+            }
+
             public void keyReleased(KeyEvent e) {
                 if (e.getKeyCode() != KeyEvent.VK_ENTER) {
                     updateSafetyCheckIcons();
@@ -200,8 +208,10 @@ public class GUI extends JFrame {
         jpfInputField.addKeyListener(new KeyListener() {
             public void keyTyped(KeyEvent e) {
             }
+
             public void keyPressed(KeyEvent e) {
             }
+
             public void keyReleased(KeyEvent e) {
                 if (e.getKeyCode() != KeyEvent.VK_ENTER) {
                     updateSafetyCheckIcons();
@@ -332,7 +342,8 @@ public class GUI extends JFrame {
                     break;
             }
             levelValue = 0;
-        } if (!r.dictionaryCheck(inputContainer.getText())) {
+        }
+        if (!r.dictionaryCheck(inputContainer.getText())) {
             switch (l) {
                 case ENGLISH:
                     level = "Parts of your password are in the dictionary";

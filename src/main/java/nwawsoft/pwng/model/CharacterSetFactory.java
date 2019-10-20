@@ -39,39 +39,39 @@ public class CharacterSetFactory {
         switch (cs) {
             case OLD:
                 set = new char[33];
-                set[0]=' ';
-                set[1]='!';
-                set[2]='"';
-                set[3]='#';
-                set[4]='$';
-                set[5]='%';
-                set[6]='&';
-                set[7]='\'';
-                set[8]='(';
-                set[9]=')';
-                set[10]='*';
-                set[11]='+';
-                set[12]=',';
-                set[13]='-';
-                set[14]='.';
-                set[15]='/';
-                set[16]=':';
-                set[17]=';';
-                set[18]='<';
-                set[19]='=';
-                set[20]='>';
-                set[21]='?';
-                set[22]='@';
-                set[23]='[';
-                set[24]='\\';
-                set[25]=']';
-                set[26]='^';
-                set[27]='_';
-                set[28]='`';
-                set[29]='{';
-                set[30]='|';
-                set[31]='}';
-                set[32]='~';
+                set[0] = ' ';
+                set[1] = '!';
+                set[2] = '"';
+                set[3] = '#';
+                set[4] = '$';
+                set[5] = '%';
+                set[6] = '&';
+                set[7] = '\'';
+                set[8] = '(';
+                set[9] = ')';
+                set[10] = '*';
+                set[11] = '+';
+                set[12] = ',';
+                set[13] = '-';
+                set[14] = '.';
+                set[15] = '/';
+                set[16] = ':';
+                set[17] = ';';
+                set[18] = '<';
+                set[19] = '=';
+                set[20] = '>';
+                set[21] = '?';
+                set[22] = '@';
+                set[23] = '[';
+                set[24] = '\\';
+                set[25] = ']';
+                set[26] = '^';
+                set[27] = '_';
+                set[28] = '`';
+                set[29] = '{';
+                set[30] = '|';
+                set[31] = '}';
+                set[32] = '~';
                 // ToDo a-z, A-Z, 0-9
                 break;
             case EASY_GERMAN:
@@ -84,13 +84,13 @@ public class CharacterSetFactory {
                 set[5] = '<';
                 set[6] = '+';
                 for (int i = 0; i < AMOUNT_ONE_TO_NINE; i++) {
-                    set[EASY_GERMAN_DIGIT_OFFSET + i] = (char)(ASCII_ONE + i);
+                    set[EASY_GERMAN_DIGIT_OFFSET + i] = (char) (ASCII_ONE + i);
                 }
                 for (int i = 0; i < AMOUNT_SMALLS_A_TO_K; i++) {
-                    set[EASY_GERMAN_LETTER_OFFSET_1 + i] = (char)(ASCII_SMALL_A + i);
+                    set[EASY_GERMAN_LETTER_OFFSET_1 + i] = (char) (ASCII_SMALL_A + i);
                 }
                 for (int i = 0; i < AMOUNT_SMALLS_M_TO_Z; i++) {
-                    set[EASY_GERMAN_LETTER_OFFSET_2 + i] = (char)(ASCII_SMALL_M + i);
+                    set[EASY_GERMAN_LETTER_OFFSET_2 + i] = (char) (ASCII_SMALL_M + i);
                 }
                 break;
             case EASY_ENGLISH:
@@ -98,39 +98,39 @@ public class CharacterSetFactory {
                 break;
             case FULL:
                 set = new char[1000];
-                set[0]=' ';
-                set[1]='!';
-                set[2]='"';
-                set[3]='#';
-                set[4]='$';
-                set[5]='%';
-                set[6]='&';
-                set[7]='\'';
-                set[8]='(';
-                set[9]=')';
-                set[10]='*';
-                set[11]='+';
-                set[12]=',';
-                set[13]='-';
-                set[14]='.';
-                set[15]='/';
-                set[16]=':';
-                set[17]=';';
-                set[18]='<';
-                set[19]='=';
-                set[20]='>';
-                set[21]='?';
-                set[22]='@';
-                set[23]='[';
-                set[24]='\\';
-                set[25]=']';
-                set[26]='^';
-                set[27]='_';
-                set[28]='`';
-                set[29]='{';
-                set[30]='|';
-                set[31]='}';
-                set[32]='~';
+                set[0] = ' ';
+                set[1] = '!';
+                set[2] = '"';
+                set[3] = '#';
+                set[4] = '$';
+                set[5] = '%';
+                set[6] = '&';
+                set[7] = '\'';
+                set[8] = '(';
+                set[9] = ')';
+                set[10] = '*';
+                set[11] = '+';
+                set[12] = ',';
+                set[13] = '-';
+                set[14] = '.';
+                set[15] = '/';
+                set[16] = ':';
+                set[17] = ';';
+                set[18] = '<';
+                set[19] = '=';
+                set[20] = '>';
+                set[21] = '?';
+                set[22] = '@';
+                set[23] = '[';
+                set[24] = '\\';
+                set[25] = ']';
+                set[26] = '^';
+                set[27] = '_';
+                set[28] = '`';
+                set[29] = '{';
+                set[30] = '|';
+                set[31] = '}';
+                set[32] = '~';
                 // ToDo
                 break;
             case MINIMALISTIC:
