@@ -6,6 +6,6 @@ import nwawsoft.pwng.ui.GUI;
 
 public class Starter {
     public static void main(String[] args) {
-        new GUI("Password Next Gen", Language.ENGLISH, CharacterSet.EASY_ENGLISH); // complete overhaul still in progress
+        new GUI("Password Next Gen", Language.ENGLISH, CharacterSet.OPTIMIZED); // complete overhaul still in progress
     }
 }
