@@ -1,5 +1,6 @@
 package nwawsoft.pwng.ui;
 
+import nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
 import nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
 import nwawsoft.pwng.model.CharacterSet;
 import nwawsoft.pwng.model.Generator;
@@ -28,6 +29,7 @@ public class GUI extends JFrame {
     private ImageIcon iiCross;
     private ImageIcon iiCheck;
     private ImageIcon iiMarker;
+    private ImageIcon iiBar;
     private JLabel jlblCheck1;
     private JLabel jlblCheck2;
     private JLabel jlblCheck3;
@@ -56,6 +58,30 @@ public class GUI extends JFrame {
         setLocation(x, y);
         Container cp = getContentPane();
         cp.setLayout(null);
+        try {
+            InputStream iiCrossStream = getClass().getResourceAsStream("/graphics/cross.png");
+            iiCross = new ImageIcon(ImageIO.read(iiCrossStream));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            InputStream iiCheckStream = getClass().getResourceAsStream("/graphics/check.png");
+            iiCheck = new ImageIcon(ImageIO.read(iiCheckStream));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            InputStream iiMarkerStream = getClass().getResourceAsStream("/graphics/marker.png");
+            iiMarker = new ImageIcon(ImageIO.read(iiMarkerStream));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            InputStream iiBarStream = getClass().getResourceAsStream("/graphics/bar.png");
+            iiBar = new ImageIcon(ImageIO.read(iiBarStream));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         jlblCheck1 = new JLabel(iiCross);
         jlblCheck2 = new JLabel(iiCross);
         jlblCheck3 = new JLabel(iiCross);
@@ -75,31 +101,6 @@ public class GUI extends JFrame {
         cp.add(jlblCheck5);
         jlblCheck6.setBounds(310, 206, 10, 10);
         cp.add(jlblCheck6);
-        try {
-            InputStream iiCrossStream = getClass().getResourceAsStream("/graphics/cross.png");
-            iiCross = new ImageIcon(ImageIO.read(iiCrossStream));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            InputStream iiCheckStream = getClass().getResourceAsStream("/graphics/check.png");
-            iiCheck = new ImageIcon(ImageIO.read(iiCheckStream));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            InputStream iiMarkerStream = getClass().getResourceAsStream("/graphics/marker.png");
-            iiMarker = new ImageIcon(ImageIO.read(iiMarkerStream));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        InputStream iiBarStream = getClass().getResourceAsStream("/graphics/bar.png");
-        ImageIcon iiBar = null;
-        try {
-            iiBar = new ImageIcon(ImageIO.read(iiBarStream));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         JLabel jlblBar = new JLabel(iiBar);
         jlblBar.setBounds(50, 130, 200, 20);
         cp.add(jlblBar);
@@ -243,7 +244,11 @@ public class GUI extends JFrame {
     }
 
     private void jbtnCreateSafePWActionPerformed(final ActionEvent evt) {
-        jtxtOutputField.setText(g.create());
+        try {
+            jtxtOutputField.setText(g.create());
+        } catch (UnhandledCharacterSetException e) {
+            e.printStackTrace();
+        }
     }
 
     private void jcbmiHiddenActionPerformed(final ActionEvent evt) {

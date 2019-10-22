@@ -1,5 +1,8 @@
 package nwawsoft.pwng.model;
 
+import nwawsoft.util.CharArrayFunctions;
+import nwawsoft.util.MutatedVowels;
+
 public class CharacterSetFactory {
     private static final int AMOUNT_ONE_TO_NINE = 9;
     private static final int AMOUNT_ZERO_TO_NINE = 10;
@@ -8,7 +11,8 @@ public class CharacterSetFactory {
     private static final int AMOUNT_CAPITALS_P_TO_Z = 11;
     private static final int AMOUNT_SMALLS_A_TO_K = 11;
     private static final int AMOUNT_SMALLS_M_TO_Z = 14;
-    private static final int AMOUNT_SET_EASY_GERMAN = 41;
+    private static final int AMOUNT_SET_EASY_GERMAN = 45;
+    private static final int AMOUNT_SET_EASY_ENGLISH = 43;
 
     private static final int ASCII_ZERO = 48;
     private static final int ASCII_ONE = 49;
@@ -23,17 +27,19 @@ public class CharacterSetFactory {
     private static final int ASCII_SMALL_M = 109;
     private static final int ASCII_SMALL_Z = 122;
 
-    private static final int EASY_GERMAN_DIGIT_OFFSET = 7; // the set index for digits in the easy german set
-    private static final int EASY_GERMAN_LETTER_OFFSET_1 = 16; // the first set index for letters in the easy german set
-    private static final int EASY_GERMAN_LETTER_OFFSET_2 = 27; // the second set index for letters in the easy german set
+    private static final int EASY_GERMAN_DIGIT_OFFSET = 7;
+    private static final int EASY_GERMAN_LETTER_OFFSET_1 = 16;
+    private static final int EASY_GERMAN_LETTER_OFFSET_2 = 27;
+
+    private static final int EASY_ENGLISH_DIGIT_OFFSET = 9;
+    private static final int EASY_ENGLISH_LETTER_OFFSET_1 = 18;
+    private static final int EASY_ENGLISH_LETTER_OFFSET_2 = 29;
 
     private final CharacterSet cs;
-    private char[] specialCharacters;
 
     public CharacterSetFactory(CharacterSet cs) {
         this.cs = cs;
     }
-
 
     public char[] getCharacterSet() {
         char[] set = null;
@@ -75,9 +81,9 @@ public class CharacterSetFactory {
                 set[32] = '~';
                 // ToDo a-z, A-Z, 0-9
                 break;
-            case EASY_GERMAN: // contains the easiest to reach keys on a German keyboard. These are +, #, -, ., ,,
-                // <, +, the digits from 1 to 9 (no 0 because it can look like an O) and the small letters from a to z
-                // without l (because it can look like a one or an upper case i).
+            case EASY_GERMAN: // contains the easiest to reach keys on a QWERTZ keyboard. These are +, #, -, ., ,,
+                // <, +, the digits from 1 to 9 (no 0 because it can look like an O), the small letters from a to z
+                // without l (because it can look like a one or an upper case i), the mutated vowels ä, ö, ü and the ß.
                 set = new char[AMOUNT_SET_EASY_GERMAN];
                 set[0] = '+';
                 set[1] = '#';
@@ -95,9 +101,35 @@ public class CharacterSetFactory {
                 for (int i = 0; i < AMOUNT_SMALLS_M_TO_Z; i++) {
                     set[EASY_GERMAN_LETTER_OFFSET_2 + i] = (char) (ASCII_SMALL_M + i);
                 }
+                set[41] = MutatedVowels.ae;
+                set[42] = MutatedVowels.oe;
+                set[43] = MutatedVowels.ue;
+                set[44] = MutatedVowels.ss;
                 break;
-            case EASY_ENGLISH:
-                // ToDo
+            case EASY_ENGLISH: // contains the easiest to reach keys on a QWERTY keyboard. These are +, #, -, ., ,,
+                // <, +, the digits from 1 to 9 (no 0 because it can look like an O) and the small letters from a to z
+                // without l (because it can look like a one or an upper case i).
+                // ToDO: check special characters
+                set = new char[AMOUNT_SET_EASY_ENGLISH];
+                set[0] = '-';
+                set[1] = '=';
+                set[2] = '\\';
+                set[3] = '[';
+                set[4] = ']';
+                set[5] = '\'';
+                set[6] = '.';
+                set[7] = ';';
+                set[8] = '/';
+                for (int i = 0; i < AMOUNT_ONE_TO_NINE; i++) {
+                    set[EASY_ENGLISH_DIGIT_OFFSET + i] = (char) (ASCII_ONE + i);
+                }
+                for (int i = 0; i < AMOUNT_SMALLS_A_TO_K; i++) {
+                    set[EASY_ENGLISH_LETTER_OFFSET_1 + i] = (char) (ASCII_SMALL_A + i);
+                }
+                for (int i = 0; i < AMOUNT_SMALLS_M_TO_Z; i++) {
+                    set[EASY_ENGLISH_LETTER_OFFSET_2 + i] = (char) (ASCII_SMALL_M + i);
+                }
+                CharArrayFunctions.print(set, true);
                 break;
             case FULL:
                 set = new char[1000];
@@ -134,13 +166,6 @@ public class CharacterSetFactory {
                 set[30] = '|';
                 set[31] = '}';
                 set[32] = '~';
-                // ToDo
-                break;
-            case MINIMALISTIC:
-                // ToDo
-                break;
-            case OPTIMIZED:
-                set = new char[300];
                 // ToDo
                 break;
         }
