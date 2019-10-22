@@ -1,7 +1,9 @@
 package nwawsoft.pwng.ui;
 
+import nwawsoft.pwng.exceptions.LogicErrorException;
 import nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
 import nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
+import nwawsoft.pwng.exceptions.UnknownLanguageException;
 import nwawsoft.pwng.model.CharacterSet;
 import nwawsoft.pwng.model.Generator;
 import nwawsoft.pwng.model.Language;
@@ -58,6 +60,19 @@ public class GUI extends JFrame {
         setLocation(x, y);
         Container cp = getContentPane();
         cp.setLayout(null);
+        KeyListener kl = new KeyListener() {
+            public void keyTyped(KeyEvent e) {
+            }
+
+            public void keyPressed(KeyEvent e) {
+            }
+
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() != KeyEvent.VK_ENTER) {
+                    updatePasswordStrength();
+                }
+            }
+        };
         try {
             InputStream iiCrossStream = getClass().getResourceAsStream("/graphics/cross.png");
             iiCross = new ImageIcon(ImageIO.read(iiCrossStream));
@@ -189,36 +204,12 @@ public class GUI extends JFrame {
         jmiSecurityLevels.addActionListener(this::jmiAboutSafetyLevelsActionPerformed);
         jtxtInputField = new JTextField();
         jtxtInputField.setBounds(20, 50, 260, 30);
-        jtxtInputField.addKeyListener(new KeyListener() {
-            public void keyTyped(KeyEvent e) {
-            }
-
-            public void keyPressed(KeyEvent e) {
-            }
-
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() != KeyEvent.VK_ENTER) {
-                    updateSafetyCheckIcons();
-                }
-            }
-        });
+        jtxtInputField.addKeyListener(kl);
         cp.add(jtxtInputField);
         jpfInputField = new JPasswordField();
         jpfInputField.setBounds(20, 50, 260, 30);
         jpfInputField.setVisible(false);
-        jpfInputField.addKeyListener(new KeyListener() {
-            public void keyTyped(KeyEvent e) {
-            }
-
-            public void keyPressed(KeyEvent e) {
-            }
-
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() != KeyEvent.VK_ENTER) {
-                    updateSafetyCheckIcons();
-                }
-            }
-        });
+        jpfInputField.addKeyListener(kl);
         cp.add(jpfInputField);
         inputContainer = jtxtInputField;
         jtxtOutputField = new JTextField();
@@ -246,7 +237,7 @@ public class GUI extends JFrame {
     private void jbtnCreateSafePWActionPerformed(final ActionEvent evt) {
         try {
             jtxtOutputField.setText(g.create());
-        } catch (UnhandledCharacterSetException e) {
+        } catch (UnhandledCharacterSetException | LogicErrorException | UnknownCharacterTypeException e) {
             e.printStackTrace();
         }
     }
@@ -281,81 +272,44 @@ public class GUI extends JFrame {
         }
     }
 
-    private void check() {
-        String level = null;
-        if (r.level1Criteria(inputContainer.getText())) {
+    private void printRating() throws UnknownLanguageException {
+        String level;
+        String password = inputContainer.getText();
+        switch (l) {
+            case ENGLISH:
+                level = "Security level is ";
+                break;
+            case GERMAN:
+                level = "Sicherheitsstufe betr" + ae + "gt ";
+                break;
+            default:
+                throw new UnknownLanguageException(l);
+        }
+        levelValue = r.getPasswordLevel(password);
+        if (levelValue == 0) {
             switch (l) {
                 case ENGLISH:
-                    level = "Security level is 1";
+                    level = "The password is horribly bad.";
                     break;
                 case GERMAN:
-                    level = "Sicherheitsstufe betr" + ae + "gt 1";
+                    level = "Das Passwort ist furchtbar schlecht.";
                     break;
-            }
-            levelValue = 1;
-            if (r.level2Criteria(inputContainer.getText())) {
-                switch (l) {
-                    case ENGLISH:
-                        level = "Security level is 2";
-                        break;
-                    case GERMAN:
-                        level = "Sicherheitsstufe betr" + ae + "gt 2";
-                        break;
-                }
-                levelValue = 2;
-                if (r.level3Criteria(inputContainer.getText())) {
-                    switch (l) {
-                        case ENGLISH:
-                            level = "Security level is 3";
-                            break;
-                        case GERMAN:
-                            level = "Sicherheitsstufe betr" + ae + "gt 3";
-                            break;
-                    }
-                    levelValue = 3;
-                    if (r.level4Criteria(inputContainer.getText())) {
-                        switch (l) {
-                            case ENGLISH:
-                                level = "Security level is 4";
-                                break;
-                            case GERMAN:
-                                level = "Sicherheitsstufe betr" + ae + "gt 4";
-                                break;
-                        }
-                        levelValue = 4;
-                        if (r.level5Criteria(inputContainer.getText())) {
-                            switch (l) {
-                                case ENGLISH:
-                                    level = "Security level is 5";
-                                    break;
-                                case GERMAN:
-                                    level = "Sicherheitsstufe betr" + ae + "gt 5";
-                                    break;
-                            }
-                            levelValue = 5;
-                        }
-                    }
-                }
+                default:
+                    throw new UnknownLanguageException(l);
             }
         } else {
-            switch (l) {
-                case ENGLISH:
-                    level = "The password is horribly bad";
-                    break;
-                case GERMAN:
-                    level = "Das Passwort ist furchtbar schlecht";
-                    break;
-            }
-            levelValue = 0;
+            level = level + levelValue + ".";
         }
-        if (!r.dictionaryCheck(inputContainer.getText())) {
+        if (!r.dictionaryCheck(password)) {
             switch (l) {
                 case ENGLISH:
-                    level = "Parts of your password are in the dictionary";
+                    level = "Parts of your password are in the dictionary.";
                     break;
                 case GERMAN:
-                    level = "Teile Ihres Passworts stehen im W" + oe + "rterbuch";
+                    level = "Teile Ihres Passworts stehen im W" + oe + "rterbuch.";
                     break;
+                default:
+                    throw new UnknownLanguageException(l);
             }
         }
         jtxtOutputField.setText(level);
@@ -371,8 +325,7 @@ public class GUI extends JFrame {
         }
     }
 
-    private void updateSafetyCheckIcons() {
-        check();
+    private void updateIcons() {
         if (StringFunctions.containsLowerCaseCharacters(inputContainer.getText())) {
             jlblCheck1.setIcon(iiCheck);
         } else {
@@ -407,6 +360,15 @@ public class GUI extends JFrame {
         } catch (UnknownCharacterTypeException e) {
             e.printStackTrace();
         }
+    }
+
+    private void updatePasswordStrength() {
+        try {
+            printRating();
+        } catch (UnknownLanguageException e) {
+            e.printStackTrace();
+        }
+        updateIcons();
         jlblMarker.setBounds(45 + (levelValue * 40), 155, 10, 10);
     }
 }

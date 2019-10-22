@@ -1,6 +1,8 @@
 package nwawsoft.pwng.model;
 
+import nwawsoft.pwng.exceptions.LogicErrorException;
 import nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
+import nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
 
 import java.util.Random;
 
@@ -25,7 +27,7 @@ public class Generator {
      * @return a level 5 password as a String.
      * @throws UnhandledCharacterSetException if CharacterSet is unhandled.
      */
-    public String create() throws UnhandledCharacterSetException {
+    public String create() throws UnhandledCharacterSetException, LogicErrorException, UnknownCharacterTypeException {
         Random rand = new Random();
         StringBuilder output = new StringBuilder();
         int wantedLength = rand.nextInt(5) + 14;

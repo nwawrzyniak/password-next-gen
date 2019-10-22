@@ -9,8 +9,10 @@ import nwawsoft.util.StringFunctions;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+/**
+ * Provides functions to rate the safety level of any String to be used as a password.
+ */
 public class Rating {
-
     private final static String LOWER = "lower";
     private final static String UPPER = "upper";
     private final static String DIGIT = "digit";
@@ -21,6 +23,7 @@ public class Rating {
      *
      * @param input the String to check.
      * @return true if at least 8 character type changes are present. Else false.
+     * @throws UnknownCharacterTypeException if a char is neither a standard letter, a digit or a special character.
      */
     public static boolean has8changes(final String input) throws UnknownCharacterTypeException {
         int counter = 1;
@@ -37,7 +40,7 @@ public class Rating {
             } else if (CharFunctions.isSpecialCharacter(currentChar)) {
                 typeMemory = SPECIAL;
             } else {
-                throw new UnknownCharacterTypeException();
+                throw new UnknownCharacterTypeException(currentChar);
             }
             for (int i = 1; i < input.length(); i++) {
                 currentChar = input.charAt(i);
@@ -63,7 +66,7 @@ public class Rating {
                         }
                         break;
                     default:
-                        throw new UnknownCharacterTypeException();
+                        throw new UnknownCharacterTypeException(typeMemory);
                 }
                 if (CharFunctions.isLowerCaseLetter(currentChar)) {
                     typeMemory = LOWER;
@@ -74,18 +77,18 @@ public class Rating {
                 } else if (CharFunctions.isSpecialCharacter(currentChar)) {
                     typeMemory = SPECIAL;
                 } else {
-                    throw new UnknownCharacterTypeException();
+                    throw new UnknownCharacterTypeException(currentChar);
                 }
             }
         }
-        return counter >= 8;
+        return (counter >= 8);
     }
 
     /**
      * Checks whether the specified String uses x or more different character types.
      *
      * @param input the String to check.
-     * @param x     the amount of character types required to pass.
+     * @param x the amount of character types required to pass.
      * @return true if the required amount of different character types was reached or if x is 0. Else false.
      */
     public boolean hasTypes(final String input, final int x) throws LogicErrorException {
@@ -121,11 +124,12 @@ public class Rating {
     public boolean dictionaryCheck(final String input) {
         BufferedReader reader;
         String currentLine;
+        String password = input.toLowerCase();
         try {
             reader = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream
                     ("/dictionary_min_5.txt")));
             while ((currentLine = reader.readLine()) != null) {
-                if (input.toLowerCase().contains(currentLine.toLowerCase())) {
+                if (password.contains(currentLine)) {
                     return false;
                 }
             }
@@ -135,132 +139,88 @@ public class Rating {
         return true;
     }
 
-    public boolean level1Criteria(String pLine) {
-        return pLine.length() >= 5;
+    /**
+     * Checks whether the given String fulfills the criteria of a level 1 password.
+     *
+     * @param input a password to check.
+     * @return true if password level is at least 1. Else false.
+     */
+    public boolean level1Criteria(String input) {
+        return (input.length() >= 6);
     }
 
-    public boolean level2Criteria(String pLine) {
-        if (pLine.length() >= 8) {
-            try {
-                if (hasTypes(pLine, 2)) {
-                    return true;
-                }
-            } catch (LogicErrorException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
+    /**
+     * Checks whether the given String fulfills the criteria of a level 2 password.
+     *
+     * @param input a password to check.
+     * @return true if password level is at least 2. Else false.
+     * @throws LogicErrorException never
+     */
+    public boolean level2Criteria(String input) throws LogicErrorException {
+        return (input.length() >= 8 && hasTypes(input, 2));
     }
 
-
-    public boolean level3Criteria(String pLine) {
-        if (pLine.length() >= 10) {
-            try {
-                if (hasTypes(pLine, 3)) {
-                    return true;
-                }
-            } catch (LogicErrorException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
+    /**
+     * Checks whether the given String fulfills the criteria of a level 3 password.
+     *
+     * @param input a password to check.
+     * @return true if password level is at least 3. Else false.
+     * @throws LogicErrorException never
+     */
+    public boolean level3Criteria(String input) throws LogicErrorException {
+        return (input.length() >= 10 && hasTypes(input, 3));
     }
 
-    public boolean level4Criteria(String pLine) {
-        if (pLine.length() >= 12) {
-            try {
-                if (hasTypes(pLine, 4)) {
-                    return true;
-                }
-            } catch (LogicErrorException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
+    /**
+     * Checks whether the given String fulfills the criteria of a level 4 password.
+     *
+     * @param input a password to check.
+     * @return true if password level is at least 4. Else false.
+     * @throws LogicErrorException never
+     */
+    public boolean level4Criteria(String input) throws LogicErrorException {
+        return (input.length() >= 12 && hasTypes(input, 4));
     }
 
-    public boolean level5Criteria(String pLine) {
-        // ToDo: Rework
-        if (pLine.length() >= 14) {
-            int lZustand = 0;
-            char symbol;
-            int lZaehler = 0;
-            int wechsel = 0;
-            while (lZaehler < pLine.length()) {
-                symbol = pLine.charAt(lZaehler);
-                if (lZustand == 0) {
-                    if (symbol >= 'a' && symbol <= 'z') {
-                        lZustand = 1;
-                    }
-                    if (symbol >= 'A' && symbol <= 'Z') {
-                        lZustand = 2;
-                    }
-                    if (CharFunctions.isSpecialCharacter(symbol)) {
-                        lZustand = 3;
-                    }
-                    if (symbol >= '0' && symbol <= '9') {
-                        lZustand = 4;
-                    }
-                } else if (lZustand == 1) {
-                    if (symbol >= 'A' && symbol <= 'Z') {
-                        lZustand = 2;
-                        wechsel++;
-                    }
-                    if (CharFunctions.isSpecialCharacter(symbol)) {
-                        lZustand = 3;
-                        wechsel++;
-                    }
-                    if (symbol >= '0' && symbol <= '9') {
-                        lZustand = 4;
-                        wechsel++;
-                    }
-                } else if (lZustand == 2) {
-                    if (symbol >= 'a' && symbol <= 'z') {
-                        lZustand = 1;
-                        wechsel++;
-                    }
-                    if (CharFunctions.isSpecialCharacter(symbol)) {
-                        lZustand = 3;
-                        wechsel++;
-                    }
-                    if (symbol >= '0' && symbol <= '9') {
-                        lZustand = 4;
-                        wechsel++;
-                    }
-                } else if (lZustand == 3) {
-                    if (symbol >= 'a' && symbol <= 'z') {
-                        lZustand = 1;
-                        wechsel++;
-                    }
-                    if (symbol >= 'A' && symbol <= 'Z') {
-                        lZustand = 2;
-                        wechsel++;
-                    }
-                    if (symbol >= '0' && symbol <= '9') {
-                        lZustand = 4;
-                        wechsel++;
-                    }
-                } else if (lZustand == 4) {
-                    if (symbol >= 'a' && symbol <= 'z') {
-                        lZustand = 1;
-                        wechsel++;
-                    }
-                    if (symbol >= 'A' && symbol <= 'Z') {
-                        lZustand = 2;
-                        wechsel++;
-                    }
-                    if (CharFunctions.isSpecialCharacter(symbol)) {
-                        lZustand = 3;
-                        wechsel++;
+    /**
+     * Checks whether the given String fulfills the criteria of a level 5 password.
+     *
+     * @param input a password to check.
+     * @return true if password level is at least 5. Else false.
+     * @throws LogicErrorException never
+     * @throws UnknownCharacterTypeException if a char in input is neither a letter, digit or special character.
+     */
+    public boolean level5Criteria(String input) throws UnknownCharacterTypeException, LogicErrorException {
+        return (input.length() >= 14 && has8changes(input) && hasTypes(input, 4));
+    }
+
+    /**
+     * Calculates the password level for a given String and returns it.
+     *
+     * @param input the password to rate.
+     * @return a level between 0 and 5.
+     */
+    public int getPasswordLevel(String input) {
+        int levelValue = 5;
+        try {
+            if (!level5Criteria(input)) {
+                levelValue--;
+                if (!level4Criteria(input)) {
+                    levelValue--;
+                    if (!level3Criteria(input)) {
+                        levelValue--;
+                        if (!level2Criteria(input)) {
+                            levelValue--;
+                            if (!level1Criteria(input)) {
+                                levelValue--;
+                            }
+                        }
                     }
                 }
-                lZaehler = lZaehler + 1;
             }
-            if (wechsel >= 8) {
-                return lZustand == 1 || lZustand == 2 || lZustand == 3 || lZustand == 4;
-            }
-            return false;
+        } catch (UnknownCharacterTypeException | LogicErrorException e) {
+            e.printStackTrace();
         }
-        return false;
+        return levelValue;
     }
 }
