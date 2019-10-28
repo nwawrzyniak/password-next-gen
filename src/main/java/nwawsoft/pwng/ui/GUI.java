@@ -76,22 +76,10 @@ public class GUI extends JFrame {
         try {
             InputStream iiCrossStream = getClass().getResourceAsStream("/graphics/cross.png");
             iiCross = new ImageIcon(ImageIO.read(iiCrossStream));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
             InputStream iiCheckStream = getClass().getResourceAsStream("/graphics/check.png");
             iiCheck = new ImageIcon(ImageIO.read(iiCheckStream));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
             InputStream iiMarkerStream = getClass().getResourceAsStream("/graphics/marker.png");
             iiMarker = new ImageIcon(ImageIO.read(iiMarkerStream));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
             InputStream iiBarStream = getClass().getResourceAsStream("/graphics/bar.png");
             iiBar = new ImageIcon(ImageIO.read(iiBarStream));
         } catch (IOException e) {
@@ -123,8 +111,8 @@ public class GUI extends JFrame {
         cp.add(jlblMarker);
         JLabel jlblImprovements = new JLabel();
         if (l.equals(Language.ENGLISH)) {
-            jlblImprovements.setText("<HTML>Use lower case letter" +
-                    "s<BR>" +
+            jlblImprovements.setText("<HTML>Use lower case letters" +
+                    "<BR>" +
                     "<BR>Use upper case letters" +
                     "<BR>" +
                     "<BR>Use special characters" +
