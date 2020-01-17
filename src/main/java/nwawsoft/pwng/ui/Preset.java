@@ -2,9 +2,9 @@ package nwawsoft.pwng.ui;
 
 import nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
 import nwawsoft.pwng.exceptions.UnknownLanguageException;
+import nwawsoft.pwng.model.Settings;
 import nwawsoft.pwng.model.characterset.CharacterSet;
 import nwawsoft.pwng.model.language.Language;
-import nwawsoft.pwng.model.Settings;
 import nwawsoft.util.StringFunctions;
 
 import javax.swing.*;
@@ -52,8 +52,10 @@ public class Preset extends JFrame {
         jcbLanguage.setBounds(8, 40, 137, 25);
         jcbLanguage.addItem("Deutsch");
         jcbLanguage.addItem("English");
+        String currentLang = null;
         if (Settings.configFileFound()) { // ToDo: should be configFileValid() or check sooner
-            jcbLanguage.setSelectedItem(StringFunctions.toOnlyFirstCharCapital(s.getLanguage().toString()));
+            currentLang = StringFunctions.toOnlyFirstCharCapital(s.getLanguage().toString());
+            jcbLanguage.setSelectedItem(currentLang);
         } else {
             jcbLanguage.setSelectedItem("English");
         }
@@ -61,14 +63,17 @@ public class Preset extends JFrame {
         DefaultComboBoxModel<String> jcbCharSetModel = new DefaultComboBoxModel<>();
         jcbCharSet.setModel(jcbCharSetModel);
         jcbCharSet.setBounds(160, 40, 137, 25);
-        if (Settings.configFileFound()) { // ToDo: should be configFileValid() or check sooner
-            // ToDo: load
-        } else {
-            try {
+        if (Settings.configFileFound() && currentLang != null) { // ToDo: should be configFileValid() or check sooner
+            // ToDo
+            String currentCharacterSet = s.getCharacterSet().toString();
+            if (currentLang.equals("Deutsch") || currentLang.equals("German")) {
+                setGermanCharSets();
+            } else if (currentLang.equals("English")) {
                 setEnglishCharSets();
-            } catch (UnhandledCharacterSetException e) {
-                e.printStackTrace();
             }
+            jcbCharSet.setSelectedItem(currentCharacterSet);
+        } else {
+            setEnglishCharSets();
         }
         cp.add(jcbCharSet);
         JButton bStart = new JButton();
@@ -82,36 +87,33 @@ public class Preset extends JFrame {
                 e.printStackTrace();
             }
         });
-        jcbLanguage.addActionListener (e -> {
-            String langString = (String) jcbLanguage.getSelectedItem();
-            if (langString != null) {
-                if (langString.equals("English")) {
-                    try {
-                        setEnglishCharSets();
-                        setTitle("General Settings");
-                        lLanguage.setText("Language");
-                        lCharacterSet.setText("Character set");
-                    } catch (UnhandledCharacterSetException ex) {
-                        ex.printStackTrace();
-                    }
-                } else if (langString.equals("Deutsch")) {
-                    try {
-                        setGermanCharSets();
-                        setTitle("Allgemeine Einstellungen");
-                        lLanguage.setText("Sprache");
-                        lCharacterSet.setText("Zeichensatz");
-                    } catch (UnhandledCharacterSetException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            }
+        jcbLanguage.addActionListener(e -> {
+            adjustUILanguage();
         });
+        adjustUILanguage();
         cp.add(bStart);
         setVisible(true);
     }
 
-    private void setEnglishCharSets() throws UnhandledCharacterSetException {
-        charSetString = (String)jcbCharSet.getSelectedItem();
+    private void adjustUILanguage() {
+        String langString = (String) jcbLanguage.getSelectedItem();
+        if (langString != null) {
+            if (langString.equals("English")) {
+                setEnglishCharSets();
+                setTitle("General Settings");
+                lLanguage.setText("Language");
+                lCharacterSet.setText("Character set");
+            } else if (langString.equals("Deutsch")) {
+                setGermanCharSets();
+                setTitle("Allgemeine Einstellungen");
+                lLanguage.setText("Sprache");
+                lCharacterSet.setText("Zeichensatz");
+            }
+        }
+    }
+
+    private void setEnglishCharSets() {
+        charSetString = (String) jcbCharSet.getSelectedItem();
         setCharSetBools();
         clearOldSets();
         jcbCharSet.addItem("EASY_ENGLISH");
@@ -124,12 +126,16 @@ public class Preset extends JFrame {
         } else if (fullBool) {
             jcbCharSet.setSelectedItem("FULL");
         } else {
-            throw new UnhandledCharacterSetException();
+            try {
+                throw new UnhandledCharacterSetException();
+            } catch (UnhandledCharacterSetException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private void setGermanCharSets() throws UnhandledCharacterSetException {
-        charSetString = (String)jcbCharSet.getSelectedItem();
+    private void setGermanCharSets() {
+        charSetString = (String) jcbCharSet.getSelectedItem();
         setCharSetBools();
         clearOldSets();
         jcbCharSet.addItem("EASY_GERMAN");
@@ -142,7 +148,11 @@ public class Preset extends JFrame {
         } else if (fullBool) {
             jcbCharSet.setSelectedItem("FULL");
         } else {
-            throw new UnhandledCharacterSetException();
+            try {
+                throw new UnhandledCharacterSetException();
+            } catch (UnhandledCharacterSetException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -190,8 +200,8 @@ public class Preset extends JFrame {
                     default:
                         throw new UnhandledCharacterSetException();
                 }
-              new MainFrame("Password Next Gen", l, cs);
-              this.dispose();
+                new MainFrame("Password Next Gen", l, cs);
+                this.dispose();
             }
         }
     }
