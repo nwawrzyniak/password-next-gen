@@ -4,9 +4,9 @@ import nwawsoft.pwng.exceptions.LogicErrorException;
 import nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
 import nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
 import nwawsoft.pwng.exceptions.UnknownLanguageException;
-import nwawsoft.pwng.model.CharacterSet;
+import nwawsoft.pwng.model.characterset.CharacterSet;
 import nwawsoft.pwng.model.Generator;
-import nwawsoft.pwng.model.Language;
+import nwawsoft.pwng.model.language.Language;
 import nwawsoft.pwng.model.Rating;
 import nwawsoft.util.StringFunctions;
 
@@ -21,7 +21,7 @@ import java.io.InputStream;
 
 import static nwawsoft.util.MutatedVowels.*;
 
-public class GUI extends JFrame {
+public class MainFrame extends JFrame {
     private JTextField inputContainer;
     private JTextField jtxtInputField;
     private JPasswordField jpfInputField;
@@ -44,7 +44,7 @@ public class GUI extends JFrame {
     private Language l;
     private Generator g;
 
-    public GUI(final String title, final Language l, final CharacterSet cs) {
+    public MainFrame(final String title, final Language l, final CharacterSet cs) {
         super(title);
         this.l = l;
         this.r = new Rating();

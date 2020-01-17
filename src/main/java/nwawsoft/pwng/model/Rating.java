@@ -145,7 +145,7 @@ public class Rating {
      * @param input a password to check.
      * @return true if password level is at least 1. Else false.
      */
-    public boolean level1Criteria(String input) {
+    public boolean level1Criteria(final String input) {
         return (input.length() >= 6);
     }
 
@@ -156,7 +156,7 @@ public class Rating {
      * @return true if password level is at least 2. Else false.
      * @throws LogicErrorException never
      */
-    public boolean level2Criteria(String input) throws LogicErrorException {
+    public boolean level2Criteria(final String input) throws LogicErrorException {
         return (input.length() >= 8 && hasTypes(input, 2));
     }
 
@@ -167,7 +167,7 @@ public class Rating {
      * @return true if password level is at least 3. Else false.
      * @throws LogicErrorException never
      */
-    public boolean level3Criteria(String input) throws LogicErrorException {
+    public boolean level3Criteria(final String input) throws LogicErrorException {
         return (input.length() >= 10 && hasTypes(input, 3));
     }
 
@@ -178,7 +178,7 @@ public class Rating {
      * @return true if password level is at least 4. Else false.
      * @throws LogicErrorException never
      */
-    public boolean level4Criteria(String input) throws LogicErrorException {
+    public boolean level4Criteria(final String input) throws LogicErrorException {
         return (input.length() >= 12 && hasTypes(input, 4));
     }
 
@@ -190,7 +190,7 @@ public class Rating {
      * @throws LogicErrorException never
      * @throws UnknownCharacterTypeException if a char in input is neither a letter, digit or special character.
      */
-    public boolean level5Criteria(String input) throws UnknownCharacterTypeException, LogicErrorException {
+    public boolean level5Criteria(final String input) throws UnknownCharacterTypeException, LogicErrorException {
         return (input.length() >= 14 && has8changes(input) && hasTypes(input, 4));
     }
 
@@ -200,7 +200,7 @@ public class Rating {
      * @param input the password to rate.
      * @return a level between 0 and 5.
      */
-    public int getPasswordLevel(String input) {
+    public int getPasswordLevel(final String input) {
         int levelValue = 5;
         try {
             if (!level5Criteria(input)) {

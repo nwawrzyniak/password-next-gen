@@ -1,6 +1,6 @@
 package nwawsoft.pwng.ui;
 
-import nwawsoft.pwng.model.Language;
+import nwawsoft.pwng.model.language.Language;
 
 import javax.swing.*;
 import java.awt.*;

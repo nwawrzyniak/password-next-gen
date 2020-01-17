@@ -3,6 +3,8 @@ package nwawsoft.pwng.model;
 import nwawsoft.pwng.exceptions.LogicErrorException;
 import nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
 import nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
+import nwawsoft.pwng.model.characterset.CharacterSet;
+import nwawsoft.pwng.model.characterset.CharacterSetFactory;
 
 import java.util.Random;
 
@@ -14,7 +16,7 @@ public class Generator {
     private CharacterSet cs;
     private char[] set;
 
-    public Generator(CharacterSet cs) {
+    public Generator(final CharacterSet cs) {
         r = new Rating();
         this.cs = cs;
         CharacterSetFactory csf = new CharacterSetFactory();

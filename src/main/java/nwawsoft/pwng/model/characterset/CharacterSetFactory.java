@@ -1,4 +1,4 @@
-package nwawsoft.pwng.model;
+package nwawsoft.pwng.model.characterset;
 
 import static nwawsoft.util.MutatedVowels.*;
 
@@ -6,6 +6,7 @@ import static nwawsoft.util.MutatedVowels.*;
  * This is a factory class. To understand this class read the documentation of the enum CharacterSet.
  */
 public class CharacterSetFactory {
+    // general constants
     private static final int AMOUNT_ONE_TO_NINE = 9;
     private static final int AMOUNT_ZERO_TO_NINE = 10;
     private static final int AMOUNT_CAPITALS_A_TO_H = 8;
@@ -27,6 +28,7 @@ public class CharacterSetFactory {
     private static final int ASCII_SMALL_A = 97;
     private static final int ASCII_SMALL_M = 109;
 
+    // set specific constants
     private static final int FULL_DIGIT_OFFSET = 33;
     private static final int FULL_LETTER_OFFSET_1 = 43;
     private static final int FULL_LETTER_OFFSET_2 = 69;
@@ -51,7 +53,7 @@ public class CharacterSetFactory {
      *
      * @return a char array containing all characters that are allowed during password generation.
      */
-    public char[] buildCharacterSet(CharacterSet cs) {
+    public char[] buildCharacterSet(final CharacterSet cs) {
         char[] set = null;
         switch (cs) {
             case FULL:

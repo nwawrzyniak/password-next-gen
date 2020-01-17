@@ -1,11 +1,10 @@
 package nwawsoft.pwng;
 
-import nwawsoft.pwng.model.CharacterSet;
-import nwawsoft.pwng.model.Language;
-import nwawsoft.pwng.ui.GUI;
+import nwawsoft.pwng.ui.Preset;
 
 public class Starter {
+
     public static void main(String[] args) {
-        new GUI("Password Next Gen", Language.ENGLISH, CharacterSet.EASY_ENGLISH); // complete overhaul still in progress
+        new Preset(); // v1.0.0 - The preset update - also the first public release
     }
 }
