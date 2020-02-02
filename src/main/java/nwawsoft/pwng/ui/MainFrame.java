@@ -26,7 +26,11 @@ public class MainFrame extends JFrame {
     private JTextField jtxtInputField;
     private JPasswordField jpfInputField;
     private JTextField jtxtOutputField;
+    private JMenuBar jmbMainMenu = new JMenuBar();
+    private JMenuItem jmiLanguageConfig;
+    private JCheckBoxMenuItem jcbmiCriteria;
     private JCheckBoxMenuItem jcbmiHidden;
+    private JMenuItem jmiSecurityLevels = null;
     private int currentWindowWidth;
     private ImageIcon iiCross;
     private ImageIcon iiCheck;
@@ -44,7 +48,7 @@ public class MainFrame extends JFrame {
     private Language l;
     private Generator g;
 
-    public MainFrame(final String title, final Language l, final CharacterSet cs) {
+    public MainFrame(final String title, final Language l, final CharacterSet cs) throws UnknownLanguageException {
         super(title);
         this.l = l;
         this.r = new Rating();
@@ -143,7 +147,6 @@ public class MainFrame extends JFrame {
             jcbmiHidden = new JCheckBoxMenuItem("Passwort verstecken");
         }
         jcbmiHidden.addActionListener(this::jcbmiHiddenActionPerformed);
-        JCheckBoxMenuItem jcbmiCriteria = null;
         switch (l) {
             case ENGLISH:
                 jcbmiCriteria = new JCheckBoxMenuItem("Checklist");
@@ -151,10 +154,11 @@ public class MainFrame extends JFrame {
             case GERMAN:
                 jcbmiCriteria = new JCheckBoxMenuItem("Checkliste");
                 break;
+            default:
+                throw new UnknownLanguageException();
         }
         jcbmiCriteria.setState(true);
         jcbmiCriteria.addActionListener(this::jcbmiBorderActionPerformed);
-        JMenuItem jmiSecurityLevels = null;
         switch (l) {
             case ENGLISH:
                 jmiSecurityLevels = new JMenuItem("Security levels");
@@ -181,7 +185,18 @@ public class MainFrame extends JFrame {
                 jmHelp = new JMenu("Hilfe");
                 break;
         }
-        JMenuBar jmbMainMenu = new JMenuBar();
+        switch (l) {
+            case ENGLISH:
+                jmiLanguageConfig = new JMenuItem("General Settings");
+                break;
+            case GERMAN:
+                jmiLanguageConfig = new JMenuItem("Allgemeine Einstellungen");
+                break;
+            default:
+                throw new UnknownLanguageException();
+        }
+        jmiLanguageConfig.addActionListener(this::jmiLanguageConfigActionPerformed);
+        jmOptions.add(jmiLanguageConfig);
         jmOptions.add(jcbmiHidden);
         jmOptions.add(jcbmiCriteria);
         jmHelp.add(jmiSecurityLevels);
@@ -220,6 +235,11 @@ public class MainFrame extends JFrame {
         getRootPane().setDefaultButton(jbtnCreateSafePW);
         setResizable(false);
         setVisible(true);
+    }
+
+    private void jmiLanguageConfigActionPerformed(final ActionEvent evt) {
+        new Preset();
+        dispose();
     }
 
     private void jbtnCreateSafePWActionPerformed(final ActionEvent evt) {
