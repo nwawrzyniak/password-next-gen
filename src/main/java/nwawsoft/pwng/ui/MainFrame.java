@@ -26,11 +26,7 @@ public class MainFrame extends JFrame {
     private JTextField jtxtInputField;
     private JPasswordField jpfInputField;
     private JTextField jtxtOutputField;
-    private JMenuBar jmbMainMenu = new JMenuBar();
-    private JMenuItem jmiLanguageConfig;
-    private JCheckBoxMenuItem jcbmiCriteria;
     private JCheckBoxMenuItem jcbmiHidden;
-    private JMenuItem jmiSecurityLevels = null;
     private int currentWindowWidth;
     private ImageIcon iiCross;
     private ImageIcon iiCheck;
@@ -147,6 +143,7 @@ public class MainFrame extends JFrame {
             jcbmiHidden = new JCheckBoxMenuItem("Passwort verstecken");
         }
         jcbmiHidden.addActionListener(this::jcbmiHiddenActionPerformed);
+        JCheckBoxMenuItem jcbmiCriteria;
         switch (l) {
             case ENGLISH:
                 jcbmiCriteria = new JCheckBoxMenuItem("Checklist");
@@ -159,6 +156,7 @@ public class MainFrame extends JFrame {
         }
         jcbmiCriteria.setState(true);
         jcbmiCriteria.addActionListener(this::jcbmiBorderActionPerformed);
+        JMenuItem jmiSecurityLevels = null;
         switch (l) {
             case ENGLISH:
                 jmiSecurityLevels = new JMenuItem("Security levels");
@@ -185,6 +183,7 @@ public class MainFrame extends JFrame {
                 jmHelp = new JMenu("Hilfe");
                 break;
         }
+        JMenuItem jmiLanguageConfig;
         switch (l) {
             case ENGLISH:
                 jmiLanguageConfig = new JMenuItem("General Settings");
@@ -200,6 +199,7 @@ public class MainFrame extends JFrame {
         jmOptions.add(jcbmiHidden);
         jmOptions.add(jcbmiCriteria);
         jmHelp.add(jmiSecurityLevels);
+        JMenuBar jmbMainMenu = new JMenuBar();
         jmbMainMenu.add(jmOptions);
         jmbMainMenu.add(jmHelp);
         cp.add(jmbMainMenu);
