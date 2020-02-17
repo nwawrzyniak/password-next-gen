@@ -26,7 +26,7 @@ public class Preset extends JFrame {
         super();
         Settings s = new Settings();
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        int frameWidth = 310;
+        int frameWidth = 320;
         int frameHeight = 156;
         setSize(frameWidth, frameHeight);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -87,9 +87,7 @@ public class Preset extends JFrame {
                 e.printStackTrace();
             }
         });
-        jcbLanguage.addActionListener(e -> {
-            adjustUILanguage();
-        });
+        jcbLanguage.addActionListener(e -> adjustUILanguage());
         adjustUILanguage();
         cp.add(bStart);
         setVisible(true);
