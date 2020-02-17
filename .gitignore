@@ -2,6 +2,10 @@
 # Created by https://www.gitignore.io/api/java,maven,linux,intellij,eclipse,netbeans,windows
 # Edit at https://www.gitignore.io/?templates=java,maven,linux,intellij,eclipse,netbeans,windows
 
+## START OF MANIFEST ##
+src/main/java/META-INF/
+## END OF MANIFEST ##
+
 ## START OF PERSONAL SPACE
 .idea/
 material/
