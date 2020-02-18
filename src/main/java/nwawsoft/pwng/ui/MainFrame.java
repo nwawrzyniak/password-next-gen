@@ -8,16 +8,15 @@ import nwawsoft.pwng.model.characterset.CharacterSet;
 import nwawsoft.pwng.model.Generator;
 import nwawsoft.pwng.model.language.Language;
 import nwawsoft.pwng.model.Rating;
+import nwawsoft.util.ClipboardManager;
+import nwawsoft.util.ComponentFunctions;
 import nwawsoft.util.StringFunctions;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.IOException;
-import java.io.InputStream;
+import java.awt.event.*;
+import java.io.*;
 
 import static nwawsoft.util.MutatedVowels.*;
 
@@ -25,6 +24,7 @@ public class MainFrame extends JFrame {
     private JTextField inputContainer;
     private JTextField jtxtInputField;
     private JPasswordField jpfInputField;
+    private boolean passwordHidden = false;
     private JTextField jtxtOutputField;
     private JCheckBoxMenuItem jcbmiHidden;
     private int currentWindowWidth;
@@ -32,6 +32,9 @@ public class MainFrame extends JFrame {
     private ImageIcon iiCheck;
     private ImageIcon iiMarker;
     private ImageIcon iiBar;
+    private ImageIcon iiMoveUp;
+    private ImageIcon iiClear;
+    private ImageIcon iiToClipboard;
     private JLabel jlblCheck1;
     private JLabel jlblCheck2;
     private JLabel jlblCheck3;
@@ -39,6 +42,10 @@ public class MainFrame extends JFrame {
     private JLabel jlblCheck5;
     private JLabel jlblCheck6;
     private JLabel jlblMarker;
+    private JButton jbtnUpperToClipboard;
+    private JButton jbtnClear;
+    private JButton jbtnLowerToClipboard;
+    private JButton jbtnMoveUp;
     private int levelValue;
     private Rating r;
     private Language l;
@@ -54,10 +61,7 @@ public class MainFrame extends JFrame {
         int frameHeight = 280;
         setSize(frameWidth, frameHeight);
         currentWindowWidth = frameWidth;
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (d.width - getSize().width) / 2;
-        int y = (d.height - getSize().height) / 2;
-        setLocation(x, y);
+        ComponentFunctions.center(this);
         Container cp = getContentPane();
         cp.setLayout(null);
         KeyListener kl = new KeyListener() {
@@ -82,6 +86,12 @@ public class MainFrame extends JFrame {
             iiMarker = new ImageIcon(ImageIO.read(iiMarkerStream));
             InputStream iiBarStream = getClass().getResourceAsStream("/graphics/bar.png");
             iiBar = new ImageIcon(ImageIO.read(iiBarStream));
+            InputStream iiToClipboardStream = getClass().getResourceAsStream("/graphics/to_clipboard.png");
+            iiToClipboard = new ImageIcon(ImageIO.read(iiToClipboardStream));
+            InputStream iiMoveUpStream = getClass().getResourceAsStream("/graphics/move_up.png");
+            iiMoveUp = new ImageIcon(ImageIO.read(iiMoveUpStream));
+            InputStream iiClearStream = getClass().getResourceAsStream("/graphics/clear.png");
+            iiClear = new ImageIcon(ImageIO.read(iiClearStream));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -92,6 +102,10 @@ public class MainFrame extends JFrame {
         jlblCheck5 = new JLabel(iiCross);
         jlblCheck6 = new JLabel(iiCross);
         jlblMarker = new JLabel(iiMarker);
+        jbtnUpperToClipboard = new JButton(iiToClipboard);
+        jbtnClear = new JButton(iiClear);
+        jbtnLowerToClipboard = new JButton(iiToClipboard);
+        jbtnMoveUp = new JButton(iiMoveUp);
         jlblCheck1.setBounds(310, 46, 10, 10);
         cp.add(jlblCheck1);
         jlblCheck2.setBounds(310, 78, 10, 10);
@@ -203,23 +217,35 @@ public class MainFrame extends JFrame {
         jmbMainMenu.add(jmOptions);
         jmbMainMenu.add(jmHelp);
         cp.add(jmbMainMenu);
-        jmbMainMenu.setBounds(0, 0, frameWidth, 25);
+        jmbMainMenu.setBounds(0, 0, 4096, 25); // 4096 just means "big". resize window -> menu bar stretches
         jmiSecurityLevels.addActionListener(this::jmiAboutSafetyLevelsActionPerformed);
         jtxtInputField = new JTextField();
-        jtxtInputField.setBounds(20, 50, 260, 30);
+        jtxtInputField.setBounds(10, 50, 220, 30);
         jtxtInputField.addKeyListener(kl);
         cp.add(jtxtInputField);
+        jbtnUpperToClipboard.setBounds(235, 50, 30, 30);
+        jbtnUpperToClipboard.addActionListener(this::jbtnUpperToClipboardActionPerformed);
+        cp.add(jbtnUpperToClipboard);
+        jbtnClear.setBounds(270, 50, 30, 30);
+        jbtnClear.addActionListener(this::jbtnClearActionPerformed);
+        cp.add(jbtnClear);
         jpfInputField = new JPasswordField();
-        jpfInputField.setBounds(20, 50, 260, 30);
+        jpfInputField.setBounds(10, 50, 220, 30);
         jpfInputField.setVisible(false);
         jpfInputField.addKeyListener(kl);
         cp.add(jpfInputField);
         inputContainer = jtxtInputField;
         jtxtOutputField = new JTextField();
-        jtxtOutputField.setBounds(20, 90, 260, 30);
+        jtxtOutputField.setBounds(10, 90, 220, 30);
         jtxtOutputField.setEditable(false);
         jtxtOutputField.setHorizontalAlignment(JTextField.CENTER);
         cp.add(jtxtOutputField);
+        jbtnLowerToClipboard.setBounds(235, 90, 30, 30);
+        jbtnLowerToClipboard.addActionListener(this::jbtnLowerToClipboardActionPerformed);
+        cp.add(jbtnLowerToClipboard);
+        jbtnMoveUp.setBounds(270, 90, 30, 30);
+        jbtnMoveUp.addActionListener(this::jbtnMoveUpActionPerformed);
+        cp.add(jbtnMoveUp);
         JButton jbtnCreateSafePW = new JButton();
         switch (l) {
             case ENGLISH:
@@ -237,12 +263,37 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-    private void jmiLanguageConfigActionPerformed(final ActionEvent evt) {
+    private void jbtnClearActionPerformed(final ActionEvent actionEvent) {
+        inputContainer.setText("");
+    }
+
+    private void jbtnUpperToClipboardActionPerformed(final ActionEvent actionEvent) {
+        if (passwordHidden) {
+            CopyHiddenPasswordToClipboardDialog chptcd = new CopyHiddenPasswordToClipboardDialog(this,
+                    inputContainer.getText());
+            chptcd.pack();
+            ComponentFunctions.center(chptcd);
+            chptcd.setVisible(true);
+        } else {
+            ClipboardManager.copyToClipboard(inputContainer.getText());
+        }
+    }
+
+    private void jbtnLowerToClipboardActionPerformed(final ActionEvent actionEvent) {
+        ClipboardManager.copyToClipboard(jtxtOutputField.getText());
+    }
+
+    private void jbtnMoveUpActionPerformed(final ActionEvent actionEvent) {
+        inputContainer.setText(jtxtOutputField.getText());
+        updatePasswordStrength();
+    }
+
+    private void jmiLanguageConfigActionPerformed(final ActionEvent actionEvent) {
         new Preset();
         dispose();
     }
 
-    private void jbtnCreateSafePWActionPerformed(final ActionEvent evt) {
+    private void jbtnCreateSafePWActionPerformed(final ActionEvent actionEvent) {
         try {
             jtxtOutputField.setText(g.create());
         } catch (UnhandledCharacterSetException | LogicErrorException | UnknownCharacterTypeException e) {
@@ -250,26 +301,28 @@ public class MainFrame extends JFrame {
         }
     }
 
-    private void jcbmiHiddenActionPerformed(final ActionEvent evt) {
+    private void jcbmiHiddenActionPerformed(final ActionEvent actionEvent) {
         if (!jcbmiHidden.getState()) {
             inputContainer = jtxtInputField;
             String tempPass = new String(jpfInputField.getPassword());
             jtxtInputField.setText(tempPass);
             jpfInputField.setVisible(false);
             jtxtInputField.setVisible(true);
+            passwordHidden = false;
         } else {
             inputContainer = jpfInputField;
             jpfInputField.setText(jtxtInputField.getText());
             jpfInputField.setVisible(true);
             jtxtInputField.setVisible(false);
+            passwordHidden = true;
         }
     }
 
-    private void jcbmiBorderActionPerformed(final ActionEvent evt) {
+    private void jcbmiBorderActionPerformed(final ActionEvent actionEvent) {
         changeSize();
     }
 
-    private void jmiAboutSafetyLevelsActionPerformed(final ActionEvent evt) {
+    private void jmiAboutSafetyLevelsActionPerformed(final ActionEvent actionEvent) {
         switch (l) {
             case ENGLISH:
                 new Help(this, "Explanation of security levels", true, l);
@@ -324,12 +377,12 @@ public class MainFrame extends JFrame {
     }
 
     private void changeSize() {
-        if (currentWindowWidth == 300) {
+        if (currentWindowWidth == 310) {
             setSize(560, 280);
             currentWindowWidth = 560;
         } else if (currentWindowWidth == 560) {
-            setSize(300, 280);
-            currentWindowWidth = 300;
+            setSize(310, 280);
+            currentWindowWidth = 310;
         }
     }
 
@@ -378,5 +431,9 @@ public class MainFrame extends JFrame {
         }
         updateIcons();
         jlblMarker.setBounds(45 + (levelValue * 40), 155, 10, 10);
+    }
+
+    public JTextField getInputContainer() {
+        return inputContainer;
     }
 }

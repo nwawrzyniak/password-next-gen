@@ -5,6 +5,7 @@ import nwawsoft.pwng.exceptions.UnknownLanguageException;
 import nwawsoft.pwng.model.Settings;
 import nwawsoft.pwng.model.characterset.CharacterSet;
 import nwawsoft.pwng.model.language.Language;
+import nwawsoft.util.ComponentFunctions;
 import nwawsoft.util.StringFunctions;
 
 import javax.swing.*;
@@ -29,10 +30,7 @@ public class Preset extends JFrame {
         int frameWidth = 320;
         int frameHeight = 156;
         setSize(frameWidth, frameHeight);
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (d.width - getSize().width) / 2;
-        int y = (d.height - getSize().height) / 2;
-        setLocation(x, y);
+        ComponentFunctions.center(this);
         setTitle("General Settings");
         setResizable(false);
         Container cp = getContentPane();

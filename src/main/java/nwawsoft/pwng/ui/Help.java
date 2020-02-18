@@ -1,6 +1,7 @@
 package nwawsoft.pwng.ui;
 
 import nwawsoft.pwng.model.language.Language;
+import nwawsoft.util.ComponentFunctions;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,10 +20,7 @@ public class Help extends JDialog {
         int frameWidth = 300;
         int frameHeight = 380;
         setSize(frameWidth, frameHeight);
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (d.width - getSize().width) / 2;
-        int y = (d.height - getSize().height) / 2;
-        setLocation(x, y);
+        ComponentFunctions.center(this);
         Container cp = getContentPane();
         cp.setLayout(null);
         setResizable(false);
