@@ -6,6 +6,9 @@ import nwawsoft.pwng.model.language.*;
 
 import java.io.*;
 
+/**
+ * Manages the saving and loading of setting.
+ */
 public class Settings {
     private Language l;
     private CharacterSet cs;
@@ -23,9 +26,12 @@ public class Settings {
     }
 
     private void setDefaults() {
-        l = Language.ENGLISH;
-        cs = CharacterSet.OPTIMIZED;
-        showPresetMask = true;
+        if (l == null) {
+            l = Language.ENGLISH;
+        }
+        if (cs == null) {
+            cs = CharacterSet.OPTIMIZED;
+        }
     }
 
     // ToDo: Doc
