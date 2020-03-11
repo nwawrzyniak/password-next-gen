@@ -8,6 +8,7 @@ import nwawsoft.pwng.model.characterset.CharacterSet;
 import nwawsoft.pwng.model.Generator;
 import nwawsoft.pwng.model.language.Language;
 import nwawsoft.pwng.model.Rating;
+import nwawsoft.pwng.model.language.Translation;
 import nwawsoft.util.ClipboardManager;
 import nwawsoft.util.ComponentFunctions;
 import nwawsoft.util.StringFunctions;
@@ -50,12 +51,14 @@ public class MainFrame extends JFrame {
     private Rating r;
     private Language l;
     private Generator g;
+    private Translation t;
 
     public MainFrame(final String title, final Language l, final CharacterSet cs) throws UnknownLanguageException {
         super(title);
         this.l = l;
         this.r = new Rating();
         this.g = new Generator(cs);
+        t = new Translation(l);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         int frameWidth = 560;
         int frameHeight = 280;
@@ -170,15 +173,7 @@ public class MainFrame extends JFrame {
         }
         jcbmiCriteria.setState(true);
         jcbmiCriteria.addActionListener(this::jcbmiBorderActionPerformed);
-        JMenuItem jmiSecurityLevels = null;
-        switch (l) {
-            case ENGLISH:
-                jmiSecurityLevels = new JMenuItem("Security levels");
-                break;
-            case GERMAN:
-                jmiSecurityLevels = new JMenuItem("Sicherheitsstufen");
-                break;
-        }
+        JMenuItem jmiSecurityLevels = new JMenuItem(t.getHelpSecurityLevelsTitle());
         JMenu jmOptions = null;
         switch (l) {
             case ENGLISH:
@@ -188,15 +183,7 @@ public class MainFrame extends JFrame {
                 jmOptions = new JMenu("Einstellungen");
                 break;
         }
-        JMenu jmHelp = null;
-        switch (l) {
-            case ENGLISH:
-                jmHelp = new JMenu("Help");
-                break;
-            case GERMAN:
-                jmHelp = new JMenu("Hilfe");
-                break;
-        }
+        JMenu jmHelp = new JMenu(t.getHelpTitle());
         JMenuItem jmiLanguageConfig;
         switch (l) {
             case ENGLISH:
@@ -323,14 +310,7 @@ public class MainFrame extends JFrame {
     }
 
     private void jmiAboutSafetyLevelsActionPerformed(final ActionEvent actionEvent) {
-        switch (l) {
-            case ENGLISH:
-                new Help(this, "Explanation of security levels", true, l);
-                break;
-            case GERMAN:
-                new Help(this, "Erkl" + ae + "rung der Sicherheitsstufen", true, l);
-                break;
-        }
+        new Help(this, t.getHelpSecurityLevelsLongTitle(), true, t);
     }
 
     private void printRating() throws UnknownLanguageException {
