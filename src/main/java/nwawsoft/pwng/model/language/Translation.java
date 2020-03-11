@@ -7,6 +7,10 @@ import static nwawsoft.util.MutatedVowels.*;
 public class Translation {
     private Language l;
 
+    // MainFrame window related text
+    private String title;
+    private String longTitle;
+
     // Help window related text
     private String helpTitle;
     private String helpSecurityLevelsTitle;
@@ -27,8 +31,18 @@ public class Translation {
         }
     }
 
+    /**
+     * Sets all UI Strings to a specific language.
+     *
+     * @throws UnknownLanguageException if there is no corresponding object in enum Language.
+     * @see Language
+     */
     private void setTranslation() throws UnknownLanguageException {
+        // Universal Strings
+        title = "Password Next Gen";
+        // Language-specific Strings
         if (l.equals(Language.ENGLISH)) {
+            longTitle = title + " - Your Password's Next Generator";
             helpTitle = "Help";
             helpSecurityLevelsTitle = "Security levels";
             helpSecurityLevelsLongTitle = "Explanation of security levels";
@@ -44,6 +58,7 @@ public class Translation {
             helpCharacterTypes = "<HTML>A \"character type\" means one of these 4 categories: Upper case letters, " +
                     "lower case letters, digits, special characters.<HTML>";
         } else if (l.equals(Language.GERMAN)) {
+            longTitle = title + " - Dein n" + ae + "chster Passwort-Generator";
             helpTitle = "Hilfe";
             helpSecurityLevelsTitle = "Sicherheitsstufen";
             helpSecurityLevelsLongTitle = "Erkl" + ae + "rung der Sicherheitsstufen";
@@ -65,6 +80,15 @@ public class Translation {
 
     public Language getLanguage() {
         return l;
+    }
+
+    // MainFrame window related text
+    public String getTitle() {
+        return title;
+    }
+
+    public String getLongTitle() {
+        return longTitle;
     }
 
     // Help window related text

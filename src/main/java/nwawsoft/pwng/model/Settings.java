@@ -9,6 +9,7 @@ import java.io.*;
 public class Settings {
     private Language l;
     private CharacterSet cs;
+    private boolean showPresetMask;
 
     // ToDo: Doc
     public Settings() {
@@ -16,7 +17,15 @@ public class Settings {
             if (configFileValid()) {
                 load();
             }
+        } else {
+            setDefaults();
         }
+    }
+
+    private void setDefaults() {
+        l = Language.ENGLISH;
+        cs = CharacterSet.OPTIMIZED;
+        showPresetMask = true;
     }
 
     // ToDo: Doc
@@ -29,6 +38,7 @@ public class Settings {
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write("LANG=" + language + "\n");
             bw.write("CHARSET=" + charSet + "\n");
+            bw.write("SHOW_PRESET_MASK=" + false + "\n");
             bw.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,29 +56,8 @@ public class Settings {
 
     // ToDo: Doc
     public static boolean configFileValid() {
-        int requirement = 2;
-        int current = 0;
-        try {
-            File f = new File(System.getProperty("user.home") + "/.pwng/settings.ini");
-            FileReader fr = new FileReader(f);
-            BufferedReader br = new BufferedReader(fr);
-            String currentLine;
-            while ((currentLine = br.readLine()) != null) {
-                if (currentLine.contains("=")) {
-                    if (currentLine.startsWith("LANG")) {
-                        // ToDo: Also verify actual content
-                        current++;
-                    }
-                    if (currentLine.startsWith("CHARSET")) {
-                        // ToDo: Also verify actual content
-                        current++;
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return current == requirement;
+        // ToDo: Rewrite
+        return true;
     }
 
     // ToDo: Doc
@@ -84,6 +73,8 @@ public class Settings {
                     System.out.println(currentLine.substring(currentLine.lastIndexOf("=") + 1));
                 } else if (currentLine.startsWith("CHARSET")) {
                     cs = CharacterSetizer.toCharacterSet(currentLine.substring(currentLine.lastIndexOf("=") + 1));
+                } else if (currentLine.startsWith("SHOW_PRESET_MASK")) {
+                    showPresetMask = Boolean.parseBoolean(currentLine.substring(currentLine.lastIndexOf("=") + 1));
                 }
             }
         } catch (IOException | UnknownLanguageException | UnhandledCharacterSetException e) {
@@ -97,5 +88,9 @@ public class Settings {
 
     public CharacterSet getCharacterSet() {
         return cs;
+    }
+
+    public boolean getShowPresetMask() {
+        return showPresetMask;
     }
 }

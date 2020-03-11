@@ -5,6 +5,7 @@ import nwawsoft.pwng.exceptions.UnknownLanguageException;
 import nwawsoft.pwng.model.Settings;
 import nwawsoft.pwng.model.characterset.CharacterSet;
 import nwawsoft.pwng.model.language.Language;
+import nwawsoft.pwng.model.language.Translation;
 import nwawsoft.util.ComponentFunctions;
 import nwawsoft.util.StringFunctions;
 
@@ -22,10 +23,13 @@ public class Preset extends JFrame {
     private boolean fullBool = false;
     private JLabel lLanguage;
     private JLabel lCharacterSet;
+    private Settings s;
+    private Translation t;
 
-    public Preset() {
+    public Preset(final Settings s, final Translation t) {
         super();
-        Settings s = new Settings();
+        this.s = s;
+        this.t = t;
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         int frameWidth = 320;
         int frameHeight = 156;
@@ -196,7 +200,8 @@ public class Preset extends JFrame {
                     default:
                         throw new UnhandledCharacterSetException();
                 }
-                new MainFrame("Password Next Gen", l, cs);
+                Settings s = new Settings();
+                new MainFrame(s, new Translation(s.getLanguage()));
                 this.dispose();
             }
         }

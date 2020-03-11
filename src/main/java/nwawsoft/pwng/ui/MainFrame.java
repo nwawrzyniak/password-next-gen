@@ -4,7 +4,7 @@ import nwawsoft.pwng.exceptions.LogicErrorException;
 import nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
 import nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
 import nwawsoft.pwng.exceptions.UnknownLanguageException;
-import nwawsoft.pwng.model.characterset.CharacterSet;
+import nwawsoft.pwng.model.Settings;
 import nwawsoft.pwng.model.Generator;
 import nwawsoft.pwng.model.language.Language;
 import nwawsoft.pwng.model.Rating;
@@ -48,17 +48,19 @@ public class MainFrame extends JFrame {
     private JButton jbtnLowerToClipboard;
     private JButton jbtnMoveUp;
     private int levelValue;
-    private Rating r;
+    private Settings s;
+    private Translation t;
     private Language l;
     private Generator g;
-    private Translation t;
+    private Rating r;
 
-    public MainFrame(final String title, final Language l, final CharacterSet cs) throws UnknownLanguageException {
-        super(title);
-        this.l = l;
+    public MainFrame(final Settings s, final Translation t) throws UnknownLanguageException {
+        super(t.getLongTitle());
+        this.s = s;
+        this.t = t;
+        l = t.getLanguage();
+        this.g = new Generator(s.getCharacterSet());
         this.r = new Rating();
-        this.g = new Generator(cs);
-        t = new Translation(l);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         int frameWidth = 560;
         int frameHeight = 280;
@@ -276,7 +278,7 @@ public class MainFrame extends JFrame {
     }
 
     private void jmiLanguageConfigActionPerformed(final ActionEvent actionEvent) {
-        new Preset();
+        new Preset(s, t);
         dispose();
     }
 
