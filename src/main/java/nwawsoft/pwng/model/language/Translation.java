@@ -7,6 +7,12 @@ import static nwawsoft.util.MutatedVowels.*;
 public class Translation {
     private Language l;
 
+    // Preset window related text
+    private String presetGeneralSettingsTitle;
+    private String presetLanguage;
+    private String presetCharacterSet;
+    private String presetStart;
+
     // MainFrame window related text
     private String title;
     private String longTitle;
@@ -43,6 +49,10 @@ public class Translation {
         // Language-specific Strings
         if (l.equals(Language.ENGLISH)) {
             longTitle = title + " - Your Password's Next Generator";
+            presetGeneralSettingsTitle = "General Settings";
+            presetLanguage = "Language";
+            presetCharacterSet = "Character set";
+            presetStart = "Start";
             helpTitle = "Help";
             helpSecurityLevelsTitle = "Security levels";
             helpSecurityLevelsLongTitle = "Explanation of security levels";
@@ -59,6 +69,10 @@ public class Translation {
                     "lower case letters, digits, special characters.<HTML>";
         } else if (l.equals(Language.GERMAN)) {
             longTitle = title + " - Dein n" + ae + "chster Passwort-Generator";
+            presetGeneralSettingsTitle = "Allgemeine Einstellungen";
+            presetLanguage = "Sprache";
+            presetCharacterSet = "Zeichensatz";
+            presetStart = "Start";
             helpTitle = "Hilfe";
             helpSecurityLevelsTitle = "Sicherheitsstufen";
             helpSecurityLevelsLongTitle = "Erkl" + ae + "rung der Sicherheitsstufen";
@@ -80,6 +94,23 @@ public class Translation {
 
     public Language getLanguage() {
         return l;
+    }
+
+    // Preset window related text
+    public String getPresetGeneralSettingsTitle() {
+        return presetGeneralSettingsTitle;
+    }
+
+    public String getPresetLanguage() {
+        return presetLanguage;
+    }
+
+    public String getPresetCharacterSet() {
+        return presetCharacterSet;
+    }
+
+    public String getPresetStart() {
+        return presetStart;
     }
 
     // MainFrame window related text

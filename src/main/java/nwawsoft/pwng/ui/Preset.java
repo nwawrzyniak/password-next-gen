@@ -3,7 +3,6 @@ package nwawsoft.pwng.ui;
 import nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
 import nwawsoft.pwng.exceptions.UnknownLanguageException;
 import nwawsoft.pwng.model.Settings;
-import nwawsoft.pwng.model.characterset.CharacterSet;
 import nwawsoft.pwng.model.language.Language;
 import nwawsoft.pwng.model.language.Translation;
 import nwawsoft.util.ComponentFunctions;
@@ -21,8 +20,9 @@ public class Preset extends JFrame {
     private boolean easyBool = false;
     private boolean optimizedBool = true;
     private boolean fullBool = false;
-    private JLabel lLanguage;
-    private JLabel lCharacterSet;
+    private JLabel jlblLanguage;
+    private JLabel jlblCharacterSet;
+    private JButton jbtnStart;
     private Settings s;
     private Translation t;
 
@@ -35,20 +35,20 @@ public class Preset extends JFrame {
         int frameHeight = 156;
         setSize(frameWidth, frameHeight);
         ComponentFunctions.center(this);
-        setTitle("General Settings");
+        setTitle(t.getPresetGeneralSettingsTitle());
         setResizable(false);
         Container cp = getContentPane();
         cp.setLayout(null);
-        lLanguage = new JLabel();
-        lLanguage.setBounds(0, 5, 150, 28);
-        lLanguage.setText("Language");
-        lLanguage.setHorizontalAlignment(SwingConstants.CENTER);
-        cp.add(lLanguage);
-        lCharacterSet = new JLabel();
-        lCharacterSet.setBounds(150, 5, 150, 28);
-        lCharacterSet.setText("Character set");
-        lCharacterSet.setHorizontalAlignment(SwingConstants.CENTER);
-        cp.add(lCharacterSet);
+        jlblLanguage = new JLabel();
+        jlblLanguage.setBounds(0, 5, 150, 28);
+        jlblLanguage.setText(t.getPresetLanguage());
+        jlblLanguage.setHorizontalAlignment(SwingConstants.CENTER);
+        cp.add(jlblLanguage);
+        jlblCharacterSet = new JLabel();
+        jlblCharacterSet.setBounds(150, 5, 150, 28);
+        jlblCharacterSet.setText(t.getPresetCharacterSet());
+        jlblCharacterSet.setHorizontalAlignment(SwingConstants.CENTER);
+        cp.add(jlblCharacterSet);
         DefaultComboBoxModel<String> jcbLanguageModel = new DefaultComboBoxModel<>();
         jcbLanguage.setModel(jcbLanguageModel);
         jcbLanguage.setBounds(8, 40, 137, 25);
@@ -78,20 +78,19 @@ public class Preset extends JFrame {
             setEnglishCharSets();
         }
         cp.add(jcbCharSet);
-        JButton bStart = new JButton();
-        bStart.setBounds(96, 80, 105, 33);
-        bStart.setText("Start");
-        bStart.setMargin(new Insets(2, 2, 2, 2));
-        bStart.addActionListener(evt -> {
+        jbtnStart = new JButton();
+        jbtnStart.setBounds(96, 80, 105, 33);
+        jbtnStart.setText(t.getPresetStart());
+        jbtnStart.setMargin(new Insets(2, 2, 2, 2));
+        jbtnStart.addActionListener(evt -> {
             try {
-                bStart_ActionPerformed();
-            } catch (UnknownLanguageException | UnhandledCharacterSetException e) {
+                jbtnStart_ActionPerformed();
+            } catch (UnknownLanguageException e) {
                 e.printStackTrace();
             }
         });
         jcbLanguage.addActionListener(e -> adjustUILanguage());
-        adjustUILanguage();
-        cp.add(bStart);
+        cp.add(jbtnStart);
         setVisible(true);
     }
 
@@ -100,16 +99,16 @@ public class Preset extends JFrame {
         if (langString != null) {
             if (langString.equals("English")) {
                 setEnglishCharSets();
-                setTitle("General Settings");
-                lLanguage.setText("Language");
-                lCharacterSet.setText("Character set");
+                t = new Translation(Language.ENGLISH);
             } else if (langString.equals("Deutsch")) {
                 setGermanCharSets();
-                setTitle("Allgemeine Einstellungen");
-                lLanguage.setText("Sprache");
-                lCharacterSet.setText("Zeichensatz");
+                t = new Translation(Language.GERMAN);
             }
         }
+        setTitle(t.getPresetGeneralSettingsTitle());
+        jlblLanguage.setText(t.getPresetLanguage());
+        jlblCharacterSet.setText(t.getPresetCharacterSet());
+        jbtnStart.setText(t.getPresetStart());
     }
 
     private void setEnglishCharSets() {
@@ -169,38 +168,13 @@ public class Preset extends JFrame {
         }
     }
 
-    private void bStart_ActionPerformed() throws UnknownLanguageException, UnhandledCharacterSetException {
+    private void jbtnStart_ActionPerformed() throws UnknownLanguageException {
         String langString = (String) jcbLanguage.getSelectedItem();
         String charSetString = (String) jcbCharSet.getSelectedItem();
         Settings.save(langString, charSetString);
-        Language l;
-        CharacterSet cs;
         if (langString != null) {
-            if (langString.equals("English")) {
-                l = Language.ENGLISH;
-            } else if (langString.equals("Deutsch")) {
-                l = Language.GERMAN;
-            } else {
-                throw new UnknownLanguageException();
-            }
             if (charSetString != null) {
-                switch (charSetString) {
-                    case "EASY_ENGLISH":
-                        cs = CharacterSet.EASY_ENGLISH;
-                        break;
-                    case "EASY_GERMAN":
-                        cs = CharacterSet.EASY_GERMAN;
-                        break;
-                    case "OPTIMIZED":
-                        cs = CharacterSet.OPTIMIZED;
-                        break;
-                    case "FULL":
-                        cs = CharacterSet.FULL;
-                        break;
-                    default:
-                        throw new UnhandledCharacterSetException();
-                }
-                Settings s = new Settings();
+                s = new Settings();
                 new MainFrame(s, new Translation(s.getLanguage()));
                 this.dispose();
             }

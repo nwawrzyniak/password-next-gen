@@ -4,7 +4,7 @@ public class BuildData {
     public int mainVersion = 1;
     public int featureUpdate = 0;
     public int bugfixUpdate = 0;
-    public int buildNumber = 1; // counting since March 11, 2020.
+    public int buildNumber = 2; // counting since March 11, 2020.
 
     /**
      * Assembles and returns the version number of the current build.
