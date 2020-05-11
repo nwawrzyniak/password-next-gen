@@ -1,17 +1,17 @@
 package nwawsoft.pwng.model;
 
 public class BuildData {
-    public int mainVersion = 1;
-    public int featureUpdate = 0;
-    public int bugfixUpdate = 0;
-    public int buildNumber = 3; // counting since March 11, 2020.
+    private static final int mainVersion = 1;
+    private static final int featureUpdate = 0;
+    private static final int bugfixUpdate = 0;
+    private static final int buildNumber = 4; // counting since March 11, 2020.
 
     /**
      * Assembles and returns the version number of the current build.
      *
      * @return a String representation of the current build.
      */
-    public String getVersion() {
+    public static String getVersion() {
         return mainVersion + "." + featureUpdate + "." + bugfixUpdate;
     }
 
@@ -20,7 +20,7 @@ public class BuildData {
      *
      * @return the build number of the current build.
      */
-    public int getBuildNumber() {
+    public static int getBuildNumber() {
         return buildNumber;
     }
 
@@ -29,7 +29,7 @@ public class BuildData {
      *
      * @return a String representation of the version number and the build number of the current build.
      */
-    public String getFullVersion() {
-        return mainVersion + "." + featureUpdate + "." + bugfixUpdate + "(Build " + buildNumber + ")";
+    public static String getFullVersion() {
+        return mainVersion + "." + featureUpdate + "." + bugfixUpdate + " (Build " + buildNumber + ")";
     }
 }

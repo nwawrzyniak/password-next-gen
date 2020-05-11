@@ -6,22 +6,22 @@ import nwawsoft.util.ui.ComponentFunctions;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * About window with information about version number and maintainer.
+ */
 public class About extends JDialog {
-    private JLabel jlblAboutText = new JLabel();
-    private Translation t;
-
     public About(final JFrame owner, final String title, final boolean modal, final Translation t) {
         super(owner, title, modal);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        int frameWidth = 300;
-        int frameHeight = 240;
+        int frameWidth = 380;
+        int frameHeight = 170;
         setSize(frameWidth, frameHeight);
         ComponentFunctions.center(this);
         Container cp = getContentPane();
-        cp.setLayout(null);
+        this.setLayout(new FlowLayout());
         setResizable(false);
-        this.t = t;
-
+        JLabel jlblAboutText = new JLabel(t.getAboutText(), SwingConstants.CENTER);
+        cp.add(jlblAboutText);
         setVisible(true);
     }
 }

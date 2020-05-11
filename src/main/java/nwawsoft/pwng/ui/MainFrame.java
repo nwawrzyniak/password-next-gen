@@ -175,6 +175,7 @@ public class MainFrame extends JFrame {
         }
         jcbmiCriteria.setState(true);
         jcbmiCriteria.addActionListener(this::jcbmiBorderActionPerformed);
+        JMenuItem jmiAbout = new JMenuItem(t.getHelpAboutTitle());
         JMenuItem jmiSecurityLevels = new JMenuItem(t.getHelpSecurityLevelsTitle());
         JMenu jmOptions = null;
         switch (l) {
@@ -198,15 +199,19 @@ public class MainFrame extends JFrame {
                 throw new UnknownLanguageException();
         }
         jmiLanguageConfig.addActionListener(this::jmiLanguageConfigActionPerformed);
-        jmOptions.add(jmiLanguageConfig);
-        jmOptions.add(jcbmiHidden);
-        jmOptions.add(jcbmiCriteria);
+        if (jmOptions != null) {
+            jmOptions.add(jmiLanguageConfig);
+            jmOptions.add(jcbmiHidden);
+            jmOptions.add(jcbmiCriteria);
+        }
+        jmHelp.add(jmiAbout);
         jmHelp.add(jmiSecurityLevels);
         JMenuBar jmbMainMenu = new JMenuBar();
         jmbMainMenu.add(jmOptions);
         jmbMainMenu.add(jmHelp);
         cp.add(jmbMainMenu);
         jmbMainMenu.setBounds(0, 0, 4096, 25); // 4096 just means "big". resize window -> menu bar stretches
+        jmiAbout.addActionListener(this::jmiAboutActionPerformed);
         jmiSecurityLevels.addActionListener(this::jmiAboutSafetyLevelsActionPerformed);
         jtxtInputField = new JTextField();
         jtxtInputField.setBounds(10, 50, 220, 30);
@@ -309,6 +314,10 @@ public class MainFrame extends JFrame {
 
     private void jcbmiBorderActionPerformed(final ActionEvent actionEvent) {
         changeSize();
+    }
+
+    private void jmiAboutActionPerformed(final ActionEvent actionEvent) {
+        new About(this, t.getHelpAboutTitle(), true, t);
     }
 
     private void jmiAboutSafetyLevelsActionPerformed(final ActionEvent actionEvent) {

@@ -1,11 +1,12 @@
 package nwawsoft.pwng.model.language;
 
 import nwawsoft.pwng.exceptions.UnknownLanguageException;
+import nwawsoft.pwng.model.BuildData;
 
 import static nwawsoft.util.realworldlanguage.MutatedVowels.*;
 
 public class Translation {
-    private Language l;
+    private final Language l;
 
     // Preset window related text
     private String presetGeneralSettingsTitle;
@@ -17,9 +18,12 @@ public class Translation {
     private String title;
     private String longTitle;
 
-    // Help window related text
+    // Menu bar related text
     private String helpTitle;
+    private String helpAboutTitle;
     private String helpSecurityLevelsTitle;
+
+    // Security levels window related text
     private String helpSecurityLevelsLongTitle;
     private String helpPasswordLevel1;
     private String helpPasswordLevel2;
@@ -27,6 +31,9 @@ public class Translation {
     private String helpPasswordLevel4;
     private String helpPasswordLevel5;
     private String helpCharacterTypes;
+
+    // About window related text
+    private String aboutText;
 
     public Translation(final Language l) {
         this.l = l;
@@ -54,19 +61,33 @@ public class Translation {
             presetCharacterSet = "Character set";
             presetStart = "Start";
             helpTitle = "Help";
+            helpAboutTitle = "About pwng";
             helpSecurityLevelsTitle = "Security levels";
             helpSecurityLevelsLongTitle = "Explanation of security levels";
-            helpPasswordLevel1 = "<HTML><u>Password level 1:</u><BR>  - At least 6 characters</HTML>";
-            helpPasswordLevel2 = "<HTML><u>Password level 2:</u><BR>  - At least 8 characters" +
+            helpPasswordLevel1 = "<HTML><u>Password level 1:</u>" +
+                    "<BR>  - At least 6 characters</HTML>";
+            helpPasswordLevel2 = "<HTML><u>Password level 2:</u>" +
+                    "<BR>  - At least 8 characters" +
                     "<BR>  - At least 2 character types</HTML>";
-            helpPasswordLevel3 = "<HTML><u>Password level 3:</u><BR>  - At least 10 characters" +
+            helpPasswordLevel3 = "<HTML><u>Password level 3:</u>" +
+                    "<BR>  - At least 10 characters" +
                     "<BR>  - At least 3 character types</HTML>";
-            helpPasswordLevel4 = "<HTML><u>Password level 4:</u><BR>  - At least 12 characters" +
+            helpPasswordLevel4 = "<HTML><u>Password level 4:</u>" +
+                    "<BR>  - At least 12 characters" +
                     "<BR>  - All 4 character types</HTML>";
-            helpPasswordLevel5 = "<HTML><u>Password level 5:</u><BR>  - At least 14 characters" +
+            helpPasswordLevel5 = "<HTML><u>Password level 5:</u>" +
+                    "<BR>  - At least 14 characters" +
                     "<BR>  - All 4 character types<BR>  - At least 8 changes of character types</HTML>";
             helpCharacterTypes = "<HTML>A \"character type\" means one of these 4 categories: Upper case letters, " +
-                    "lower case letters, digits, special characters.<HTML>";
+                    "lower case letters, digits, special characters.</HTML>";
+            aboutText = "<HTML>pwng (password-next-gen)" +
+                    "<BR>version " + BuildData.getFullVersion() +
+                    "<BR>by nwawsoft" +
+                    "<BR>" +
+                    "<BR>Newest version at" +
+                    "<BR><a href=\"https://www.github.com/nwawrzyniak/password-next-gen/\">GitHub</a>" +
+                    "<BR>and" +
+                    "<BR><a href=\"https://pwng.nwawsoft.com/\">pwng.nwawsoft.com</a></HTML>";
         } else if (l.equals(Language.GERMAN)) {
             longTitle = title + " - Dein n" + ae + "chster Passwort-Generator";
             presetGeneralSettingsTitle = "Allgemeine Einstellungen";
@@ -74,19 +95,34 @@ public class Translation {
             presetCharacterSet = "Zeichensatz";
             presetStart = "Start";
             helpTitle = "Hilfe";
+            helpAboutTitle = uE + "ber pwng";
             helpSecurityLevelsTitle = "Sicherheitsstufen";
             helpSecurityLevelsLongTitle = "Erkl" + ae + "rung der Sicherheitsstufen";
-            helpPasswordLevel1 = "<HTML><u>Passwortstufe 1:</u><BR>  - Mindestens 6 Zeichen</HTML>";
-            helpPasswordLevel2 = "<HTML><u>Passwortstufe 2:</u><BR>  - Mindestens 8 Zeichen" +
+            helpPasswordLevel1 = "<HTML><u>Passwortstufe 1:</u>" +
+                    "<BR>  - Mindestens 6 Zeichen</HTML>";
+            helpPasswordLevel2 = "<HTML><u>Passwortstufe 2:</u>" +
+                    "<BR>  - Mindestens 8 Zeichen" +
                     "<BR>  - Mindestens 2 Zeichentypen</HTML>";
-            helpPasswordLevel3 = "<HTML><u>Passwortstufe 3:</u><BR>  - Mindestens 10 Zeichen" +
+            helpPasswordLevel3 = "<HTML><u>Passwortstufe 3:</u>" +
+                    "<BR>  - Mindestens 10 Zeichen" +
                     "<BR>  - Mindestens 3 Zeichentypen</HTML>";
-            helpPasswordLevel4 = "<HTML><u>Passwortstufe 4:</u><BR>  - Mindestens 12 Zeichen" +
+            helpPasswordLevel4 = "<HTML><u>Passwortstufe 4:</u>" +
+                    "<BR>  - Mindestens 12 Zeichen" +
                     "<BR>  - Alle Zeichentypen</HTML>";
-            helpPasswordLevel5 = "<HTML><u>Passwortstufe 5:</u><BR>  - Mindestens 14 Zeichen" +
-                    "<BR>  - Alle 4 Zeichentypen<BR>  - Mindestens 8 Wechsel zwischen Zeichentypen</HTML>";
+            helpPasswordLevel5 = "<HTML><u>Passwortstufe 5:</u>" +
+                    "<BR>  - Mindestens 14 Zeichen" +
+                    "<BR>  - Alle 4 Zeichentypen" +
+                    "<BR>  - Mindestens 8 Wechsel zwischen Zeichentypen</HTML>";
             helpCharacterTypes = "<HTML>Es gibt folgende 4 Zeichentypen: Gro" + ss + "- und Kleinbuchstaben, Zahlen " +
-                    "und Sonderzeichen.<HTML>";
+                    "und Sonderzeichen.</HTML>";
+            aboutText = "<HTML>pwng (password-next-gen)" +
+                    "<BR>Version " + BuildData.getFullVersion() +
+                    "<BR>von nwawsoft" +
+                    "<BR>" +
+                    "<BR>Aktuelleste Version unter" +
+                    "<BR><a href=\"https://www.github.com/nwawrzyniak/password-next-gen/\">GitHub</a>" +
+                    "<BR>und" +
+                    "<BR><a href=\"https://pwng.nwawsoft.com/\">pwng.nwawsoft.com</a></HTML>";
         } else {
             throw new UnknownLanguageException(l);
         }
@@ -96,7 +132,6 @@ public class Translation {
         return l;
     }
 
-    // Preset window related text
     public String getPresetGeneralSettingsTitle() {
         return presetGeneralSettingsTitle;
     }
@@ -113,7 +148,6 @@ public class Translation {
         return presetStart;
     }
 
-    // MainFrame window related text
     public String getTitle() {
         return title;
     }
@@ -122,9 +156,12 @@ public class Translation {
         return longTitle;
     }
 
-    // Help window related text
     public String getHelpTitle() {
         return helpTitle;
+    }
+
+    public String getHelpAboutTitle() {
+        return helpAboutTitle;
     }
 
     public String getHelpSecurityLevelsTitle() {
@@ -157,5 +194,9 @@ public class Translation {
 
     public String getHelpCharacterTypes() {
         return helpCharacterTypes;
+    }
+
+    public String getAboutText() {
+        return aboutText;
     }
 }
