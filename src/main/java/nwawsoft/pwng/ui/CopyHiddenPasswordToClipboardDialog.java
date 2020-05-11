@@ -1,11 +1,11 @@
 package nwawsoft.pwng.ui;
 
 import nwawsoft.util.tools.ClipboardManager;
-import nwawsoft.util.tools.DebugPrinter;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class CopyHiddenPasswordToClipboardDialog extends JDialog {
     private JPanel contentPane;

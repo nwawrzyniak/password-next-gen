@@ -5,8 +5,8 @@ import nwawsoft.pwng.exceptions.UnknownLanguageException;
 import nwawsoft.pwng.model.Settings;
 import nwawsoft.pwng.model.language.Language;
 import nwawsoft.pwng.model.language.Translation;
-import nwawsoft.util.ui.ComponentFunctions;
 import nwawsoft.util.natives.StringFunctions;
+import nwawsoft.util.ui.ComponentFunctions;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,13 +16,13 @@ public class Preset extends JFrame {
     private final JComboBox<String> jcbLanguage = new JComboBox<>();
     // all entries are ordered by amount of chars in set in ascending order
     private final JComboBox<String> jcbCharSet = new JComboBox<>();
+    private final JLabel jlblLanguage;
+    private final JLabel jlblCharacterSet;
+    private final JButton jbtnStart;
     private String charSetString;
     private boolean easyBool = false;
     private boolean optimizedBool = true;
     private boolean fullBool = false;
-    private final JLabel jlblLanguage;
-    private final JLabel jlblCharacterSet;
-    private final JButton jbtnStart;
     private Settings s;
     private Translation t;
 

@@ -3,8 +3,8 @@ package nwawsoft.pwng.model;
 import nwawsoft.pwng.exceptions.LogicErrorException;
 import nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
 import nwawsoft.util.natives.CharFunctions;
-import nwawsoft.util.tools.DebugPrinter;
 import nwawsoft.util.natives.StringFunctions;
+import nwawsoft.util.tools.DebugPrinter;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -88,7 +88,7 @@ public class Rating {
      * Checks whether the specified String uses x or more different character types.
      *
      * @param input the String to check.
-     * @param x the amount of character types required to pass.
+     * @param x     the amount of character types required to pass.
      * @return true if the required amount of different character types was reached or if x is 0. Else false.
      */
     public boolean hasTypes(final String input, final int x) throws LogicErrorException {
@@ -187,7 +187,7 @@ public class Rating {
      *
      * @param input a password to check.
      * @return true if password level is at least 5. Else false.
-     * @throws LogicErrorException never
+     * @throws LogicErrorException           never
      * @throws UnknownCharacterTypeException if a char in input is neither a letter, digit or special character.
      */
     public boolean level5Criteria(final String input) throws UnknownCharacterTypeException, LogicErrorException {

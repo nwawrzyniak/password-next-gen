@@ -17,8 +17,14 @@ public class Translation {
     // MainFrame window related text
     private String title;
     private String longTitle;
+    private String mainGenerate;
+    private String mainImprovements;
 
     // Menu bar related text
+    private String menuLanguageConfig;
+    private String menuOptions;
+    private String menuChecklist;
+    private String menuHidden;
     private String helpTitle;
     private String helpAboutTitle;
     private String helpSecurityLevelsTitle;
@@ -34,6 +40,11 @@ public class Translation {
 
     // About window related text
     private String aboutText;
+
+    // Password rating related text
+    private String levelSecurityLevel;
+    private String levelBad;
+    private String levelDictionary;
 
     public Translation(final Language l) {
         this.l = l;
@@ -55,11 +66,27 @@ public class Translation {
         title = "Password Next Gen";
         // Language-specific Strings
         if (l.equals(Language.ENGLISH)) {
-            longTitle = title + " - Your Password's Next Generator";
             presetGeneralSettingsTitle = "General Settings";
             presetLanguage = "Language";
             presetCharacterSet = "Character set";
             presetStart = "Start";
+            longTitle = title + " - Your Password's Next Generator";
+            mainGenerate = "Generate";
+            mainImprovements = "<HTML>Use lower case letters" +
+                    "<BR>" +
+                    "<BR>Use upper case letters" +
+                    "<BR>" +
+                    "<BR>Use special characters" +
+                    "<BR>" +
+                    "<BR>Use digits" +
+                    "<BR>" +
+                    "<BR>Use 14 characters" +
+                    "<BR>" +
+                    "<BR>Have 8 character type changes";
+            menuLanguageConfig = "General Settings";
+            menuOptions = "Settings";
+            menuChecklist = "Checklist";
+            menuHidden = "Hide password";
             helpTitle = "Help";
             helpAboutTitle = "About pwng";
             helpSecurityLevelsTitle = "Security levels";
@@ -88,12 +115,31 @@ public class Translation {
                     "<BR><a href=\"https://www.github.com/nwawrzyniak/password-next-gen/\">GitHub</a>" +
                     "<BR>and" +
                     "<BR><a href=\"https://pwng.nwawsoft.com/\">pwng.nwawsoft.com</a></HTML>";
+            levelSecurityLevel = "Security level is ";
+            levelBad = "The password is horribly bad.";
+            levelDictionary = "Parts of your password are in the dictionary.";
         } else if (l.equals(Language.GERMAN)) {
-            longTitle = title + " - Dein n" + ae + "chster Passwort-Generator";
             presetGeneralSettingsTitle = "Allgemeine Einstellungen";
             presetLanguage = "Sprache";
             presetCharacterSet = "Zeichensatz";
             presetStart = "Start";
+            longTitle = title + " - Dein n" + ae + "chster Passwort-Generator";
+            mainGenerate = "Generieren";
+            mainImprovements = "<HTML>Verwenden Sie Kleinbuchstaben" +
+                    "<BR>" +
+                    "<BR>Verwenden Sie Gro" + ss + "buchstaben" +
+                    "<BR>" +
+                    "<BR>Verwenden Sie Sonderzeichen" +
+                    "<BR>" +
+                    "<BR>Verwenden Sie Ziffern" +
+                    "<BR>" +
+                    "<BR>Verwenden Sie 14 Zeichen" +
+                    "<BR>" +
+                    "<BR>Verwenden Sie 8 Zeichentypwechsel";
+            menuLanguageConfig = "Allgemeine Einstellungen";
+            menuOptions = "Einstellungen";
+            menuChecklist = "Checkliste";
+            menuHidden = "Passwort verstecken";
             helpTitle = "Hilfe";
             helpAboutTitle = uE + "ber pwng";
             helpSecurityLevelsTitle = "Sicherheitsstufen";
@@ -123,6 +169,9 @@ public class Translation {
                     "<BR><a href=\"https://www.github.com/nwawrzyniak/password-next-gen/\">GitHub</a>" +
                     "<BR>und" +
                     "<BR><a href=\"https://pwng.nwawsoft.com/\">pwng.nwawsoft.com</a></HTML>";
+            levelSecurityLevel = "Sicherheitsstufe betr" + ae + "gt ";
+            levelBad = "Das Passwort ist furchtbar schlecht.";
+            levelDictionary = "Teile Ihres Passworts stehen im W" + oe + "rterbuch.";
         } else {
             throw new UnknownLanguageException(l);
         }
@@ -154,6 +203,30 @@ public class Translation {
 
     public String getLongTitle() {
         return longTitle;
+    }
+
+    public String getMainGenerate() {
+        return mainGenerate;
+    }
+
+    public String getMainImprovements() {
+        return mainImprovements;
+    }
+
+    public String getMenuLanguageConfig() {
+        return menuLanguageConfig;
+    }
+
+    public String getMenuOptions() {
+        return menuOptions;
+    }
+
+    public String getMenuChecklist() {
+        return menuChecklist;
+    }
+
+    public String getMenuHidden() {
+        return menuHidden;
     }
 
     public String getHelpTitle() {
@@ -198,5 +271,17 @@ public class Translation {
 
     public String getAboutText() {
         return aboutText;
+    }
+
+    public String getLevelSecurityLevel() {
+        return levelSecurityLevel;
+    }
+
+    public String getLevelBad() {
+        return levelBad;
+    }
+
+    public String getLevelDictionary() {
+        return levelDictionary;
     }
 }

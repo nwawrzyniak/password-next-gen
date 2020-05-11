@@ -7,7 +7,7 @@ public class UnknownCharacterTypeException extends Exception {
         DebugPrinter.dp("Unknown character type (neither a lower case letter, upper case letter, digit or special " +
                 "character.");
         DebugPrinter.dp("This is the character: " + c);
-        DebugPrinter.dp("This is the character's integer representation: " + (int)c);
+        DebugPrinter.dp("This is the character's integer representation: " + (int) c);
     }
 
     public UnknownCharacterTypeException() {

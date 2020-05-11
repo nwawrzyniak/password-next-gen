@@ -14,11 +14,7 @@ public class Starter {
         if (s.getShowPresetMask()) {
             new Preset(s, t);
         } else {
-            try {
-                new MainFrame(s, t);
-            } catch (UnknownLanguageException e) {
-                e.printStackTrace();
-            }
+            new MainFrame(s, t);
         }
     }
 }

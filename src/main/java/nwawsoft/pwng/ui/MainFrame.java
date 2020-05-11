@@ -3,31 +3,41 @@ package nwawsoft.pwng.ui;
 import nwawsoft.pwng.exceptions.LogicErrorException;
 import nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
 import nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
-import nwawsoft.pwng.exceptions.UnknownLanguageException;
-import nwawsoft.pwng.model.Settings;
 import nwawsoft.pwng.model.Generator;
-import nwawsoft.pwng.model.language.Language;
 import nwawsoft.pwng.model.Rating;
+import nwawsoft.pwng.model.Settings;
 import nwawsoft.pwng.model.language.Translation;
+import nwawsoft.util.natives.StringFunctions;
 import nwawsoft.util.tools.ClipboardManager;
 import nwawsoft.util.ui.ComponentFunctions;
-import nwawsoft.util.natives.StringFunctions;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-
-import static nwawsoft.util.realworldlanguage.MutatedVowels.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MainFrame extends JFrame {
+    private final JTextField jtxtInputField;
+    private final JPasswordField jpfInputField;
+    private final JTextField jtxtOutputField;
+    private final JCheckBoxMenuItem jcbmiHidden;
+    private final JLabel jlblCheck1;
+    private final JLabel jlblCheck2;
+    private final JLabel jlblCheck3;
+    private final JLabel jlblCheck4;
+    private final JLabel jlblCheck5;
+    private final JLabel jlblCheck6;
+    private final JLabel jlblMarker;
+    private final Settings s;
+    private final Translation t;
+    private final Generator g;
+    private final Rating r;
     private JTextField inputContainer;
-    private JTextField jtxtInputField;
-    private JPasswordField jpfInputField;
     private boolean passwordHidden = false;
-    private JTextField jtxtOutputField;
-    private JCheckBoxMenuItem jcbmiHidden;
     private int currentWindowWidth;
     private ImageIcon iiCross;
     private ImageIcon iiCheck;
@@ -36,29 +46,12 @@ public class MainFrame extends JFrame {
     private ImageIcon iiMoveUp;
     private ImageIcon iiClear;
     private ImageIcon iiToClipboard;
-    private JLabel jlblCheck1;
-    private JLabel jlblCheck2;
-    private JLabel jlblCheck3;
-    private JLabel jlblCheck4;
-    private JLabel jlblCheck5;
-    private JLabel jlblCheck6;
-    private JLabel jlblMarker;
-    private JButton jbtnUpperToClipboard;
-    private JButton jbtnClear;
-    private JButton jbtnLowerToClipboard;
-    private JButton jbtnMoveUp;
     private int levelValue;
-    private Settings s;
-    private Translation t;
-    private Language l;
-    private Generator g;
-    private Rating r;
 
-    public MainFrame(final Settings s, final Translation t) throws UnknownLanguageException {
+    public MainFrame(final Settings s, final Translation t) {
         super(t.getLongTitle());
         this.s = s;
         this.t = t;
-        l = t.getLanguage();
         this.g = new Generator(s.getCharacterSet());
         this.r = new Rating();
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -107,10 +100,10 @@ public class MainFrame extends JFrame {
         jlblCheck5 = new JLabel(iiCross);
         jlblCheck6 = new JLabel(iiCross);
         jlblMarker = new JLabel(iiMarker);
-        jbtnUpperToClipboard = new JButton(iiToClipboard);
-        jbtnClear = new JButton(iiClear);
-        jbtnLowerToClipboard = new JButton(iiToClipboard);
-        jbtnMoveUp = new JButton(iiMoveUp);
+        JButton jbtnUpperToClipboard = new JButton(iiToClipboard);
+        JButton jbtnClear = new JButton(iiClear);
+        JButton jbtnLowerToClipboard = new JButton(iiToClipboard);
+        JButton jbtnMoveUp = new JButton(iiMoveUp);
         jlblCheck1.setBounds(310, 46, 10, 10);
         cp.add(jlblCheck1);
         jlblCheck2.setBounds(310, 78, 10, 10);
@@ -128,82 +121,23 @@ public class MainFrame extends JFrame {
         cp.add(jlblBar);
         jlblMarker.setBounds(45, 155, 10, 10);
         cp.add(jlblMarker);
-        JLabel jlblImprovements = new JLabel();
-        if (l.equals(Language.ENGLISH)) {
-            jlblImprovements.setText("<HTML>Use lower case letters" +
-                    "<BR>" +
-                    "<BR>Use upper case letters" +
-                    "<BR>" +
-                    "<BR>Use special characters" +
-                    "<BR>" +
-                    "<BR>Use digits" +
-                    "<BR>" +
-                    "<BR>Use 14 characters" +
-                    "<BR>" +
-                    "<BR>Have 8 character type changes");
-        } else if (l.equals(Language.GERMAN)) {
-            jlblImprovements.setText("<HTML>Verwenden Sie Kleinbuchstaben" +
-                    "<BR>" +
-                    "<BR>Verwenden Sie Gro" + ss + "buchstaben" +
-                    "<BR>" +
-                    "<BR>Verwenden Sie Sonderzeichen" +
-                    "<BR>" +
-                    "<BR>Verwenden Sie Ziffern" +
-                    "<BR>" +
-                    "<BR>Verwenden Sie 14 Zeichen" +
-                    "<BR>" +
-                    "<BR>Verwenden Sie 8 Zeichentypwechsel");
-        }
+        JLabel jlblImprovements = new JLabel(t.getMainImprovements());
         jlblImprovements.setBounds(330, 0, 250, 260);
         cp.add(jlblImprovements);
-        if (l.equals(Language.ENGLISH)) {
-            jcbmiHidden = new JCheckBoxMenuItem("Hide password");
-        } else if (l.equals(Language.GERMAN)) {
-            jcbmiHidden = new JCheckBoxMenuItem("Passwort verstecken");
-        }
+        jcbmiHidden = new JCheckBoxMenuItem(t.getMenuHidden());
         jcbmiHidden.addActionListener(this::jcbmiHiddenActionPerformed);
-        JCheckBoxMenuItem jcbmiCriteria;
-        switch (l) {
-            case ENGLISH:
-                jcbmiCriteria = new JCheckBoxMenuItem("Checklist");
-                break;
-            case GERMAN:
-                jcbmiCriteria = new JCheckBoxMenuItem("Checkliste");
-                break;
-            default:
-                throw new UnknownLanguageException();
-        }
-        jcbmiCriteria.setState(true);
-        jcbmiCriteria.addActionListener(this::jcbmiBorderActionPerformed);
+        JCheckBoxMenuItem jcbmiChecklist = new JCheckBoxMenuItem(t.getMenuChecklist());
+        jcbmiChecklist.setState(true);
+        jcbmiChecklist.addActionListener(this::jcbmiChecklistActionPerformed);
         JMenuItem jmiAbout = new JMenuItem(t.getHelpAboutTitle());
         JMenuItem jmiSecurityLevels = new JMenuItem(t.getHelpSecurityLevelsTitle());
-        JMenu jmOptions = null;
-        switch (l) {
-            case ENGLISH:
-                jmOptions = new JMenu("Settings");
-                break;
-            case GERMAN:
-                jmOptions = new JMenu("Einstellungen");
-                break;
-        }
+        JMenu jmOptions = new JMenu(t.getMenuOptions());
         JMenu jmHelp = new JMenu(t.getHelpTitle());
-        JMenuItem jmiLanguageConfig;
-        switch (l) {
-            case ENGLISH:
-                jmiLanguageConfig = new JMenuItem("General Settings");
-                break;
-            case GERMAN:
-                jmiLanguageConfig = new JMenuItem("Allgemeine Einstellungen");
-                break;
-            default:
-                throw new UnknownLanguageException();
-        }
+        JMenuItem jmiLanguageConfig = new JMenuItem(t.getMenuLanguageConfig());
         jmiLanguageConfig.addActionListener(this::jmiLanguageConfigActionPerformed);
-        if (jmOptions != null) {
-            jmOptions.add(jmiLanguageConfig);
-            jmOptions.add(jcbmiHidden);
-            jmOptions.add(jcbmiCriteria);
-        }
+        jmOptions.add(jmiLanguageConfig);
+        jmOptions.add(jcbmiHidden);
+        jmOptions.add(jcbmiChecklist);
         jmHelp.add(jmiAbout);
         jmHelp.add(jmiSecurityLevels);
         JMenuBar jmbMainMenu = new JMenuBar();
@@ -212,7 +146,7 @@ public class MainFrame extends JFrame {
         cp.add(jmbMainMenu);
         jmbMainMenu.setBounds(0, 0, 4096, 25); // 4096 just means "big". resize window -> menu bar stretches
         jmiAbout.addActionListener(this::jmiAboutActionPerformed);
-        jmiSecurityLevels.addActionListener(this::jmiAboutSafetyLevelsActionPerformed);
+        jmiSecurityLevels.addActionListener(this::jmiSafetyLevelsActionPerformed);
         jtxtInputField = new JTextField();
         jtxtInputField.setBounds(10, 50, 220, 30);
         jtxtInputField.addKeyListener(kl);
@@ -241,14 +175,7 @@ public class MainFrame extends JFrame {
         jbtnMoveUp.addActionListener(this::jbtnMoveUpActionPerformed);
         cp.add(jbtnMoveUp);
         JButton jbtnCreateSafePW = new JButton();
-        switch (l) {
-            case ENGLISH:
-                jbtnCreateSafePW.setText("Generate");
-                break;
-            case GERMAN:
-                jbtnCreateSafePW.setText("Generieren");
-                break;
-        }
+        jbtnCreateSafePW.setText(t.getMainGenerate());
         jbtnCreateSafePW.setBounds(90, 180, 120, 40);
         jbtnCreateSafePW.addActionListener(this::jbtnCreateSafePWActionPerformed);
         cp.add(jbtnCreateSafePW);
@@ -312,7 +239,7 @@ public class MainFrame extends JFrame {
         }
     }
 
-    private void jcbmiBorderActionPerformed(final ActionEvent actionEvent) {
+    private void jcbmiChecklistActionPerformed(final ActionEvent actionEvent) {
         changeSize();
     }
 
@@ -320,49 +247,22 @@ public class MainFrame extends JFrame {
         new About(this, t.getHelpAboutTitle(), true, t);
     }
 
-    private void jmiAboutSafetyLevelsActionPerformed(final ActionEvent actionEvent) {
+    private void jmiSafetyLevelsActionPerformed(final ActionEvent actionEvent) {
         new Help(this, t.getHelpSecurityLevelsLongTitle(), true, t);
     }
 
-    private void printRating() throws UnknownLanguageException {
+    private void printRating() {
         String level;
         String password = inputContainer.getText();
-        switch (l) {
-            case ENGLISH:
-                level = "Security level is ";
-                break;
-            case GERMAN:
-                level = "Sicherheitsstufe betr" + ae + "gt ";
-                break;
-            default:
-                throw new UnknownLanguageException(l);
-        }
+        level = t.getLevelSecurityLevel();
         levelValue = r.getPasswordLevel(password);
         if (levelValue == 0) {
-            switch (l) {
-                case ENGLISH:
-                    level = "The password is horribly bad.";
-                    break;
-                case GERMAN:
-                    level = "Das Passwort ist furchtbar schlecht.";
-                    break;
-                default:
-                    throw new UnknownLanguageException(l);
-            }
+            level = t.getLevelBad();
         } else {
             level = level + levelValue + ".";
         }
         if (!r.dictionaryCheck(password)) {
-            switch (l) {
-                case ENGLISH:
-                    level = "Parts of your password are in the dictionary.";
-                    break;
-                case GERMAN:
-                    level = "Teile Ihres Passworts stehen im W" + oe + "rterbuch.";
-                    break;
-                default:
-                    throw new UnknownLanguageException(l);
-            }
+            level = t.getLevelDictionary();
         }
         jtxtOutputField.setText(level);
     }
@@ -415,11 +315,7 @@ public class MainFrame extends JFrame {
     }
 
     private void updatePasswordStrength() {
-        try {
-            printRating();
-        } catch (UnknownLanguageException e) {
-            e.printStackTrace();
-        }
+        printRating();
         updateIcons();
         jlblMarker.setBounds(45 + (levelValue * 40), 155, 10, 10);
     }

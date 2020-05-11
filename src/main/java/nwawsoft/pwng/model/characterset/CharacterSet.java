@@ -5,14 +5,14 @@ package nwawsoft.pwng.model.characterset;
  */
 public enum CharacterSet {
     /**
-     *  Contains the most characters out of all sets. These are all commonly used special characters, the digits from 0
-     *  to 9, all lower case letters and all upper case letters.
+     * Contains the most characters out of all sets. These are all commonly used special characters, the digits from 0
+     * to 9, all lower case letters and all upper case letters.
      */
     FULL,
 
     /**
-     *  Contains the most easily typeable characters on a QWERTZ keyboard. These are + # - . , < + the digits from 1 to
-     *  9, the small letters from a to z without l, the mutated vowels ä, ö, ü and the ß.
+     * Contains the most easily typeable characters on a QWERTZ keyboard. These are + # - . , < + the digits from 1 to
+     * 9, the small letters from a to z without l, the mutated vowels ä, ö, ü and the ß.
      */
     EASY_GERMAN,
 

@@ -1,8 +1,11 @@
 package nwawsoft.pwng.model;
 
-import nwawsoft.pwng.exceptions.*;
-import nwawsoft.pwng.model.characterset.*;
-import nwawsoft.pwng.model.language.*;
+import nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
+import nwawsoft.pwng.exceptions.UnknownLanguageException;
+import nwawsoft.pwng.model.characterset.CharacterSet;
+import nwawsoft.pwng.model.characterset.CharacterSetizer;
+import nwawsoft.pwng.model.language.Language;
+import nwawsoft.pwng.model.language.Languagizer;
 
 import java.io.*;
 
@@ -25,15 +28,6 @@ public class Settings {
         }
     }
 
-    private void setDefaults() {
-        if (l == null) {
-            l = Language.ENGLISH;
-        }
-        if (cs == null) {
-            cs = CharacterSet.OPTIMIZED;
-        }
-    }
-
     // ToDo: Doc
     public static void save(final String language, final String charSet) {
         try {
@@ -53,6 +47,7 @@ public class Settings {
 
     /**
      * Returns whether a config file is found at the default path ($user.home$/.pwng/settings.ini).
+     *
      * @return true if file was found. Else false.
      */
     public static boolean configFileFound() {
@@ -64,6 +59,15 @@ public class Settings {
     public static boolean configFileValid() {
         // ToDo: Rewrite
         return true;
+    }
+
+    private void setDefaults() {
+        if (l == null) {
+            l = Language.ENGLISH;
+        }
+        if (cs == null) {
+            cs = CharacterSet.OPTIMIZED;
+        }
     }
 
     // ToDo: Doc
