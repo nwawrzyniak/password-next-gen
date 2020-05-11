@@ -1,7 +1,7 @@
 package nwawsoft.pwng.exceptions;
 
 import nwawsoft.pwng.model.characterset.CharacterSet;
-import nwawsoft.util.DebugPrinter;
+import nwawsoft.util.tools.DebugPrinter;
 
 public class UnhandledCharacterSetException extends Exception {
     public UnhandledCharacterSetException(final CharacterSet cs) {

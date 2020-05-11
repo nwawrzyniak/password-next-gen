@@ -1,6 +1,6 @@
 package nwawsoft.pwng.exceptions;
 
-import nwawsoft.util.DebugPrinter;
+import nwawsoft.util.tools.DebugPrinter;
 
 public class JComboBoxReadException {
     public JComboBoxReadException(final String jcb) {

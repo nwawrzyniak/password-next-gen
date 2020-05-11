@@ -2,7 +2,7 @@ package nwawsoft.pwng.model.language;
 
 import nwawsoft.pwng.exceptions.UnknownLanguageException;
 
-import static nwawsoft.util.MutatedVowels.*;
+import static nwawsoft.util.realworldlanguage.MutatedVowels.*;
 
 public class Translation {
     private Language l;

@@ -1,7 +1,7 @@
 package nwawsoft.pwng.ui;
 
-import nwawsoft.util.ClipboardManager;
-import nwawsoft.util.DebugPrinter;
+import nwawsoft.util.tools.ClipboardManager;
+import nwawsoft.util.tools.DebugPrinter;
 
 import javax.swing.*;
 import java.awt.*;

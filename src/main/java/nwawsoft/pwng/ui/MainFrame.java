@@ -9,9 +9,9 @@ import nwawsoft.pwng.model.Generator;
 import nwawsoft.pwng.model.language.Language;
 import nwawsoft.pwng.model.Rating;
 import nwawsoft.pwng.model.language.Translation;
-import nwawsoft.util.ClipboardManager;
-import nwawsoft.util.ComponentFunctions;
-import nwawsoft.util.StringFunctions;
+import nwawsoft.util.tools.ClipboardManager;
+import nwawsoft.util.ui.ComponentFunctions;
+import nwawsoft.util.natives.StringFunctions;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -19,7 +19,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 
-import static nwawsoft.util.MutatedVowels.*;
+import static nwawsoft.util.realworldlanguage.MutatedVowels.*;
 
 public class MainFrame extends JFrame {
     private JTextField inputContainer;

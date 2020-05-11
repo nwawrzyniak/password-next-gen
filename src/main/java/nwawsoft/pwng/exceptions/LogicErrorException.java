@@ -1,6 +1,6 @@
 package nwawsoft.pwng.exceptions;
 
-import nwawsoft.util.DebugPrinter;
+import nwawsoft.util.tools.DebugPrinter;
 
 public class LogicErrorException extends Exception {
     public LogicErrorException(final String errorMessage) {

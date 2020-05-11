@@ -1,6 +1,6 @@
 package nwawsoft.pwng.model.characterset;
 
-import static nwawsoft.util.MutatedVowels.*;
+import static nwawsoft.util.realworldlanguage.MutatedVowels.*;
 
 /**
  * This is a factory class. To understand this class read the documentation of the enum CharacterSet.
