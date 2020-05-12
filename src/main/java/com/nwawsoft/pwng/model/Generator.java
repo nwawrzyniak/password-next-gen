@@ -12,9 +12,9 @@ import java.util.Random;
  * Handles the generation/creation of safe passwords. To generate a password you need to specify a CharacterSet.
  */
 public class Generator {
-    private Rating r;
-    private CharacterSet cs;
-    private char[] set;
+    private final Rating r;
+    private final CharacterSet cs;
+    private final char[] set;
 
     public Generator(final CharacterSet cs) {
         r = new Rating();
