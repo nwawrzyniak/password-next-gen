@@ -127,7 +127,7 @@ public class Rating {
         String password = input.toLowerCase();
         try {
             reader = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream
-                    ("/dictionary_min_5.txt")));
+                    ("/dictionaries/dictionary_min_5.txt")));
             while ((currentLine = reader.readLine()) != null) {
                 if (password.contains(currentLine)) {
                     return false;
