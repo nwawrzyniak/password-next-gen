@@ -1,10 +1,10 @@
-package nwawsoft.pwng.model;
+package com.nwawsoft.pwng.model;
 
 public class BuildData {
     private static final int mainVersion = 1;
     private static final int featureUpdate = 0;
     private static final int bugfixUpdate = 0;
-    private static final int buildNumber = 5; // counting since March 11, 2020.
+    private static final int buildNumber = 6; // counting since March 11, 2020.
 
     /**
      * Assembles and returns the version number of the current build.
@@ -30,6 +30,6 @@ public class BuildData {
      * @return a String representation of the version number and the build number of the current build.
      */
     public static String getFullVersion() {
-        return mainVersion + "." + featureUpdate + "." + bugfixUpdate + " (Build " + buildNumber + ")";
+        return getVersion() + " (Build " + buildNumber + ")";
     }
 }

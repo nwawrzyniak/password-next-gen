@@ -1,4 +1,4 @@
-package nwawsoft.pwng.model.characterset;
+package com.nwawsoft.pwng.model.characterset;
 
 /**
  * Enum

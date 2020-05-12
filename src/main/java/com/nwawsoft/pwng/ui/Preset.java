@@ -1,10 +1,10 @@
-package nwawsoft.pwng.ui;
+package com.nwawsoft.pwng.ui;
 
-import nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
-import nwawsoft.pwng.exceptions.UnknownLanguageException;
-import nwawsoft.pwng.model.Settings;
-import nwawsoft.pwng.model.language.Language;
-import nwawsoft.pwng.model.language.Translation;
+import com.nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
+import com.nwawsoft.pwng.exceptions.UnknownLanguageException;
+import com.nwawsoft.pwng.model.language.Language;
+import com.nwawsoft.pwng.model.Settings;
+import com.nwawsoft.pwng.model.language.Translation;
 import nwawsoft.util.natives.StringFunctions;
 import nwawsoft.util.ui.ComponentFunctions;
 

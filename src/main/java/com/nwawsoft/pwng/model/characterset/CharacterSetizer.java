@@ -1,6 +1,6 @@
-package nwawsoft.pwng.model.characterset;
+package com.nwawsoft.pwng.model.characterset;
 
-import nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
+import com.nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
 
 public class CharacterSetizer {
     public static CharacterSet toCharacterSet(final String characterSetString) throws UnhandledCharacterSetException {

@@ -1,7 +1,7 @@
-package nwawsoft.pwng.model;
+package com.nwawsoft.pwng.model;
 
-import nwawsoft.pwng.exceptions.LogicErrorException;
-import nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
+import com.nwawsoft.pwng.exceptions.LogicErrorException;
+import com.nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
 import nwawsoft.util.natives.CharFunctions;
 import nwawsoft.util.natives.StringFunctions;
 import nwawsoft.util.tools.DebugPrinter;

@@ -1,11 +1,11 @@
-package nwawsoft.pwng.model;
+package com.nwawsoft.pwng.model;
 
-import nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
-import nwawsoft.pwng.exceptions.UnknownLanguageException;
-import nwawsoft.pwng.model.characterset.CharacterSet;
-import nwawsoft.pwng.model.characterset.CharacterSetizer;
-import nwawsoft.pwng.model.language.Language;
-import nwawsoft.pwng.model.language.Languagizer;
+import com.nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
+import com.nwawsoft.pwng.exceptions.UnknownLanguageException;
+import com.nwawsoft.pwng.model.language.Language;
+import com.nwawsoft.pwng.model.language.Languagizer;
+import com.nwawsoft.pwng.model.characterset.CharacterSet;
+import com.nwawsoft.pwng.model.characterset.CharacterSetizer;
 
 import java.io.*;
 

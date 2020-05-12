@@ -1,6 +1,6 @@
-package nwawsoft.pwng.exceptions;
+package com.nwawsoft.pwng.exceptions;
 
-import nwawsoft.pwng.model.language.Language;
+import com.nwawsoft.pwng.model.language.Language;
 import nwawsoft.util.tools.DebugPrinter;
 
 public class UnknownLanguageException extends Exception {

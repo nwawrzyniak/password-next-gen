@@ -1,10 +1,9 @@
-package nwawsoft.pwng;
+package com.nwawsoft.pwng;
 
-import nwawsoft.pwng.exceptions.UnknownLanguageException;
-import nwawsoft.pwng.model.Settings;
-import nwawsoft.pwng.model.language.Translation;
-import nwawsoft.pwng.ui.MainFrame;
-import nwawsoft.pwng.ui.Preset;
+import com.nwawsoft.pwng.model.Settings;
+import com.nwawsoft.pwng.model.language.Translation;
+import com.nwawsoft.pwng.ui.Preset;
+import com.nwawsoft.pwng.ui.MainFrame;
 
 public class Starter {
 

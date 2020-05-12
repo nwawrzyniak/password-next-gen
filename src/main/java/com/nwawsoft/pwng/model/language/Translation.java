@@ -1,7 +1,7 @@
-package nwawsoft.pwng.model.language;
+package com.nwawsoft.pwng.model.language;
 
-import nwawsoft.pwng.exceptions.UnknownLanguageException;
-import nwawsoft.pwng.model.BuildData;
+import com.nwawsoft.pwng.exceptions.UnknownLanguageException;
+import com.nwawsoft.pwng.model.BuildData;
 
 import static nwawsoft.util.realworldlanguage.MutatedVowels.*;
 

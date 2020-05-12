@@ -1,4 +1,4 @@
-package nwawsoft.pwng.model.language;
+package com.nwawsoft.pwng.model.language;
 
 public enum Language {
     DUMMY(-1), ENGLISH(0), GERMAN(1);

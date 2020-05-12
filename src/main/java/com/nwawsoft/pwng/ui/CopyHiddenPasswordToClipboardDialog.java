@@ -1,4 +1,4 @@
-package nwawsoft.pwng.ui;
+package com.nwawsoft.pwng.ui;
 
 import nwawsoft.util.tools.ClipboardManager;
 

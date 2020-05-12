@@ -1,4 +1,4 @@
-package nwawsoft.pwng.exceptions;
+package com.nwawsoft.pwng.exceptions;
 
 import nwawsoft.util.tools.DebugPrinter;
 

@@ -1,12 +1,12 @@
-package nwawsoft.pwng.ui;
+package com.nwawsoft.pwng.ui;
 
-import nwawsoft.pwng.exceptions.LogicErrorException;
-import nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
-import nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
-import nwawsoft.pwng.model.Generator;
-import nwawsoft.pwng.model.Rating;
-import nwawsoft.pwng.model.Settings;
-import nwawsoft.pwng.model.language.Translation;
+import com.nwawsoft.pwng.exceptions.LogicErrorException;
+import com.nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
+import com.nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
+import com.nwawsoft.pwng.model.Generator;
+import com.nwawsoft.pwng.model.Rating;
+import com.nwawsoft.pwng.model.Settings;
+import com.nwawsoft.pwng.model.language.Translation;
 import nwawsoft.util.natives.StringFunctions;
 import nwawsoft.util.tools.ClipboardManager;
 import nwawsoft.util.ui.ComponentFunctions;

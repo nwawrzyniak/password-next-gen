@@ -1,10 +1,10 @@
-package nwawsoft.pwng.model;
+package com.nwawsoft.pwng.model;
 
-import nwawsoft.pwng.exceptions.LogicErrorException;
-import nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
-import nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
-import nwawsoft.pwng.model.characterset.CharacterSet;
-import nwawsoft.pwng.model.characterset.CharacterSetFactory;
+import com.nwawsoft.pwng.exceptions.LogicErrorException;
+import com.nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
+import com.nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
+import com.nwawsoft.pwng.model.characterset.CharacterSet;
+import com.nwawsoft.pwng.model.characterset.CharacterSetFactory;
 
 import java.util.Random;
 
