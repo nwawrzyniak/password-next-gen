@@ -253,7 +253,7 @@ public class MainFrame extends JFrame {
         new Help(this, t.getHelpSecurityLevelsLongTitle(), true, t);
     }
 
-    private void printRating() {
+    private void showRating() {
         String level;
         String password = inputContainer.getText();
         level = t.getLevelSecurityLevel();
@@ -317,7 +317,7 @@ public class MainFrame extends JFrame {
     }
 
     private void updatePasswordStrength() {
-        printRating();
+        showRating();
         updateIcons();
         jlblMarker.setBounds(45 + (levelValue * 40), 155, 10, 10);
     }
