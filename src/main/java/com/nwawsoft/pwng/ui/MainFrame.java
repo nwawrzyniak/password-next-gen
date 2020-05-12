@@ -25,12 +25,7 @@ public class MainFrame extends JFrame {
     private final JPasswordField jpfInputField;
     private final JTextField jtxtOutputField;
     private final JCheckBoxMenuItem jcbmiHidden;
-    private final JLabel jlblCheck1;
-    private final JLabel jlblCheck2;
-    private final JLabel jlblCheck3;
-    private final JLabel jlblCheck4;
-    private final JLabel jlblCheck5;
-    private final JLabel jlblCheck6;
+    private final JLabel[] jlblChecks = new JLabel[6];
     private final JLabel jlblMarker;
     private final Settings s;
     private final Translation t;
@@ -47,6 +42,10 @@ public class MainFrame extends JFrame {
     private ImageIcon iiClear;
     private ImageIcon iiToClipboard;
     private int levelValue;
+    private final JButton jbtnLowerToClipboard;
+    private final JButton jbtnUpperToClipboard;
+    private final JButton jbtnMoveUp;
+    private final JButton jbtnClear;
 
     public MainFrame(final Settings s, final Translation t) {
         super(t.getLongTitle());
@@ -62,19 +61,6 @@ public class MainFrame extends JFrame {
         ComponentFunctions.center(this);
         Container cp = getContentPane();
         cp.setLayout(null);
-        KeyListener kl = new KeyListener() {
-            public void keyTyped(KeyEvent e) {
-            }
-
-            public void keyPressed(KeyEvent e) {
-            }
-
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() != KeyEvent.VK_ENTER) {
-                    updatePasswordStrength();
-                }
-            }
-        };
         try {
             InputStream iiCrossStream = getClass().getResourceAsStream("/graphics/cross.png");
             iiCross = new ImageIcon(ImageIO.read(iiCrossStream));
@@ -93,29 +79,18 @@ public class MainFrame extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        jlblCheck1 = new JLabel(iiCross);
-        jlblCheck2 = new JLabel(iiCross);
-        jlblCheck3 = new JLabel(iiCross);
-        jlblCheck4 = new JLabel(iiCross);
-        jlblCheck5 = new JLabel(iiCross);
-        jlblCheck6 = new JLabel(iiCross);
+        for (int i = 0; i < jlblChecks.length; i++) {
+            jlblChecks[i] = new JLabel(iiCross);
+        }
         jlblMarker = new JLabel(iiMarker);
-        JButton jbtnUpperToClipboard = new JButton(iiToClipboard);
-        JButton jbtnClear = new JButton(iiClear);
-        JButton jbtnLowerToClipboard = new JButton(iiToClipboard);
-        JButton jbtnMoveUp = new JButton(iiMoveUp);
-        jlblCheck1.setBounds(310, 46, 10, 10);
-        cp.add(jlblCheck1);
-        jlblCheck2.setBounds(310, 78, 10, 10);
-        cp.add(jlblCheck2);
-        jlblCheck3.setBounds(310, 110, 10, 10);
-        cp.add(jlblCheck3);
-        jlblCheck4.setBounds(310, 142, 10, 10);
-        cp.add(jlblCheck4);
-        jlblCheck5.setBounds(310, 174, 10, 10);
-        cp.add(jlblCheck5);
-        jlblCheck6.setBounds(310, 206, 10, 10);
-        cp.add(jlblCheck6);
+        jbtnUpperToClipboard = new JButton(iiToClipboard);
+        jbtnLowerToClipboard = new JButton(iiToClipboard);
+        jbtnClear = new JButton(iiClear);
+        jbtnMoveUp = new JButton(iiMoveUp);
+        for (int i = 0; i < jlblChecks.length; i++) {
+            jlblChecks[i].setBounds(310, 46 + (32 * i), 10, 10);
+            cp.add(jlblChecks[i]);
+        }
         JLabel jlblBar = new JLabel(iiBar);
         jlblBar.setBounds(50, 130, 200, 20);
         cp.add(jlblBar);
@@ -147,13 +122,29 @@ public class MainFrame extends JFrame {
         jmbMainMenu.setBounds(0, 0, 4096, 25); // 4096 just means "big". resize window -> menu bar stretches
         jmiAbout.addActionListener(this::jmiAboutActionPerformed);
         jmiSecurityLevels.addActionListener(this::jmiSafetyLevelsActionPerformed);
+        KeyListener kl = new KeyListener() {
+            public void keyTyped(KeyEvent e) {}
+            public void keyPressed(KeyEvent e) {}
+            public void keyReleased(KeyEvent e) {
+                boolean isEmpty = inputContainer.getText().equals("");
+                if (e.getKeyCode() != KeyEvent.VK_ENTER) {
+                    updatePasswordStrength();
+                    jbtnLowerToClipboard.setEnabled(false);
+                    jbtnMoveUp.setEnabled(false);
+                }
+                jbtnUpperToClipboard.setEnabled(!isEmpty);
+                jbtnClear.setEnabled(!isEmpty);
+            }
+        };
         jtxtInputField = new JTextField();
         jtxtInputField.setBounds(10, 50, 220, 30);
         jtxtInputField.addKeyListener(kl);
         cp.add(jtxtInputField);
+        jbtnUpperToClipboard.setEnabled(false);
         jbtnUpperToClipboard.setBounds(235, 50, 30, 30);
         jbtnUpperToClipboard.addActionListener(this::jbtnUpperToClipboardActionPerformed);
         cp.add(jbtnUpperToClipboard);
+        jbtnClear.setEnabled(false);
         jbtnClear.setBounds(270, 50, 30, 30);
         jbtnClear.addActionListener(this::jbtnClearActionPerformed);
         cp.add(jbtnClear);
@@ -174,18 +165,23 @@ public class MainFrame extends JFrame {
         jbtnMoveUp.setBounds(270, 90, 30, 30);
         jbtnMoveUp.addActionListener(this::jbtnMoveUpActionPerformed);
         cp.add(jbtnMoveUp);
-        JButton jbtnCreateSafePW = new JButton();
-        jbtnCreateSafePW.setText(t.getMainGenerate());
-        jbtnCreateSafePW.setBounds(90, 180, 120, 40);
-        jbtnCreateSafePW.addActionListener(this::jbtnCreateSafePWActionPerformed);
-        cp.add(jbtnCreateSafePW);
-        getRootPane().setDefaultButton(jbtnCreateSafePW);
+        JButton jbtnGenerate = new JButton();
+        jbtnGenerate.setText(t.getMainGenerate());
+        jbtnGenerate.setBounds(90, 180, 120, 40);
+        jbtnGenerate.addActionListener(this::jbtnGenerateActionPerformed);
+        cp.add(jbtnGenerate);
+        jbtnLowerToClipboard.setEnabled(false);
+        jbtnUpperToClipboard.setEnabled(false);
+        jbtnMoveUp.setEnabled(false);
+        getRootPane().setDefaultButton(jbtnGenerate);
         setResizable(false);
         setVisible(true);
     }
 
     private void jbtnClearActionPerformed(final ActionEvent actionEvent) {
         inputContainer.setText("");
+        jbtnUpperToClipboard.setEnabled(false);
+        jbtnClear.setEnabled(false);
     }
 
     private void jbtnUpperToClipboardActionPerformed(final ActionEvent actionEvent) {
@@ -205,7 +201,11 @@ public class MainFrame extends JFrame {
     }
 
     private void jbtnMoveUpActionPerformed(final ActionEvent actionEvent) {
+        jbtnMoveUp.setEnabled(false);
         inputContainer.setText(jtxtOutputField.getText());
+        jbtnLowerToClipboard.setEnabled(false);
+        jbtnUpperToClipboard.setEnabled(true);
+        jbtnClear.setEnabled(true);
         updatePasswordStrength();
     }
 
@@ -214,12 +214,14 @@ public class MainFrame extends JFrame {
         dispose();
     }
 
-    private void jbtnCreateSafePWActionPerformed(final ActionEvent actionEvent) {
+    private void jbtnGenerateActionPerformed(final ActionEvent actionEvent) {
         try {
             jtxtOutputField.setText(g.create());
         } catch (UnhandledCharacterSetException | LogicErrorException | UnknownCharacterTypeException e) {
             e.printStackTrace();
         }
+        jbtnMoveUp.setEnabled(true);
+        jbtnLowerToClipboard.setEnabled(true);
     }
 
     private void jcbmiHiddenActionPerformed(final ActionEvent actionEvent) {
@@ -279,35 +281,35 @@ public class MainFrame extends JFrame {
 
     private void updateIcons() {
         if (StringFunctions.containsLowerCaseCharacters(inputContainer.getText())) {
-            jlblCheck1.setIcon(iiCheck);
+            jlblChecks[0].setIcon(iiCheck);
         } else {
-            jlblCheck1.setIcon(iiCross);
+            jlblChecks[0].setIcon(iiCross);
         }
         if (StringFunctions.containsUpperCaseCharacters(inputContainer.getText())) {
-            jlblCheck2.setIcon(iiCheck);
+            jlblChecks[1].setIcon(iiCheck);
         } else {
-            jlblCheck2.setIcon(iiCross);
+            jlblChecks[1].setIcon(iiCross);
         }
         if (StringFunctions.containsSpecialCharacters(inputContainer.getText())) {
-            jlblCheck3.setIcon(iiCheck);
+            jlblChecks[2].setIcon(iiCheck);
         } else {
-            jlblCheck3.setIcon(iiCross);
+            jlblChecks[2].setIcon(iiCross);
         }
         if (StringFunctions.containsDigits(inputContainer.getText())) {
-            jlblCheck4.setIcon(iiCheck);
+            jlblChecks[3].setIcon(iiCheck);
         } else {
-            jlblCheck4.setIcon(iiCross);
+            jlblChecks[3].setIcon(iiCross);
         }
         if (inputContainer.getText().length() >= 14) {
-            jlblCheck5.setIcon(iiCheck);
+            jlblChecks[4].setIcon(iiCheck);
         } else {
-            jlblCheck5.setIcon(iiCross);
+            jlblChecks[4].setIcon(iiCross);
         }
         try {
             if (Rating.has8changes(inputContainer.getText())) {
-                jlblCheck6.setIcon(iiCheck);
+                jlblChecks[5].setIcon(iiCheck);
             } else {
-                jlblCheck6.setIcon(iiCross);
+                jlblChecks[5].setIcon(iiCross);
             }
         } catch (UnknownCharacterTypeException e) {
             e.printStackTrace();
