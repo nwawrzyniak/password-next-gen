@@ -19,6 +19,9 @@ public class Translation {
     private String longTitle;
     private String mainGenerate;
     private String mainImprovements;
+    private String mainClipboardText;
+    private String mainMoveUpText;
+    private String mainClearText;
 
     // Menu bar related text
     private String menuLanguageConfig;
@@ -83,6 +86,9 @@ public class Translation {
                     "<BR>Use 14 characters" +
                     "<BR>" +
                     "<BR>Have 8 character type changes";
+            mainClipboardText = "Copy password to clipboard";
+            mainMoveUpText = "Move password to input field and rate";
+            mainClearText = "Clear input field";
             menuLanguageConfig = "General Settings";
             menuOptions = "Settings";
             menuChecklist = "Checklist";
@@ -136,6 +142,9 @@ public class Translation {
                     "<BR>Verwenden Sie 14 Zeichen" +
                     "<BR>" +
                     "<BR>Verwenden Sie 8 Zeichentypwechsel";
+            mainClipboardText = "Passwort in die Zwischenablage kopieren";
+            mainMoveUpText = "Passwort in das Eingabefeld verschieben und bewerten";
+            mainClearText = "Eingabefeld leeren";
             menuLanguageConfig = "Allgemeine Einstellungen";
             menuOptions = "Einstellungen";
             menuChecklist = "Checkliste";
@@ -211,6 +220,18 @@ public class Translation {
 
     public String getMainImprovements() {
         return mainImprovements;
+    }
+
+    public String getMainClipboardText() {
+        return mainClipboardText;
+    }
+
+    public String getMainMoveUpText() {
+        return mainMoveUpText;
+    }
+
+    public String getMainClearText() {
+        return mainClearText;
     }
 
     public String getMenuLanguageConfig() {

@@ -154,6 +154,7 @@ public class MainFrame extends JFrame {
         jpfInputField.addKeyListener(kl);
         cp.add(jpfInputField);
         inputContainer = jtxtInputField;
+        inputContainer.setHorizontalAlignment(JTextField.CENTER);
         jtxtOutputField = new JTextField();
         jtxtOutputField.setBounds(10, 90, 220, 30);
         jtxtOutputField.setEditable(false);
@@ -173,6 +174,10 @@ public class MainFrame extends JFrame {
         jbtnLowerToClipboard.setEnabled(false);
         jbtnUpperToClipboard.setEnabled(false);
         jbtnMoveUp.setEnabled(false);
+        jbtnLowerToClipboard.setToolTipText(t.getMainClipboardText());
+        jbtnUpperToClipboard.setToolTipText(t.getMainClipboardText());
+        jbtnMoveUp.setToolTipText(t.getMainMoveUpText());
+        jbtnClear.setToolTipText(t.getMainClearText());
         getRootPane().setDefaultButton(jbtnGenerate);
         setResizable(false);
         setVisible(true);
