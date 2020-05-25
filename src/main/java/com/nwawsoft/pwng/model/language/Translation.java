@@ -3,7 +3,7 @@ package com.nwawsoft.pwng.model.language;
 import com.nwawsoft.pwng.exceptions.UnknownLanguageException;
 import com.nwawsoft.pwng.model.BuildData;
 
-import static nwawsoft.util.realworldlanguage.MutatedVowels.*;
+import static com.nwawsoft.util.realworldlanguage.MutatedVowels.*;
 
 public class Translation {
     private final Language l;

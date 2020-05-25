@@ -2,9 +2,9 @@ package com.nwawsoft.pwng.model;
 
 import com.nwawsoft.pwng.exceptions.LogicErrorException;
 import com.nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
-import nwawsoft.util.natives.CharFunctions;
-import nwawsoft.util.natives.StringFunctions;
-import nwawsoft.util.tools.DebugPrinter;
+import com.nwawsoft.util.natives.CharFunctions;
+import com.nwawsoft.util.natives.StringFunctions;
+import com.nwawsoft.util.tools.DebugPrinter;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

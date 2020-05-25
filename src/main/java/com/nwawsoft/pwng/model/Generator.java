@@ -1,7 +1,6 @@
 package com.nwawsoft.pwng.model;
 
 import com.nwawsoft.pwng.exceptions.LogicErrorException;
-import com.nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
 import com.nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
 import com.nwawsoft.pwng.model.characterset.CharacterSet;
 

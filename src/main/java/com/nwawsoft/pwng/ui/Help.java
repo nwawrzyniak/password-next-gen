@@ -1,7 +1,7 @@
 package com.nwawsoft.pwng.ui;
 
 import com.nwawsoft.pwng.model.language.Translation;
-import nwawsoft.util.ui.ComponentFunctions;
+import com.nwawsoft.util.ui.ComponentFunctions;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,6 @@
 package com.nwawsoft.pwng.ui;
 
-import nwawsoft.util.tools.ClipboardManager;
+import com.nwawsoft.util.tools.ClipboardManager;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;

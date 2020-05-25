@@ -1,6 +1,5 @@
 package com.nwawsoft.pwng.model;
 
-import com.nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
 import com.nwawsoft.pwng.exceptions.UnknownLanguageException;
 import com.nwawsoft.pwng.model.language.Language;
 import com.nwawsoft.pwng.model.language.Languagizer;

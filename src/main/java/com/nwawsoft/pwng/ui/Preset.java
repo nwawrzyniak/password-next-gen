@@ -4,8 +4,8 @@ import com.nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
 import com.nwawsoft.pwng.model.language.Language;
 import com.nwawsoft.pwng.model.Settings;
 import com.nwawsoft.pwng.model.language.Translation;
-import nwawsoft.util.natives.StringFunctions;
-import nwawsoft.util.ui.ComponentFunctions;
+import com.nwawsoft.util.natives.StringFunctions;
+import com.nwawsoft.util.ui.ComponentFunctions;
 
 import javax.swing.*;
 import java.awt.*;

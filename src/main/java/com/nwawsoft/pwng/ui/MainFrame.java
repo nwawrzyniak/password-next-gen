@@ -1,15 +1,14 @@
 package com.nwawsoft.pwng.ui;
 
 import com.nwawsoft.pwng.exceptions.LogicErrorException;
-import com.nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
 import com.nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
 import com.nwawsoft.pwng.model.Generator;
 import com.nwawsoft.pwng.model.Rating;
 import com.nwawsoft.pwng.model.Settings;
 import com.nwawsoft.pwng.model.language.Translation;
-import nwawsoft.util.natives.StringFunctions;
-import nwawsoft.util.tools.ClipboardManager;
-import nwawsoft.util.ui.ComponentFunctions;
+import com.nwawsoft.util.natives.StringFunctions;
+import com.nwawsoft.util.tools.ClipboardManager;
+import com.nwawsoft.util.ui.ComponentFunctions;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
