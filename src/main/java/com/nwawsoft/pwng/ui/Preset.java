@@ -1,6 +1,5 @@
 package com.nwawsoft.pwng.ui;
 
-import com.nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
 import com.nwawsoft.pwng.model.language.Language;
 import com.nwawsoft.pwng.model.Settings;
 import com.nwawsoft.pwng.model.language.Translation;
@@ -13,7 +12,6 @@ import java.awt.*;
 public class Preset extends JFrame {
     // All entries are in their own language and alphabetically
     private final JComboBox<String> jcbLanguage = new JComboBox<>();
-    // all entries are ordered by amount of chars in set in ascending order
     private final JComboBox<String> jcbCharSet = new JComboBox<>();
     private final JLabel jlblLanguage;
     private final JLabel jlblCharacterSet;
@@ -120,12 +118,6 @@ public class Preset extends JFrame {
             jcbCharSet.setSelectedItem("OPTIMIZED");
         } else if (fullBool) {
             jcbCharSet.setSelectedItem("FULL");
-        } else {
-            try {
-                throw new UnhandledCharacterSetException();
-            } catch (UnhandledCharacterSetException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -143,12 +135,6 @@ public class Preset extends JFrame {
             jcbCharSet.setSelectedItem("OPTIMIZED");
         } else if (fullBool) {
             jcbCharSet.setSelectedItem("FULL");
-        } else {
-            try {
-                throw new UnhandledCharacterSetException();
-            } catch (UnhandledCharacterSetException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -166,12 +152,6 @@ public class Preset extends JFrame {
             jcbCharSet.setSelectedItem("OPTIMIZED");
         } else if (fullBool) {
             jcbCharSet.setSelectedItem("FULL");
-        } else {
-            try {
-                throw new UnhandledCharacterSetException();
-            } catch (UnhandledCharacterSetException e) {
-                e.printStackTrace();
-            }
         }
     }
 
