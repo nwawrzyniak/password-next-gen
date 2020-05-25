@@ -221,8 +221,8 @@ public class MainFrame extends JFrame {
 
     private void jbtnGenerateActionPerformed(final ActionEvent actionEvent) {
         try {
-            jtxtOutputField.setText(g.create());
-        } catch (UnhandledCharacterSetException | LogicErrorException | UnknownCharacterTypeException e) {
+            jtxtOutputField.setText(g.create(0));
+        } catch (LogicErrorException | UnknownCharacterTypeException e) {
             e.printStackTrace();
         }
         jbtnMoveUp.setEnabled(true);

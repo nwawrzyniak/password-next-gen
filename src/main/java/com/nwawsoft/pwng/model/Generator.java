@@ -4,7 +4,6 @@ import com.nwawsoft.pwng.exceptions.LogicErrorException;
 import com.nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
 import com.nwawsoft.pwng.exceptions.UnknownCharacterTypeException;
 import com.nwawsoft.pwng.model.characterset.CharacterSet;
-import com.nwawsoft.pwng.model.characterset.CharacterSetFactory;
 
 import java.util.Random;
 
@@ -13,23 +12,21 @@ import java.util.Random;
  */
 public class Generator {
     private final Rating r;
-    private final CharacterSet cs;
     private final char[] set;
 
-    public Generator(final CharacterSet cs) {
+    private static final int MAX_TRIES_UNTIL_LOWER_CRITERIA = 5;
+
+    public Generator(CharacterSet cs) {
         r = new Rating();
-        this.cs = cs;
-        CharacterSetFactory csf = new CharacterSetFactory();
-        set = csf.buildCharacterSet(cs);
+        set = cs.getSet().toCharArray();
     }
 
     /**
      * Generates a pseudo-random level 5 password with a length between (and including) 14 and 18 characters.
      *
      * @return a level 5 password as a String.
-     * @throws UnhandledCharacterSetException if CharacterSet is unhandled.
      */
-    public String create() throws UnhandledCharacterSetException, LogicErrorException, UnknownCharacterTypeException {
+    public String create(int tryCount) throws LogicErrorException, UnknownCharacterTypeException {
         Random rand = new Random();
         StringBuilder output = new StringBuilder();
         int wantedLength = rand.nextInt(5) + 14;
@@ -37,20 +34,18 @@ public class Generator {
             char c = set[rand.nextInt(set.length)];
             output.append(c);
         }
-        if (cs == CharacterSet.FULL || cs == CharacterSet.OPTIMIZED) {
+        if (tryCount < MAX_TRIES_UNTIL_LOWER_CRITERIA) {
             if (r.level5Criteria(output.toString())) {
                 return output.toString();
             } else {
-                return create();
+                return create(tryCount+1);
             }
-        } else if (cs == CharacterSet.EASY_GERMAN || cs == CharacterSet.EASY_ENGLISH) {
+        } else {
             if (r.level3Criteria(output.toString())) {
                 return output.toString();
             } else {
-                return create();
+                return create(tryCount+1);
             }
-        } else {
-            throw new UnhandledCharacterSetException(cs);
         }
     }
 }

@@ -5,7 +5,6 @@ import com.nwawsoft.pwng.exceptions.UnknownLanguageException;
 import com.nwawsoft.pwng.model.language.Language;
 import com.nwawsoft.pwng.model.language.Languagizer;
 import com.nwawsoft.pwng.model.characterset.CharacterSet;
-import com.nwawsoft.pwng.model.characterset.CharacterSetizer;
 
 import java.io.*;
 
@@ -65,9 +64,7 @@ public class Settings {
         if (l == null) {
             l = Language.ENGLISH;
         }
-        if (cs == null) {
-            cs = CharacterSet.OPTIMIZED;
-        }
+        // ToDo: Load charset
     }
 
     // ToDo: Doc
@@ -82,12 +79,12 @@ public class Settings {
                     l = Languagizer.toLanguage(currentLine.substring(currentLine.lastIndexOf("=") + 1));
                     System.out.println(currentLine.substring(currentLine.lastIndexOf("=") + 1));
                 } else if (currentLine.startsWith("CHARSET")) {
-                    cs = CharacterSetizer.toCharacterSet(currentLine.substring(currentLine.lastIndexOf("=") + 1));
+                    // ToDo: load character set
                 } else if (currentLine.startsWith("SHOW_PRESET_MASK")) {
                     showPresetMask = Boolean.parseBoolean(currentLine.substring(currentLine.lastIndexOf("=") + 1));
                 }
             }
-        } catch (IOException | UnknownLanguageException | UnhandledCharacterSetException e) {
+        } catch (IOException | UnknownLanguageException e) {
             e.printStackTrace();
         }
     }

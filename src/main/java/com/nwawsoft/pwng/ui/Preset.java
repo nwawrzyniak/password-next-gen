@@ -1,7 +1,6 @@
 package com.nwawsoft.pwng.ui;
 
 import com.nwawsoft.pwng.exceptions.UnhandledCharacterSetException;
-import com.nwawsoft.pwng.exceptions.UnknownLanguageException;
 import com.nwawsoft.pwng.model.language.Language;
 import com.nwawsoft.pwng.model.Settings;
 import com.nwawsoft.pwng.model.language.Translation;
@@ -77,24 +76,20 @@ public class Preset extends JFrame {
         } else {
             setEnglishCharSets();
         }
+        setUniversalCharSets();
         cp.add(jcbCharSet);
         jbtnStart = new JButton();
         jbtnStart.setBounds(96, 80, 105, 33);
         jbtnStart.setText(t.getPresetStart());
         jbtnStart.setMargin(new Insets(2, 2, 2, 2));
-        jbtnStart.addActionListener(evt -> {
-            try {
-                jbtnStart_ActionPerformed();
-            } catch (UnknownLanguageException e) {
-                e.printStackTrace();
-            }
-        });
+        jbtnStart.addActionListener(evt -> jbtnStart_ActionPerformed());
         jcbLanguage.addActionListener(e -> adjustUILanguage());
         cp.add(jbtnStart);
         setVisible(true);
     }
 
     private void adjustUILanguage() {
+        // ToDo minimal
         String langString = (String) jcbLanguage.getSelectedItem();
         if (langString != null) {
             if (langString.equals("English")) {
@@ -112,6 +107,7 @@ public class Preset extends JFrame {
     }
 
     private void setEnglishCharSets() {
+        // ToDo
         charSetString = (String) jcbCharSet.getSelectedItem();
         setCharSetBools();
         clearOldSets();
@@ -134,6 +130,30 @@ public class Preset extends JFrame {
     }
 
     private void setGermanCharSets() {
+        // ToDo
+        charSetString = (String) jcbCharSet.getSelectedItem();
+        setCharSetBools();
+        clearOldSets();
+        jcbCharSet.addItem("EASY_GERMAN");
+        jcbCharSet.addItem("OPTIMIZED");
+        jcbCharSet.addItem("FULL");
+        if (easyBool) {
+            jcbCharSet.setSelectedItem("EASY_GERMAN");
+        } else if (optimizedBool) {
+            jcbCharSet.setSelectedItem("OPTIMIZED");
+        } else if (fullBool) {
+            jcbCharSet.setSelectedItem("FULL");
+        } else {
+            try {
+                throw new UnhandledCharacterSetException();
+            } catch (UnhandledCharacterSetException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void setUniversalCharSets() {
+        // ToDo
         charSetString = (String) jcbCharSet.getSelectedItem();
         setCharSetBools();
         clearOldSets();
@@ -160,6 +180,7 @@ public class Preset extends JFrame {
     }
 
     private void setCharSetBools() {
+        // ToDo
         if (charSetString != null) {
             easyBool = charSetString.equals("EASY_GERMAN") ||
                     charSetString.equals("EASY_ENGLISH");
@@ -168,7 +189,7 @@ public class Preset extends JFrame {
         }
     }
 
-    private void jbtnStart_ActionPerformed() throws UnknownLanguageException {
+    private void jbtnStart_ActionPerformed() {
         String langString = (String) jcbLanguage.getSelectedItem();
         String charSetString = (String) jcbCharSet.getSelectedItem();
         Settings.save(langString, charSetString);
