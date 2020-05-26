@@ -3,7 +3,8 @@ package com.nwawsoft.pwng.model.characterset;
 import com.nwawsoft.util.datastructures.StringList;
 
 /**
- * ToDo: Doc
+ * Represents a CharacterSet.
+ * CharacterSets have a list of characters they contain and a name and may have a countryCode and suffixes.
  */
 public class CharacterSet {
     private String chars;
@@ -12,14 +13,25 @@ public class CharacterSet {
     private StringList suffixes;
 
     /**
-     * Wrapper for CharacterSet(String, String).
+     * Minimal CharacterSet.
+     * Basically a wrapper for CharacterSet(String, String, String, String[]) for testing and backup loading.
      *
-     * @param chars
+     * @param chars a String containing all allowed characters for this set (may not be null, empty or only one
+     *              character long).
      */
     public CharacterSet(final String chars) {
         new CharacterSet(chars, "UNNAMED", null, null);
     }
 
+    /**
+     * Instantiates a new CharacterSet.
+     *
+     * @param chars a String containing all allowed characters for this set (may not be null, empty or only one
+     *              character long).
+     * @param name the name of the CharacterSet (may not be null or empty).
+     * @param countryCode the countryCode of the CharacterSet (may be null or empty).
+     * @param suffixes the suffix(es) of the CharacterSet (may be null or empty).
+     */
     public CharacterSet(final String chars, final String name, final String countryCode, final StringList suffixes) {
         this.chars = chars;
         this.name = name;

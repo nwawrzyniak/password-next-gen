@@ -1,5 +1,6 @@
 package com.nwawsoft.pwng.model.characterset;
 
+import com.nwawsoft.pwng.model.ResourceLoader;
 import com.nwawsoft.pwng.model.language.Language;
 import com.nwawsoft.util.datastructures.StringList;
 
@@ -19,17 +20,17 @@ public class CharacterSetLoader {
     public static CharacterSet load(final Object context, final String charsetFileName) {
         // PART 1: PARSE FILE NAME
         String countryCode = "";
-        String name = "";
+        String name;
         StringList suffixes = new StringList();
         String chars = "";
-        // step 1: get countryCode
+        // fetch countryCode
         for (Language cc : Language.values()) {
             if (charsetFileName.startsWith(cc.getCountryCode())) {
                 countryCode = cc.getCountryCode().substring(0, 2);
                 break;
             }
         }
-        // step 2: get name
+        // fetch name
         if (!countryCode.equals("")) { // case: has countryCode
             if (charsetFileName.contains("-")) { // case: has countryCode and suffix(es)
                 name = charsetFileName.substring(charsetFileName.indexOf("_") + 1, charsetFileName.indexOf("-"));
@@ -43,7 +44,7 @@ public class CharacterSetLoader {
                 name = charsetFileName;
             }
         }
-        // step 3: get suffixes
+        // fetch suffixes
         if (charsetFileName.contains("-")) { // case: has suffix(es)
             String[] parts = charsetFileName.split("-");
             if (parts.length >= 2) {
@@ -52,9 +53,8 @@ public class CharacterSetLoader {
                 }
             }
         }
-
         // PART 2: PARSE CONTENT
-        // step 4: get chars
+        // fetch chars
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(context.getClass().getResourceAsStream
                     ("/charsets/" + charsetFileName + ".charset")));
@@ -67,6 +67,7 @@ public class CharacterSetLoader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // assemble everything
         return new CharacterSet(chars, name, countryCode, suffixes);
     }
 
@@ -85,10 +86,17 @@ public class CharacterSetLoader {
      * Returns an array containing the names of all .charset files in the /charsets/ resource directory (without file
      * extension '.charset').
      *
-     * @return an array containing the names of all .charset files.
+     * @return an array containing the names of all .charset files. null if no files were found in /charsets/.
      */
     public String[] getCharacterSetNames() {
-        // ToDo
-        return new String[0];
+        File[] files = ResourceLoader.getResourceFolderFiles("charsets");
+        String[] names = null;
+        if (files != null) {
+            names = new String[files.length];
+            for (int i = 0; i < files.length; i++) {
+                names[i] = files[i].getName().substring(0, files[i].getName().lastIndexOf("."));
+            }
+        }
+        return names;
     }
 }
