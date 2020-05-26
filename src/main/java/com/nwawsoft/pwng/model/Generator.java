@@ -17,7 +17,7 @@ public class Generator {
 
     public Generator(CharacterSet cs) {
         r = new Rating();
-        set = cs.getSet().toCharArray();
+        set = cs.getChars().toCharArray();
     }
 
     /**
