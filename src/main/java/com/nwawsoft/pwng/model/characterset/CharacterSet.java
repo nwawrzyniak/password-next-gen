@@ -7,11 +7,11 @@ import com.nwawsoft.util.datastructures.StringList;
  * CharacterSets have a list of characters they contain and a name and may have a countryCode and suffixes.
  */
 public class CharacterSet {
-    private String chars;
-    private String name;
-    private String countryCode;
-    private StringList suffixes;
-    private String fileName;
+    private final String chars;
+    private final String name;
+    private final String countryCode;
+    private final StringList suffixes;
+    private final String fileName;
 
     /**
      * Minimal CharacterSet.
@@ -21,7 +21,7 @@ public class CharacterSet {
      *              character long).
      */
     public CharacterSet(final String chars) {
-        new CharacterSet(chars, "UNNAMED", null, null, null);
+        this(chars, "UNNAMED", null, null, null);
     }
 
     /**
