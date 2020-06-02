@@ -68,7 +68,7 @@ public class CharacterSetLoader {
             e.printStackTrace();
         }
         // assemble everything
-        return new CharacterSet(chars, name, countryCode, suffixes);
+        return new CharacterSet(chars, name, countryCode, suffixes, charsetFileName);
     }
 
     /**
@@ -88,7 +88,7 @@ public class CharacterSetLoader {
      *
      * @return an array containing the names of all .charset files. null if no files were found in /charsets/.
      */
-    public String[] getCharacterSetNames() {
+    public static String[] getCharacterSetNames() {
         File[] files = ResourceLoader.getResourceFolderFiles("charsets");
         String[] names = null;
         if (files != null) {

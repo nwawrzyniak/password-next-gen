@@ -6,7 +6,7 @@ public enum Language {
     private final int index;
     private final String countryCode;
 
-    private Language(final int index, final String countryCode) {
+    Language(final int index, final String countryCode) {
         this.index = index;
         this.countryCode = countryCode;
     }

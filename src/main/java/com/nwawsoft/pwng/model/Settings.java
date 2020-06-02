@@ -1,6 +1,7 @@
 package com.nwawsoft.pwng.model;
 
 import com.nwawsoft.pwng.exceptions.UnknownLanguageException;
+import com.nwawsoft.pwng.model.characterset.CharacterSetLoader;
 import com.nwawsoft.pwng.model.language.Language;
 import com.nwawsoft.pwng.model.language.Languagizer;
 import com.nwawsoft.pwng.model.characterset.CharacterSet;
@@ -8,7 +9,7 @@ import com.nwawsoft.pwng.model.characterset.CharacterSet;
 import java.io.*;
 
 /**
- * Manages the saving and loading of setting.
+ * Manages the saving and loading of settings.
  */
 public class Settings {
     private Language l;
@@ -26,16 +27,25 @@ public class Settings {
         }
     }
 
-    // ToDo: Doc
-    public static void save(final String language, final String charSet) {
+    /**
+     * Saves the current settings to a file "~/.pwng/settings.ini".
+     *
+     * @param language the specified language.
+     * @param cs the specified character set.
+     */
+    public static void save(final String language, final CharacterSet cs) {
         try {
             File d = new File(System.getProperty("user.home") + "/.pwng");
-            boolean dirCreated = d.mkdir();
+            if (!d.exists()) {
+                if (!d.mkdir()) {
+                    throw new IOException();
+                }
+            }
             File f = new File(System.getProperty("user.home") + "/.pwng/settings.ini");
             FileWriter fw = new FileWriter(f);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write("LANG=" + language + "\n");
-            bw.write("CHARSET=" + charSet + "\n");
+            bw.write("CHARSET=" + cs.getFileName() + "\n");
             bw.write("SHOW_PRESET_MASK=" + false + "\n");
             bw.flush();
         } catch (IOException e) {
@@ -44,7 +54,7 @@ public class Settings {
     }
 
     /**
-     * Returns whether a config file is found at the default path ($user.home$/.pwng/settings.ini).
+     * Returns whether a config file is found at the default path ("~/.pwng/settings.ini").
      *
      * @return true if file was found. Else false.
      */
@@ -59,14 +69,24 @@ public class Settings {
         return true;
     }
 
+    /**
+     * Sets the software defaults to the English language, a character set "Standard" containing [a..z],[A..Z],[0..9]
+     * and showPresetMask true.
+     */
     private void setDefaults() {
         if (l == null) {
             l = Language.ENGLISH;
         }
-        // ToDo: Load charset
+        if (cs == null) {
+            cs = new CharacterSet("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+                    "Standard", null, null, null);
+        }
+        showPresetMask = true;
     }
 
-    // ToDo: Doc
+    /**
+     * Loads the settings from "~/.pwng/settings.ini".
+     */
     public void load() {
         try {
             File f = new File(System.getProperty("user.home") + "/.pwng/settings.ini");
@@ -76,9 +96,8 @@ public class Settings {
             while ((currentLine = br.readLine()) != null) {
                 if (currentLine.startsWith("LANG")) {
                     l = Languagizer.toLanguage(currentLine.substring(currentLine.lastIndexOf("=") + 1));
-                    System.out.println(currentLine.substring(currentLine.lastIndexOf("=") + 1));
                 } else if (currentLine.startsWith("CHARSET")) {
-                    // ToDo: load character set
+                    cs = CharacterSetLoader.load(this, currentLine.substring(currentLine.lastIndexOf("=") + 1));
                 } else if (currentLine.startsWith("SHOW_PRESET_MASK")) {
                     showPresetMask = Boolean.parseBoolean(currentLine.substring(currentLine.lastIndexOf("=") + 1));
                 }

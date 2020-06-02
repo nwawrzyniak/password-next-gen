@@ -11,6 +11,7 @@ public class CharacterSet {
     private String name;
     private String countryCode;
     private StringList suffixes;
+    private String fileName;
 
     /**
      * Minimal CharacterSet.
@@ -20,7 +21,7 @@ public class CharacterSet {
      *              character long).
      */
     public CharacterSet(final String chars) {
-        new CharacterSet(chars, "UNNAMED", null, null);
+        new CharacterSet(chars, "UNNAMED", null, null, null);
     }
 
     /**
@@ -31,12 +32,15 @@ public class CharacterSet {
      * @param name the name of the CharacterSet (may not be null or empty).
      * @param countryCode the countryCode of the CharacterSet (may be null or empty).
      * @param suffixes the suffix(es) of the CharacterSet (may be null or empty).
+     * @param fileName the fileName of the CharacterSet (may be null or empty).
      */
-    public CharacterSet(final String chars, final String name, final String countryCode, final StringList suffixes) {
+    public CharacterSet(final String chars, final String name, final String countryCode, final StringList suffixes,
+                        final String fileName) {
         this.chars = chars;
         this.name = name;
         this.countryCode = countryCode;
         this.suffixes = suffixes;
+        this.fileName = fileName;
     }
 
     public String getChars() {
@@ -53,5 +57,9 @@ public class CharacterSet {
 
     public StringList getSuffixes() {
         return suffixes;
+    }
+
+    public String getFileName() {
+        return fileName;
     }
 }
