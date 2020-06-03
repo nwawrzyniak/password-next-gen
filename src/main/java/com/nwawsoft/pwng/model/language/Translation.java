@@ -174,7 +174,7 @@ public class Translation {
                     "<BR>Version " + BuildData.getFullVersion() +
                     "<BR>von nwawsoft" +
                     "<BR>" +
-                    "<BR>Aktuelleste Version unter" +
+                    "<BR>Aktuelleste Version auf" +
                     "<BR><a href=\"https://www.github.com/nwawrzyniak/password-next-gen/\">GitHub</a>" +
                     "<BR>und" +
                     "<BR><a href=\"https://pwng.nwawsoft.com/\">pwng.nwawsoft.com</a></HTML>";
