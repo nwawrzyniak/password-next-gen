@@ -184,6 +184,9 @@ public class MainFrame extends JFrame {
 
     private void jbtnClearActionPerformed(final ActionEvent actionEvent) {
         inputContainer.setText("");
+        if (false) { // ToDo: Delete content of lower text box if it is a rating.
+            jtxtOutputField.setText("");
+        }
         jbtnUpperToClipboard.setEnabled(false);
         jbtnClear.setEnabled(false);
     }
