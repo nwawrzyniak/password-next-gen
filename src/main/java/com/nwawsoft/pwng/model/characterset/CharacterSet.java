@@ -62,4 +62,13 @@ public class CharacterSet {
     public String getFileName() {
         return fileName;
     }
+
+    /**
+     * Returns whether the CharacterSet has a non-null and non-empty countryCode.
+     *
+     * @return true if the CharacterSet has a countryCode. Else false.
+     */
+    public boolean hasCountryCode() {
+        return (countryCode != null && !countryCode.equals(""));
+    }
 }

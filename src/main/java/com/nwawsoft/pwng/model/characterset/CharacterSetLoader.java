@@ -1,6 +1,5 @@
 package com.nwawsoft.pwng.model.characterset;
 
-import com.nwawsoft.pwng.model.ResourceLoader;
 import com.nwawsoft.pwng.model.language.Language;
 import com.nwawsoft.util.datastructures.StringList;
 
@@ -80,23 +79,5 @@ public class CharacterSetLoader {
      */
     public CharacterSet load(final String charsetFileName) {
         return load(this, charsetFileName);
-    }
-
-    /**
-     * Returns an array containing the names of all .charset files in the /charsets/ resource directory (without file
-     * extension '.charset').
-     *
-     * @return an array containing the names of all .charset files. null if no files were found in /charsets/.
-     */
-    public static String[] getCharacterSetNames() {
-        File[] files = ResourceLoader.getResourceFolderFiles("charsets");
-        String[] names = null;
-        if (files != null) {
-            names = new String[files.length];
-            for (int i = 0; i < files.length; i++) {
-                names[i] = files[i].getName().substring(0, files[i].getName().lastIndexOf("."));
-            }
-        }
-        return names;
     }
 }

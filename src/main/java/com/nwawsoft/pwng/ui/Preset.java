@@ -6,6 +6,7 @@ import com.nwawsoft.pwng.model.language.Language;
 import com.nwawsoft.pwng.model.Settings;
 import com.nwawsoft.pwng.model.language.Translation;
 import com.nwawsoft.util.natives.StringFunctions;
+import com.nwawsoft.util.tools.ResourceLoader;
 import com.nwawsoft.util.ui.ComponentFunctions;
 
 import javax.swing.*;
@@ -18,7 +19,6 @@ public class Preset extends JFrame {
     private final JLabel jlblLanguage;
     private final JLabel jlblCharacterSet;
     private final JButton jbtnStart;
-    private String charSetString;
     private Settings s;
     private Translation t;
 
@@ -78,13 +78,12 @@ public class Preset extends JFrame {
         String langString = (String) jcbLanguage.getSelectedItem();
         if (langString != null) {
             if (langString.equals("English")) {
-                setCharSets();
                 t = new Translation(Language.ENGLISH);
             } else if (langString.equals("Deutsch") || langString.equals("German")) {
-                setCharSets();
                 t = new Translation(Language.GERMAN);
             }
         }
+        setCharSets();
         setTitle(t.getPresetGeneralSettingsTitle());
         jlblLanguage.setText(t.getPresetLanguage());
         jlblCharacterSet.setText(t.getPresetCharacterSet());
@@ -92,12 +91,18 @@ public class Preset extends JFrame {
     }
 
     private void setCharSets() {
-        // ToDo: remove sets for other languages
-        charSetString = (String) jcbCharSet.getSelectedItem();
         clearOldSets();
-        String[] sets = CharacterSetLoader.getCharacterSetNames();
+        String countryCode = t.getLanguage().getCountryCode();
+        String[] sets = ResourceLoader.getFileNames("charsets");
         for (String set : sets) {
-            jcbCharSet.addItem(set);
+            CharacterSet temp = CharacterSetLoader.load(this, set);
+            if (temp.hasCountryCode()) {
+                if (set.startsWith(countryCode)) {
+                    jcbCharSet.addItem(set);
+                }
+            } else {
+                jcbCharSet.addItem(set);
+            }
         }
         jcbCharSet.setSelectedItem(0);
     }
@@ -108,11 +113,11 @@ public class Preset extends JFrame {
 
     private void jbtnStart_ActionPerformed() {
         String langString = (String) jcbLanguage.getSelectedItem();
-        String charSetString = (String) jcbCharSet.getSelectedItem();
-        CharacterSet cs = CharacterSetLoader.load(this, charSetString);
+        String charSetName = (String) jcbCharSet.getSelectedItem();
+        CharacterSet cs = CharacterSetLoader.load(this, charSetName);
         Settings.save(langString, cs);
         if (langString != null) {
-            if (charSetString != null) {
+            if (charSetName != null) {
                 s = new Settings();
                 new MainFrame(s, new Translation(s.getLanguage()));
                 this.dispose();
