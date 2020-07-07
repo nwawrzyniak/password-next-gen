@@ -61,19 +61,19 @@ public class MainFrame extends JFrame {
         Container cp = getContentPane();
         cp.setLayout(null);
         try {
-            InputStream iiCrossStream = getClass().getResourceAsStream("/graphics/cross.png");
+            InputStream iiCrossStream = getClass().getResourceAsStream("/graphics/mainframe/cross.png");
             iiCross = new ImageIcon(ImageIO.read(iiCrossStream));
-            InputStream iiCheckStream = getClass().getResourceAsStream("/graphics/check.png");
+            InputStream iiCheckStream = getClass().getResourceAsStream("/graphics/mainframe/check.png");
             iiCheck = new ImageIcon(ImageIO.read(iiCheckStream));
-            InputStream iiMarkerStream = getClass().getResourceAsStream("/graphics/marker.png");
+            InputStream iiMarkerStream = getClass().getResourceAsStream("/graphics/mainframe/marker.png");
             iiMarker = new ImageIcon(ImageIO.read(iiMarkerStream));
-            InputStream iiBarStream = getClass().getResourceAsStream("/graphics/bar.png");
+            InputStream iiBarStream = getClass().getResourceAsStream("/graphics/mainframe/bar.png");
             iiBar = new ImageIcon(ImageIO.read(iiBarStream));
-            InputStream iiToClipboardStream = getClass().getResourceAsStream("/graphics/to_clipboard.png");
+            InputStream iiToClipboardStream = getClass().getResourceAsStream("/graphics/mainframe/to_clipboard.png");
             iiToClipboard = new ImageIcon(ImageIO.read(iiToClipboardStream));
-            InputStream iiMoveUpStream = getClass().getResourceAsStream("/graphics/move_up.png");
+            InputStream iiMoveUpStream = getClass().getResourceAsStream("/graphics/mainframe/move_up.png");
             iiMoveUp = new ImageIcon(ImageIO.read(iiMoveUpStream));
-            InputStream iiClearStream = getClass().getResourceAsStream("/graphics/clear.png");
+            InputStream iiClearStream = getClass().getResourceAsStream("/graphics/mainframe/clear.png");
             iiClear = new ImageIcon(ImageIO.read(iiClearStream));
         } catch (IOException e) {
             e.printStackTrace();
