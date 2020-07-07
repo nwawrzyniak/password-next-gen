@@ -13,15 +13,11 @@ import com.nwawsoft.util.ui.ComponentFunctions;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.Container;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainFrame extends JFrame {
     private final JTextField jtxtInputField;
@@ -54,8 +50,8 @@ public class MainFrame extends JFrame {
         super(t.getLongTitle());
         this.s = s;
         this.t = t;
-        this.g = new Generator(s.getCharacterSet());
-        this.r = new Rating();
+        g = new Generator(s.getCharacterSet());
+        r = new Rating();
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         int frameWidth = 560;
         int frameHeight = 280;
@@ -142,6 +138,7 @@ public class MainFrame extends JFrame {
         jtxtInputField = new JTextField();
         jtxtInputField.setBounds(10, 50, 220, 30);
         jtxtInputField.addKeyListener(kl);
+        jtxtInputField.setHorizontalAlignment(JTextField.CENTER);
         cp.add(jtxtInputField);
         jbtnUpperToClipboard.setEnabled(false);
         jbtnUpperToClipboard.setBounds(235, 50, 30, 30);
@@ -155,9 +152,9 @@ public class MainFrame extends JFrame {
         jpfInputField.setBounds(10, 50, 220, 30);
         jpfInputField.setVisible(false);
         jpfInputField.addKeyListener(kl);
+        jpfInputField.setHorizontalAlignment(JTextField.CENTER);
         cp.add(jpfInputField);
         inputContainer = jtxtInputField;
-        inputContainer.setHorizontalAlignment(JTextField.CENTER);
         jtxtOutputField = new JTextField();
         jtxtOutputField.setBounds(10, 90, 220, 30);
         jtxtOutputField.setEditable(false);
@@ -198,15 +195,7 @@ public class MainFrame extends JFrame {
     }
 
     private void jbtnUpperToClipboardActionPerformed(final ActionEvent actionEvent) {
-        if (passwordHidden) {
-            CopyHiddenPasswordToClipboardDialog chptcd = new CopyHiddenPasswordToClipboardDialog(this,
-                    inputContainer.getText());
-            chptcd.pack();
-            ComponentFunctions.center(chptcd);
-            chptcd.setVisible(true);
-        } else {
-            ClipboardManager.copyToClipboard(inputContainer.getText());
-        }
+        ClipboardManager.copyToClipboard(inputContainer.getText());
     }
 
     private void jbtnLowerToClipboardActionPerformed(final ActionEvent actionEvent) {
