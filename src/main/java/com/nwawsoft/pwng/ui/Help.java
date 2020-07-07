@@ -26,6 +26,8 @@ public class Help extends JDialog {
         initHelpText();
         setHelpText();
         addHelpText(cp);
+        ApplicationIcon ai = new ApplicationIcon();
+        this.setIconImages(ai.getApplicationIcon());
         setVisible(true);
     }
 

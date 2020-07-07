@@ -41,6 +41,8 @@ public class CopyHiddenPasswordToClipboardDialog extends JDialog {
         });
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        ApplicationIcon ai = new ApplicationIcon();
+        this.setIconImages(ai.getApplicationIcon());
         setResizable(false);
     }
 

@@ -4,7 +4,7 @@ public class BuildData {
     private static final int mainVersion = 1;
     private static final int featureUpdate = 0;
     private static final int bugfixUpdate = 0;
-    private static final int buildNumber = 16; // counting since March 11, 2020.
+    private static final int buildNumber = 17; // counting since March 11, 2020.
 
     /**
      * Assembles and returns the version number of the current build.

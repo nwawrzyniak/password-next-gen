@@ -22,6 +22,8 @@ public class About extends JDialog {
         setResizable(false);
         JLabel jlblAboutText = new JLabel(t.getAboutText(), SwingConstants.CENTER);
         cp.add(jlblAboutText);
+        ApplicationIcon ai = new ApplicationIcon();
+        this.setIconImages(ai.getApplicationIcon());
         setVisible(true);
     }
 }

@@ -71,6 +71,8 @@ public class Preset extends JFrame {
         jbtnStart.addActionListener(evt -> jbtnStart_ActionPerformed());
         jcbLanguage.addActionListener(e -> adjustUILanguage());
         cp.add(jbtnStart);
+        ApplicationIcon ai = new ApplicationIcon();
+        this.setIconImages(ai.getApplicationIcon());
         setVisible(true);
     }
 

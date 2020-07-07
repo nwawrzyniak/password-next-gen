@@ -12,12 +12,16 @@ import com.nwawsoft.util.ui.ComponentFunctions;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
+import java.awt.Container;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainFrame extends JFrame {
     private final JTextField jtxtInputField;
@@ -178,6 +182,8 @@ public class MainFrame extends JFrame {
         jbtnMoveUp.setToolTipText(t.getMainMoveUpText());
         jbtnClear.setToolTipText(t.getMainClearText());
         getRootPane().setDefaultButton(jbtnGenerate);
+        ApplicationIcon ai = new ApplicationIcon();
+        this.setIconImages(ai.getApplicationIcon());
         setResizable(false);
         setVisible(true);
     }
