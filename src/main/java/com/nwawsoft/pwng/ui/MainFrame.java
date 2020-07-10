@@ -195,7 +195,11 @@ public class MainFrame extends JFrame {
     }
 
     private void jbtnUpperToClipboardActionPerformed(final ActionEvent actionEvent) {
-        ClipboardManager.copyToClipboard(inputContainer.getText());
+        if (!passwordHidden) {
+            ClipboardManager.copyToClipboard(inputContainer.getText());
+        } else {
+            new HiddenPasswordDialog(this, inputContainer);
+        }
     }
 
     private void jbtnLowerToClipboardActionPerformed(final ActionEvent actionEvent) {
