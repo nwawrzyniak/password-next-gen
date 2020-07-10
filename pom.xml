@@ -5,6 +5,29 @@
     <artifactId>pwng</artifactId>
     <version>1</version>
 
+	<build>
+        <directory>target</directory>
+        <outputDirectory>target/classes</outputDirectory>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <testOutputDirectory>target/test-classes</testOutputDirectory>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>res/main</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>res/test</directory>
+            </testResource>
+        </testResources>
+    </build>
+
+    <modules>
+        <module>lib/nwawsoft-java-util</module>
+    </modules>
+
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
