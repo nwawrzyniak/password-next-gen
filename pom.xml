@@ -25,9 +25,11 @@
         </testResources>
     </build>
 
+    <!--
     <modules>
         <module>lib/nwawsoft-java-util</module>
     </modules>
+    -->
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
