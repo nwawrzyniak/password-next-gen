@@ -198,7 +198,7 @@ public class MainFrame extends JFrame {
         if (!passwordHidden) {
             ClipboardManager.copyToClipboard(inputContainer.getText());
         } else {
-            new HiddenPasswordDialog(this, inputContainer);
+            new HiddenPasswordDialog(this, inputContainer, t);
         }
     }
 
@@ -326,9 +326,5 @@ public class MainFrame extends JFrame {
         showRating();
         updateIcons();
         jlblMarker.setBounds(45 + (levelValue * 40), 155, 10, 10);
-    }
-
-    public JTextField getInputContainer() {
-        return inputContainer;
     }
 }

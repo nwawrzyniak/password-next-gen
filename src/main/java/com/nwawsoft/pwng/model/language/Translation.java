@@ -49,6 +49,15 @@ public class Translation {
     private String levelBad;
     private String levelDictionary;
 
+    // Hidden Password Copy Warning Dialog related text
+    private String hiddenWarningTitle;
+    private String hiddenWarningWarning;
+    private String hiddenWarningMainText;
+    private String hiddenWarningContinue;
+    private String hiddenWarningYesOption;
+    private String hiddenWarningNoOption;
+    private String hiddenWarningCancelOption;
+
     public Translation(final Language l) {
         this.l = l;
         try {
@@ -124,6 +133,13 @@ public class Translation {
             levelSecurityLevel = "Security level is ";
             levelBad = "The password is horribly bad.";
             levelDictionary = "Parts of your password are in the dictionary.";
+            hiddenWarningTitle = "Hidden Password Copy Warning";
+            hiddenWarningWarning = "WARNING!";
+            hiddenWarningMainText = "You are trying to copy a hidden password to your clipboard.";
+            hiddenWarningContinue = "Are you sure you want to continue?";
+            hiddenWarningYesOption = "Yes, save my password to the clipboard";
+            hiddenWarningNoOption = "No, clear the password field";
+            hiddenWarningCancelOption = "Just cancel";
         } else if (l.equals(Language.GERMAN)) {
             presetGeneralSettingsTitle = "Allgemeine Einstellungen";
             presetLanguage = "Sprache";
@@ -181,6 +197,13 @@ public class Translation {
             levelSecurityLevel = "Sicherheitsstufe betr" + ae + "gt ";
             levelBad = "Das Passwort ist furchtbar schlecht.";
             levelDictionary = "Teile Ihres Passworts stehen im W" + oe + "rterbuch.";
+            hiddenWarningTitle = "Kopier-Warnung: Verstecktes Passwort";
+            hiddenWarningWarning = "WARNUNG!";
+            hiddenWarningMainText = "Sie versuchen ein verstecktes Passwort in die Zwischenablage zu kopieren.";
+            hiddenWarningContinue = "Sind Sie sicher, dass Sie fortfahren möchten?";
+            hiddenWarningYesOption = "Ja, Passwort in die Zwischenablage speichern";
+            hiddenWarningNoOption = "Nein, Passwort-Feld leeren";
+            hiddenWarningCancelOption = "Abbrechen";
         } else {
             throw new UnknownLanguageException(l);
         }
@@ -304,5 +327,33 @@ public class Translation {
 
     public String getLevelDictionary() {
         return levelDictionary;
+    }
+
+    public String getHiddenWarningTitle() {
+        return hiddenWarningTitle;
+    }
+
+    public String getHiddenWarningWarning() {
+        return hiddenWarningWarning;
+    }
+
+    public String getHiddenWarningMainText() {
+        return hiddenWarningMainText;
+    }
+
+    public String getHiddenWarningContinue() {
+        return hiddenWarningContinue;
+    }
+
+    public String getHiddenWarningYesOption() {
+        return hiddenWarningYesOption;
+    }
+
+    public String getHiddenWarningNoOption() {
+        return hiddenWarningNoOption;
+    }
+
+    public String getHiddenWarningCancelOption() {
+        return hiddenWarningCancelOption;
     }
 }
