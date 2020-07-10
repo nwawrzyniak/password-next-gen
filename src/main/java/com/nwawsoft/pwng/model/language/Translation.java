@@ -201,7 +201,7 @@ public class Translation {
             hiddenWarningWarning = "WARNUNG!";
             hiddenWarningMainText = "Sie versuchen ein verstecktes Passwort in die Zwischenablage zu kopieren.";
             hiddenWarningContinue = "Sind Sie sicher, dass Sie fortfahren möchten?";
-            hiddenWarningYesOption = "Ja, Passwort in die Zwischenablage speichern";
+            hiddenWarningYesOption = "Ja, Passwort kopieren";
             hiddenWarningNoOption = "Nein, Passwort-Feld leeren";
             hiddenWarningCancelOption = "Abbrechen";
         } else {
