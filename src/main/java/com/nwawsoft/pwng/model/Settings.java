@@ -66,7 +66,7 @@ public class Settings {
     // ToDo: Doc
     public static boolean configFileValid() {
         // ToDo: Rewrite
-        return true;
+        return configFileFound();
     }
 
     /**

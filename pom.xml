@@ -54,10 +54,10 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/target/classes</outputDirectory>   <!-- output directory -->
+                            <outputDirectory>${basedir}/target/classes</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${basedir}/src/main/resources</directory>         <!-- source directory -->
+                                    <directory>${basedir}/src/main/resources</directory>
                                     <filtering>true</filtering>
                                 </resource>
                             </resources>

@@ -8,9 +8,9 @@ import java.awt.*;
 
 public class Help extends JDialog {
     private static final int LEVELS = 5;
-    private JLabel[] jlblLevel = new JLabel[LEVELS];
-    private JLabel jlblTypes = new JLabel();
-    private Translation t;
+    private final JLabel[] jlblLevel = new JLabel[LEVELS];
+    private final JLabel jlblTypes = new JLabel();
+    private final Translation t;
 
     public Help(final JFrame owner, final String title, final boolean modal, final Translation t) {
         super(owner, title, modal);

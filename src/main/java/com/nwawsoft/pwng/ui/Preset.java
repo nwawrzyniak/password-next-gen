@@ -51,7 +51,7 @@ public class Preset extends JFrame {
         jcbLanguage.addItem("Deutsch");
         jcbLanguage.addItem("English");
         String currentLang;
-        if (Settings.configFileFound()) { // ToDo: should be configFileValid() or check sooner
+        if (Settings.configFileValid()) {
             currentLang = StringFunctions.toOnlyFirstCharCapital(s.getLanguage().toString());
             jcbLanguage.setSelectedItem(currentLang);
         } else {
