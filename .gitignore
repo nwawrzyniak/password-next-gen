@@ -13,7 +13,7 @@ material/
 out/
 target/
 thinkspace/
-*.iml
+settings.xml
 ## END OF PERSONAL SPACE
 
 ### Eclipse ###

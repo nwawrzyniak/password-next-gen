@@ -1,35 +1,20 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- The Basics -->
     <groupId>com.nwawsoft.pwng</groupId>
-    <artifactId>pwng</artifactId>
+    <artifactId>password-next-gen</artifactId>
     <version>1</version>
     <packaging>pom</packaging>
 
-	<build>
-        <directory>target</directory>
-        <outputDirectory>target/classes</outputDirectory>
-        <finalName>${project.artifactId}-${project.version}</finalName>
-        <testOutputDirectory>target/test-classes</testOutputDirectory>
-        <sourceDirectory>src/main/java</sourceDirectory>
-        <testSourceDirectory>src/test/java</testSourceDirectory>
-        <resources>
-            <resource>
-                <directory>res/main</directory>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>res/test</directory>
-            </testResource>
-        </testResources>
-    </build>
-
-    <!--
-    <modules>
-        <module>lib/nwawsoft-java-util</module>
-    </modules>
-    -->
+    <dependencies>
+        <dependency>
+            <groupId>com.nwawsoft.java-util</groupId>
+            <artifactId>nwawsoft-java-util</artifactId>
+            <version>1.5-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -37,4 +22,76 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
+    <!-- Build Settings -->
+	<build>
+        <directory>${basedir}/target</directory>
+        <outputDirectory>${basedir}/target/classes</outputDirectory>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <testOutputDirectory>${basedir}/target/test-classes</testOutputDirectory>
+        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+        <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>${basedir}/src/test/resources</directory>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <!-- here the phase you need -->
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/classes</outputDirectory>   <!-- output directory -->
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/src/main/resources</directory>         <!-- source directory -->
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.7</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.9</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <!-- More Project Information -->
+
+    <!-- Environment Settings -->
+    <url>https://pwng.nwawsoft.com</url>
+    <distributionManagement>
+        <site>
+            <id>password-next-gen</id>
+            <name>nwawsoft</name>
+            <url>https://github.com/nwawrzyniak/password-next-gen</url>
+        </site>
+    </distributionManagement>
 </project>
