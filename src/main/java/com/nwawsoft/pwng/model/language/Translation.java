@@ -2,6 +2,7 @@ package com.nwawsoft.pwng.model.language;
 
 import com.nwawsoft.pwng.exceptions.UnknownLanguageException;
 import com.nwawsoft.pwng.model.BuildData;
+import com.nwawsoft.util.datastructures.StringList;
 
 import static com.nwawsoft.util.realworldlanguage.MutatedVowels.*;
 
@@ -355,5 +356,18 @@ public class Translation {
 
     public String getHiddenWarningCancelOption() {
         return hiddenWarningCancelOption;
+    }
+
+    /**
+     * Returns a StringList containing the first 8 letters of every possible password rating output.
+     *
+     * @return a StringList containing the first 8 letters of every possible password rating output.
+     */
+    public StringList getRatingTextBeginnings() {
+        StringList strings = new StringList();
+        strings.append(levelSecurityLevel.substring(0, 8));
+        strings.append(levelBad.substring(0, 8));
+        strings.append(levelDictionary.substring(0, 8));
+        return strings;
     }
 }

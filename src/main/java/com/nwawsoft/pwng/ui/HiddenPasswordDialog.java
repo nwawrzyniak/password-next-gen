@@ -2,6 +2,7 @@ package com.nwawsoft.pwng.ui;
 
 import com.nwawsoft.pwng.model.language.Translation;
 import com.nwawsoft.util.tools.ClipboardManager;
+import com.nwawsoft.util.ui.RequestFocusListener;
 
 import java.awt.*;
 import java.awt.event.*;
