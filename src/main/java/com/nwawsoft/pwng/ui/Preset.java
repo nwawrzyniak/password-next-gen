@@ -1,10 +1,11 @@
 package com.nwawsoft.pwng.ui;
 
+import com.nwawsoft.pwng.model.Settings;
 import com.nwawsoft.pwng.model.characterset.CharacterSet;
 import com.nwawsoft.pwng.model.characterset.CharacterSetLoader;
 import com.nwawsoft.pwng.model.language.Language;
-import com.nwawsoft.pwng.model.Settings;
 import com.nwawsoft.pwng.model.language.Translation;
+import com.nwawsoft.util.jar.ProtocolFunctions;
 import com.nwawsoft.util.natives.StringFunctions;
 import com.nwawsoft.util.tools.ResourceLoader;
 import com.nwawsoft.util.ui.ComponentFunctions;
@@ -13,7 +14,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Preset extends JFrame {
-    // All entries are in their own language and alphabetically
     private final JComboBox<String> jcbLanguage = new JComboBox<>();
     private final JComboBox<String> jcbCharSet = new JComboBox<>();
     private final JLabel jlblLanguage;
@@ -95,18 +95,28 @@ public class Preset extends JFrame {
     private void setCharSets() {
         clearOldSets();
         String countryCode = t.getLanguage().getCountryCode();
-        String[] sets = ResourceLoader.getFileNames("charsets");
-        for (String set : sets) {
-            CharacterSet temp = CharacterSetLoader.load(this, set);
-            if (temp.hasCountryCode()) {
-                if (set.startsWith(countryCode)) {
+        String[] sets;
+        String directoryName = "charsets";
+        if (ProtocolFunctions.isInJar(this)) { // run from within a .jar file.
+            sets = ResourceLoader.getFileNames(directoryName, false, true);
+        } else { // run from IDE or by direct execution
+            sets = ResourceLoader.getFileNames(directoryName, false, false);
+        }
+        if (sets != null && sets.length != 0) {
+            for (String set : sets) {
+                CharacterSet temp = CharacterSetLoader.load(this, set);
+                if (temp.hasCountryCode()) {
+                    if (set.startsWith(countryCode)) {
+                        jcbCharSet.addItem(set);
+                    }
+                } else {
                     jcbCharSet.addItem(set);
                 }
-            } else {
-                jcbCharSet.addItem(set);
             }
+            jcbCharSet.setSelectedItem(0);
+        } else {
+            System.err.println("Preset.setCharSets(): No character sets found.");
         }
-        jcbCharSet.setSelectedItem(0);
     }
 
     private void clearOldSets() {
