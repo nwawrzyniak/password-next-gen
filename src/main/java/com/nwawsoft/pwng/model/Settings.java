@@ -5,6 +5,7 @@ import com.nwawsoft.pwng.model.characterset.CharacterSetLoader;
 import com.nwawsoft.pwng.model.language.Language;
 import com.nwawsoft.pwng.model.language.Languagizer;
 import com.nwawsoft.pwng.model.characterset.CharacterSet;
+import com.nwawsoft.util.jar.ProtocolFunctions;
 
 import java.io.*;
 
@@ -97,7 +98,8 @@ public class Settings {
                 if (currentLine.startsWith("LANG")) {
                     l = Languagizer.toLanguage(currentLine.substring(currentLine.lastIndexOf("=") + 1));
                 } else if (currentLine.startsWith("CHARSET")) {
-                    cs = CharacterSetLoader.load(this, currentLine.substring(currentLine.lastIndexOf("=") + 1));
+                    cs = CharacterSetLoader.load(this, currentLine.substring(currentLine.lastIndexOf("=") + 1),
+                            ProtocolFunctions.isInJar(this));
                 } else if (currentLine.startsWith("SHOW_PRESET_MASK")) {
                     showPresetMask = Boolean.parseBoolean(currentLine.substring(currentLine.lastIndexOf("=") + 1));
                 }

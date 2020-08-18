@@ -14,9 +14,10 @@ public class CharacterSetLoader {
      *
      * @param context any instantiated object whose Class has a reference to the resource directory (usually 'this').
      * @param charsetFileName the file name of the character set file without file extension.
+     * @param isInJar true if file is located in pwng.jar. Else false.
      * @return the character set.
      */
-    public static CharacterSet load(final Object context, final String charsetFileName) {
+    public static CharacterSet load(final Object context, final String charsetFileName, final boolean isInJar) {
         // PART 1: PARSE FILE NAME
         String countryCode = "";
         String name;
@@ -56,7 +57,7 @@ public class CharacterSetLoader {
         // fetch chars
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(context.getClass().getResourceAsStream
-                    ("/charsets/" + charsetFileName + ".charset")));
+                        ("/charsets/" + charsetFileName + ".charset")));
             String currentLine;
             while ((currentLine = br.readLine()) != null) {
                 if (!currentLine.equals("") && !currentLine.equals("\n")) {
@@ -77,7 +78,7 @@ public class CharacterSetLoader {
      * @param charsetFileName the file name of the character set file without file extension.
      * @return the character set.
      */
-    public CharacterSet load(final String charsetFileName) {
-        return load(this, charsetFileName);
+    public CharacterSet load(final String charsetFileName, final boolean isInJar) {
+        return load(this, charsetFileName, isInJar);
     }
 }

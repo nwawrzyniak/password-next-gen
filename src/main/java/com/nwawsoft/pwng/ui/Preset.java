@@ -96,15 +96,13 @@ public class Preset extends JFrame {
         clearOldSets();
         String countryCode = t.getLanguage().getCountryCode();
         String[] sets;
-        String directoryName = "charsets";
-        if (ProtocolFunctions.isInJar(this)) { // run from within a .jar file.
-            sets = ResourceLoader.getFileNames(directoryName, false, true);
-        } else { // run from IDE or by direct execution
-            sets = ResourceLoader.getFileNames(directoryName, false, false);
-        }
+        String directoryName;
+        directoryName = "charsets";
+        boolean isInJar = ProtocolFunctions.isInJar(this);
+        sets = ResourceLoader.getFileNames(directoryName, true, isInJar);
         if (sets != null && sets.length != 0) {
             for (String set : sets) {
-                CharacterSet temp = CharacterSetLoader.load(this, set);
+                CharacterSet temp = CharacterSetLoader.load(this, set, isInJar);
                 if (temp.hasCountryCode()) {
                     if (set.startsWith(countryCode)) {
                         jcbCharSet.addItem(set);
@@ -126,7 +124,7 @@ public class Preset extends JFrame {
     private void jbtnStart_ActionPerformed() {
         String langString = (String) jcbLanguage.getSelectedItem();
         String charSetName = (String) jcbCharSet.getSelectedItem();
-        CharacterSet cs = CharacterSetLoader.load(this, charSetName);
+        CharacterSet cs = CharacterSetLoader.load(this, charSetName, ProtocolFunctions.isInJar(this));
         Settings.save(langString, cs);
         if (langString != null) {
             if (charSetName != null) {
