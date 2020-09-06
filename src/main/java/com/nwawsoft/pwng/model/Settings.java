@@ -13,6 +13,8 @@ import java.io.*;
  * Manages the saving and loading of settings.
  */
 public class Settings {
+    public static final int GENERATOR_MAX_TRIES_UNTIL_LOWER_CRITERIA = 5;
+
     private Language l;
     private CharacterSet cs;
     private boolean showPresetMask;

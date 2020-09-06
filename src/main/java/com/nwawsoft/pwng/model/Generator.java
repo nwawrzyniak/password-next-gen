@@ -13,9 +13,7 @@ public class Generator {
     private final Rating r;
     private final char[] set;
 
-    private static final int MAX_TRIES_UNTIL_LOWER_CRITERIA = 5;
-
-    public Generator(CharacterSet cs) {
+    public Generator(final CharacterSet cs) {
         r = new Rating();
         set = cs.getChars().toCharArray();
     }
@@ -25,7 +23,9 @@ public class Generator {
      *
      * @return a level 5 password as a String.
      */
-    public String create(int tryCount) throws LogicErrorException, UnknownCharacterTypeException {
+    public String create(final int tryCount) throws LogicErrorException, UnknownCharacterTypeException {
+        // ToDo: Move magic numbers to Settings
+        // ToDo: Go down properly in Criteria (5 -> 4 -> 3 -> 2 -> 1)
         Random rand = new Random();
         StringBuilder output = new StringBuilder();
         int wantedLength = rand.nextInt(5) + 14;
@@ -33,7 +33,7 @@ public class Generator {
             char c = set[rand.nextInt(set.length)];
             output.append(c);
         }
-        if (tryCount < MAX_TRIES_UNTIL_LOWER_CRITERIA) {
+        if (tryCount < Settings.GENERATOR_MAX_TRIES_UNTIL_LOWER_CRITERIA) {
             if (r.level5Criteria(output.toString())) {
                 return output.toString();
             } else {
