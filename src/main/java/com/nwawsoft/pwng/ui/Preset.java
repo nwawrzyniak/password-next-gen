@@ -102,7 +102,7 @@ public class Preset extends JFrame {
         sets = ResourceLoader.getFileNames(directoryName, true, isInJar);
         if (sets != null && sets.length != 0) {
             for (String set : sets) {
-                CharacterSet temp = CharacterSetLoader.load(this, set, isInJar);
+                CharacterSet temp = CharacterSetLoader.load(this, set);
                 if (temp.hasCountryCode()) {
                     if (set.startsWith(countryCode)) {
                         jcbCharSet.addItem(set);
@@ -124,7 +124,7 @@ public class Preset extends JFrame {
     private void jbtnStart_ActionPerformed() {
         String langString = (String) jcbLanguage.getSelectedItem();
         String charSetName = (String) jcbCharSet.getSelectedItem();
-        CharacterSet cs = CharacterSetLoader.load(this, charSetName, ProtocolFunctions.isInJar(this));
+        CharacterSet cs = CharacterSetLoader.load(this, charSetName);
         Settings.save(langString, cs);
         if (langString != null) {
             if (charSetName != null) {

@@ -37,13 +37,13 @@ public class Generator {
             if (r.level5Criteria(output.toString())) {
                 return output.toString();
             } else {
-                return create(tryCount+1);
+                return create(tryCount + 1);
             }
         } else {
             if (r.level3Criteria(output.toString())) {
                 return output.toString();
             } else {
-                return create(tryCount+1);
+                return create(tryCount + 1);
             }
         }
     }
