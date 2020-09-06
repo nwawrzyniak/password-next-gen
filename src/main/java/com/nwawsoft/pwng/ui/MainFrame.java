@@ -12,7 +12,7 @@ import com.nwawsoft.util.ui.ComponentFunctions;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.Container;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -30,6 +30,10 @@ public class MainFrame extends JFrame {
     private final Translation t;
     private final Generator g;
     private final Rating r;
+    private final JButton jbtnLowerToClipboard;
+    private final JButton jbtnUpperToClipboard;
+    private final JButton jbtnMoveUp;
+    private final JButton jbtnClear;
     private JTextField inputContainer;
     private boolean passwordHidden = false;
     private int currentWindowWidth;
@@ -41,10 +45,6 @@ public class MainFrame extends JFrame {
     private ImageIcon iiClear;
     private ImageIcon iiToClipboard;
     private int levelValue;
-    private final JButton jbtnLowerToClipboard;
-    private final JButton jbtnUpperToClipboard;
-    private final JButton jbtnMoveUp;
-    private final JButton jbtnClear;
 
     public MainFrame(final Settings s, final Translation t) {
         super(t.getLongTitle());
@@ -122,8 +122,12 @@ public class MainFrame extends JFrame {
         jmiAbout.addActionListener(this::jmiAboutActionPerformed);
         jmiSecurityLevels.addActionListener(this::jmiSafetyLevelsActionPerformed);
         KeyListener kl = new KeyListener() {
-            public void keyTyped(KeyEvent e) {}
-            public void keyPressed(KeyEvent e) {}
+            public void keyTyped(KeyEvent e) {
+            }
+
+            public void keyPressed(KeyEvent e) {
+            }
+
             public void keyReleased(KeyEvent e) {
                 boolean isEmpty = inputContainer.getText().equals("");
                 if (e.getKeyCode() != KeyEvent.VK_ENTER) {

@@ -1,10 +1,10 @@
 package com.nwawsoft.pwng.model;
 
 import com.nwawsoft.pwng.exceptions.UnknownLanguageException;
+import com.nwawsoft.pwng.model.characterset.CharacterSet;
 import com.nwawsoft.pwng.model.characterset.CharacterSetLoader;
 import com.nwawsoft.pwng.model.language.Language;
 import com.nwawsoft.pwng.model.language.Languagizer;
-import com.nwawsoft.pwng.model.characterset.CharacterSet;
 import com.nwawsoft.util.jar.ProtocolFunctions;
 
 import java.io.*;
@@ -34,7 +34,7 @@ public class Settings {
      * Saves the current settings to a file "~/.pwng/settings.ini".
      *
      * @param language the specified language.
-     * @param cs the specified character set.
+     * @param cs       the specified character set.
      */
     public static void save(final String language, final CharacterSet cs) {
         try {
@@ -100,8 +100,7 @@ public class Settings {
                 if (currentLine.startsWith("LANG")) {
                     l = Languagizer.toLanguage(currentLine.substring(currentLine.lastIndexOf("=") + 1));
                 } else if (currentLine.startsWith("CHARSET")) {
-                    cs = CharacterSetLoader.load(this, currentLine.substring(currentLine.lastIndexOf("=") + 1),
-                            ProtocolFunctions.isInJar(this));
+                    cs = CharacterSetLoader.load(this, currentLine.substring(currentLine.lastIndexOf("=") + 1));
                 } else if (currentLine.startsWith("SHOW_PRESET_MASK")) {
                     showPresetMask = Boolean.parseBoolean(currentLine.substring(currentLine.lastIndexOf("=") + 1));
                 }

@@ -3,7 +3,9 @@ package com.nwawsoft.pwng.model.characterset;
 import com.nwawsoft.pwng.model.language.Language;
 import com.nwawsoft.util.datastructures.StringList;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Provides functions to load a CharacterSet from a file in the /charsets/ resource directory.
@@ -12,12 +14,12 @@ public class CharacterSetLoader {
     /**
      * Loads a CharacterSet from a .charset file in the /charsets/ resource directory.
      *
-     * @param context any instantiated object whose Class has a reference to the resource directory (usually 'this').
+     * @param context         any instantiated object whose Class has a reference to the resource directory
+     *                        (usually 'this').
      * @param charsetFileName the file name of the character set file without file extension.
-     * @param isInJar true if file is located in pwng.jar. Else false.
      * @return the character set.
      */
-    public static CharacterSet load(final Object context, final String charsetFileName, final boolean isInJar) {
+    public static CharacterSet load(final Object context, final String charsetFileName) {
         // PART 1: PARSE FILE NAME
         String countryCode = "";
         String name;
@@ -57,7 +59,7 @@ public class CharacterSetLoader {
         // fetch chars
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(context.getClass().getResourceAsStream
-                        ("/charsets/" + charsetFileName + ".charset")));
+                    ("/charsets/" + charsetFileName + ".charset")));
             String currentLine;
             while ((currentLine = br.readLine()) != null) {
                 if (!currentLine.equals("") && !currentLine.equals("\n")) {
@@ -78,7 +80,7 @@ public class CharacterSetLoader {
      * @param charsetFileName the file name of the character set file without file extension.
      * @return the character set.
      */
-    public CharacterSet load(final String charsetFileName, final boolean isInJar) {
-        return load(this, charsetFileName, isInJar);
+    public CharacterSet load(final String charsetFileName) {
+        return load(this, charsetFileName);
     }
 }

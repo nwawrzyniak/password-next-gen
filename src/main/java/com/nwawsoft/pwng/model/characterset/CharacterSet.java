@@ -27,12 +27,12 @@ public class CharacterSet {
     /**
      * Instantiates a new CharacterSet.
      *
-     * @param chars a String containing all allowed characters for this set (may not be null, empty or only one
-     *              character long).
-     * @param name the name of the CharacterSet (may not be null or empty).
+     * @param chars       a String containing all allowed characters for this set (may not be null, empty or only one
+     *                    character long).
+     * @param name        the name of the CharacterSet (may not be null or empty).
      * @param countryCode the countryCode of the CharacterSet (may be null or empty).
-     * @param suffixes the suffix(es) of the CharacterSet (may be null or empty).
-     * @param fileName the fileName of the CharacterSet (may be null or empty).
+     * @param suffixes    the suffix(es) of the CharacterSet (may be null or empty).
+     * @param fileName    the fileName of the CharacterSet (may be null or empty).
      */
     public CharacterSet(final String chars, final String name, final String countryCode, final StringList suffixes,
                         final String fileName) {

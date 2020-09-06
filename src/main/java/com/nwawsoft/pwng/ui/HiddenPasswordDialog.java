@@ -4,9 +4,9 @@ import com.nwawsoft.pwng.model.language.Translation;
 import com.nwawsoft.util.tools.ClipboardManager;
 import com.nwawsoft.util.ui.RequestFocusListener;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Dialog that warns the user if he tries to copy a hidden password.
