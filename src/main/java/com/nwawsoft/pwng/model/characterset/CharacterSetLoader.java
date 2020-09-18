@@ -41,7 +41,8 @@ public class CharacterSetLoader {
         // fetch name
         if (!countryCode.equals("")) { // case: has countryCode
             if (charsetFileName.contains(SUFFIX_INDICATOR)) { // case: has countryCode and suffix(es)
-                name = charsetFileName.substring(charsetFileName.indexOf(LANGUAGE_INDICATOR) + 1, charsetFileName.indexOf(SUFFIX_INDICATOR));
+                name = charsetFileName.substring(charsetFileName.indexOf(LANGUAGE_INDICATOR) + 1,
+                        charsetFileName.indexOf(SUFFIX_INDICATOR));
             } else { // case: has countryCode and no suffix
                 name = charsetFileName.substring(charsetFileName.indexOf(LANGUAGE_INDICATOR) + 1);
             }
