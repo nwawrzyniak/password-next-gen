@@ -27,7 +27,7 @@ public class CLI {
             // ToDo: make this work for spaces, special characters and so on. everything after the indicator alias
             //  should be treated literal.
             try {
-                System.out.println("\n" + new Generator(s.getCharacterSet()).create(0));
+                System.out.println("\n" + new Generator(s.getCharacterSet()).create());
             } catch (LogicErrorException | UnknownCharacterTypeException e) {
                 e.printStackTrace();
             }
