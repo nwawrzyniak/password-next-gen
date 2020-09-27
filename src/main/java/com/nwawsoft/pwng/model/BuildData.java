@@ -4,7 +4,10 @@ public class BuildData {
     private static final int mainVersion = 1;
     private static final int featureUpdate = 0;
     private static final int bugfixUpdate = 0;
-    private static final int buildNumber = 36; // counting since March 11, 2020.
+    private static final int buildNumber = 37; // counting since March 11, 2020.
+
+    public static final String GITHUB_LINK = "https://www.github.com/nwawrzyniak/password-next-gen/";
+    public static final String WEBSITE_LINK = "https://pwng.nwawsoft.com/";
 
     /**
      * Assembles and returns the version number of the current build.
