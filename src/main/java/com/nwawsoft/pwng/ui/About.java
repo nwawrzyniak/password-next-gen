@@ -2,6 +2,7 @@ package com.nwawsoft.pwng.ui;
 
 import com.nwawsoft.pwng.model.BuildData;
 import com.nwawsoft.pwng.model.language.Translation;
+import com.nwawsoft.util.html.HTMLTagger;
 import com.nwawsoft.util.ui.ComponentFunctions;
 
 import javax.swing.*;
@@ -13,16 +14,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- * About window with information about version number and maintainer.
+ * About window with information about version number, maintainer and online appearance.
  */
 public class About extends JDialog {
-    private static final String GITHUB = "GitHub";
-    private static final String WEBSITE = "pwng.nwawsoft.com";
-    private static final String LINK_PRE = "<html><a href=''>";
-    private static final String LINK_POST = "</a></html>";
-    private static final String HTML_PRE = "<html>";
-    private static final String HTML_POST = "</html>";
-
     public About(final JFrame owner, final String title, final boolean modal, final Translation t) {
         super(owner, title, modal);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -33,8 +27,8 @@ public class About extends JDialog {
         Container cp = getContentPane();
         this.setLayout(new FlowLayout());
         setResizable(false);
-        JLabel jlblAboutText1 = new JLabel(HTML_PRE + t.getAboutText1() + HTML_POST, SwingConstants.CENTER);
-        JLabel jlblLinkGitHub = new JLabel(LINK_PRE + GITHUB + LINK_POST, SwingConstants.CENTER);
+        JLabel jlblAboutText1 = new JLabel(HTMLTagger.toHTML(t.getAboutText1()), SwingConstants.CENTER);
+        JLabel jlblLinkGitHub = new JLabel(HTMLTagger.toLink(BuildData.GITHUB), SwingConstants.CENTER);
         jlblLinkGitHub.setForeground(Color.BLUE.darker());
         jlblLinkGitHub.setCursor(new Cursor(Cursor.HAND_CURSOR));
         jlblLinkGitHub.addMouseListener(new MouseAdapter() {
@@ -47,8 +41,8 @@ public class About extends JDialog {
                 }
             }
         });
-        JLabel jlblAboutText2 = new JLabel(HTML_PRE + t.getAboutText2() + HTML_POST, SwingConstants.CENTER);
-        JLabel jlblLinkWebsite = new JLabel(LINK_PRE + WEBSITE + LINK_POST, SwingConstants.CENTER);
+        JLabel jlblAboutText2 = new JLabel(HTMLTagger.toHTML(t.getAboutText2()), SwingConstants.CENTER);
+        JLabel jlblLinkWebsite = new JLabel(HTMLTagger.toLink(BuildData.WEBSITE), SwingConstants.CENTER);
         jlblLinkWebsite.setForeground(Color.BLUE.darker());
         jlblLinkWebsite.setCursor(new Cursor(Cursor.HAND_CURSOR));
         jlblLinkWebsite.addMouseListener(new MouseAdapter() {
