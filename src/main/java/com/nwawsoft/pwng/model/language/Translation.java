@@ -43,7 +43,8 @@ public class Translation {
     private String helpCharacterTypes;
 
     // About window related text
-    private String aboutText;
+    private String aboutText1;
+    private String aboutText2;
 
     // Password rating related text
     private String levelSecurityLevel;
@@ -123,14 +124,12 @@ public class Translation {
                     "<BR>  - All 4 character types<BR>  - At least 8 changes of character types</HTML>";
             helpCharacterTypes = "<HTML>A \"character type\" means one of these 4 categories: Upper case letters, " +
                     "lower case letters, digits, special characters.</HTML>";
-            aboutText = "<HTML>pwng (password-next-gen)" +
+            aboutText1 = "<HTML>pwng (password-next-gen)" +
                     "<BR>version " + BuildData.getFullVersion() +
                     "<BR>by nwawsoft" +
                     "<BR>" +
-                    "<BR>Newest version at" +
-                    "<BR><a href=\"https://www.github.com/nwawrzyniak/password-next-gen/\">GitHub</a>" +
-                    "<BR>and" +
-                    "<BR><a href=\"https://pwng.nwawsoft.com/\">pwng.nwawsoft.com</a></HTML>";
+                    "<BR>Newest version at";
+            aboutText2 = "and";
             levelSecurityLevel = "Security level is ";
             levelBad = "The password is horribly bad.";
             levelDictionary = "Parts of your password are in the dictionary.";
@@ -187,14 +186,12 @@ public class Translation {
                     "<BR>  - Mindestens 8 Wechsel zwischen Zeichentypen</HTML>";
             helpCharacterTypes = "<HTML>Es gibt folgende 4 Zeichentypen: Gro" + ss + "- und Kleinbuchstaben, Zahlen " +
                     "und Sonderzeichen.</HTML>";
-            aboutText = "<HTML>pwng (password-next-gen)" +
+            aboutText1 = "<HTML>pwng (password-next-gen)" +
                     "<BR>Version " + BuildData.getFullVersion() +
                     "<BR>von nwawsoft" +
                     "<BR>" +
-                    "<BR>Aktuelleste Version auf" +
-                    "<BR><a href=\"https://www.github.com/nwawrzyniak/password-next-gen/\">GitHub</a>" +
-                    "<BR>und" +
-                    "<BR><a href=\"https://pwng.nwawsoft.com/\">pwng.nwawsoft.com</a></HTML>";
+                    "<BR>Aktuelleste Version auf";
+            aboutText2 = "und";
             levelSecurityLevel = "Sicherheitsstufe betr" + ae + "gt ";
             levelBad = "Das Passwort ist furchtbar schlecht.";
             levelDictionary = "Teile Ihres Passworts stehen im W" + oe + "rterbuch.";
@@ -314,8 +311,12 @@ public class Translation {
         return helpCharacterTypes;
     }
 
-    public String getAboutText() {
-        return aboutText;
+    public String getAboutText1() {
+        return aboutText1;
+    }
+
+    public String getAboutText2() {
+        return aboutText2;
     }
 
     public String getLevelSecurityLevel() {

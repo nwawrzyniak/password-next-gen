@@ -5,7 +5,6 @@ import com.nwawsoft.pwng.model.characterset.CharacterSet;
 import com.nwawsoft.pwng.model.characterset.CharacterSetLoader;
 import com.nwawsoft.pwng.model.language.Language;
 import com.nwawsoft.pwng.model.language.Languagizer;
-import com.nwawsoft.util.jar.ProtocolFunctions;
 
 import java.io.*;
 
@@ -14,6 +13,8 @@ import java.io.*;
  */
 public class Settings {
     public static final int GENERATOR_MAX_TRIES_UNTIL_LOWER_CRITERIA = 5;
+    public static final int GENERATOR_MIN_PASSWORD_LENGTH = 14;
+    public static final int GENERATOR_BONUS_MAX_LENGTH = 4;
 
     private Language l;
     private CharacterSet cs;
@@ -69,11 +70,12 @@ public class Settings {
     // ToDo: Doc
     public static boolean configFileValid() {
         // ToDo: Rewrite
+        // aka ToDo: Validate 4 real.
         return configFileFound();
     }
 
     /**
-     * Sets the software defaults to the English language, a character set "Standard" containing [a..z],[A..Z],[0..9]
+     * Sets the software defaults to the English language, a character set containing [a..z],[A..Z],[0..9]
      * and showPresetMask true.
      */
     private void setDefaults() {
@@ -81,8 +83,7 @@ public class Settings {
             l = Language.ENGLISH;
         }
         if (cs == null) {
-            cs = new CharacterSet("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-                    "Standard", null, null, null);
+            cs = new CharacterSet("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
         }
         showPresetMask = true;
     }

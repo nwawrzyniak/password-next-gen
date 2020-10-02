@@ -15,7 +15,7 @@ public class CharacterSet {
 
     /**
      * Minimal CharacterSet.
-     * Basically a wrapper for CharacterSet(String, String, String, String[]) for testing and backup loading.
+     * Basically a wrapper for CharacterSet(String, String, String, StringList, String) for testing and as fallback.
      *
      * @param chars a String containing all allowed characters for this set (may not be null, empty or only one
      *              character long).

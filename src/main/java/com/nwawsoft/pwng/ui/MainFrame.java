@@ -191,7 +191,7 @@ public class MainFrame extends JFrame {
 
     private void jbtnClearActionPerformed(final ActionEvent actionEvent) {
         inputContainer.setText("");
-        if (StringFunctions.startsWithAny(jtxtOutputField.getText(), t.getRatingTextBeginnings())) { // ToDo: test this
+        if (StringFunctions.startsWithAny(jtxtOutputField.getText(), t.getRatingTextBeginnings())) {
             jtxtOutputField.setText("");
         }
         jbtnUpperToClipboard.setEnabled(false);
@@ -226,7 +226,7 @@ public class MainFrame extends JFrame {
 
     private void jbtnGenerateActionPerformed(final ActionEvent actionEvent) {
         try {
-            jtxtOutputField.setText(g.create(0));
+            jtxtOutputField.setText(g.create());
         } catch (LogicErrorException | UnknownCharacterTypeException e) {
             e.printStackTrace();
         }

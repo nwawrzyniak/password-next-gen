@@ -98,11 +98,13 @@ public class Preset extends JFrame {
         String[] sets;
         String directoryName;
         directoryName = "charsets";
+        boolean firstEntry = true;
         boolean isInJar = ProtocolFunctions.isInJar(this);
         sets = ResourceLoader.getFileNames(directoryName, true, isInJar);
         if (sets != null && sets.length != 0) {
+            CharacterSet temp;
             for (String set : sets) {
-                CharacterSet temp = CharacterSetLoader.load(this, set);
+                temp = CharacterSetLoader.load(this, set);
                 if (temp.hasCountryCode()) {
                     if (set.startsWith(countryCode)) {
                         jcbCharSet.addItem(set);
@@ -110,8 +112,14 @@ public class Preset extends JFrame {
                 } else {
                     jcbCharSet.addItem(set);
                 }
+                if (firstEntry) {
+                    jcbCharSet.setSelectedItem(0);
+                    firstEntry = false;
+                }
+                if (s.getCharacterSet().getFileName().equals(temp.getFileName())) {
+                    jcbCharSet.setSelectedItem(temp.getFileName());
+                }
             }
-            jcbCharSet.setSelectedItem(0);
         } else {
             System.err.println("Preset.setCharSets(): No character sets found.");
         }
