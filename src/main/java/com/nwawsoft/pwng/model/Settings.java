@@ -22,15 +22,32 @@ public class Settings {
 
     // ToDo: Doc
     public Settings() {
-        if (configFileFound()) {
-            if (configFileValid()) {
-                load();
-            }
-        } else {
-            setDefaults();
+        if (!configFileFound() || !configFileValid()) {
+            createDefaults();
         }
+        load();
     }
 
+    public static void createDefaults() {
+        try {
+            File d = new File(System.getProperty("user.home") + "/.pwng");
+            if (!d.exists()) {
+                if (!d.mkdir()) {
+                    throw new IOException();
+                }
+            }
+            File f = new File(System.getProperty("user.home") + "/.pwng/settings.ini");
+            FileWriter fw = new FileWriter(f);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write("LANG=English\n");
+            bw.write("CHARSET=en_easy\n");
+            bw.write("SHOW_PRESET_MASK=true\n");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     /**
      * Saves the current settings to a file "~/.pwng/settings.ini".
      *
