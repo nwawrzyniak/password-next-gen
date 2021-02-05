@@ -27,15 +27,14 @@ public class CLI {
             // ToDo: make this work for spaces, special characters and so on. everything after the indicator alias
             //  should be treated literal.
             try {
-                System.out.println("\n" + new Generator(s.getCharacterSet()).create());
+                System.out.print(new Generator(s.getCharacterSet()).create());
             } catch (LogicErrorException | UnknownCharacterTypeException e) {
                 e.printStackTrace();
             }
         } else if (StringArrayFunctions.contains(rateAliases, args[0])) {
-            System.out.println("\n" + t.getLevelSecurityLevel() +
-                    new Rating().getPasswordLevel(args[1]));
+            System.out.print(t.getLevelSecurityLevel() + new Rating().getPasswordLevel(args[1]));
             // ToDo: dictionary check.
-            //  Maybe just copy/refactor procedure from GUI version?
+            // copy/refactor procedure from GUI version
         } else if (StringArrayFunctions.contains(helpAliases, args[0])) {
             if (args.length == 1) {
                 System.out.println("\n" +
