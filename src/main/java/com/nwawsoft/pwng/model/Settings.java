@@ -3,6 +3,7 @@ package com.nwawsoft.pwng.model;
 import com.nwawsoft.pwng.exceptions.UnknownLanguageException;
 import com.nwawsoft.pwng.model.characterset.CharacterSet;
 import com.nwawsoft.pwng.model.characterset.CharacterSetLoader;
+import com.nwawsoft.pwng.model.characterset.DefaultCharacterSet;
 import com.nwawsoft.pwng.model.language.Language;
 import com.nwawsoft.pwng.model.language.Languagizer;
 
@@ -100,7 +101,7 @@ public class Settings {
             l = Language.ENGLISH;
         }
         if (cs == null) {
-            cs = new CharacterSet("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+            cs = new DefaultCharacterSet();
         }
         showPresetMask = true;
     }
@@ -123,8 +124,11 @@ public class Settings {
                     showPresetMask = Boolean.parseBoolean(currentLine.substring(currentLine.lastIndexOf("=") + 1));
                 }
             }
-        } catch (IOException | UnknownLanguageException e) {
+        } catch (IOException | UnknownLanguageException | NullPointerException e) {
+            System.err.println("Error on Settings load:");
             e.printStackTrace();
+            System.err.println("Falling back to default settings...");
+            setDefaults();
         }
     }
 

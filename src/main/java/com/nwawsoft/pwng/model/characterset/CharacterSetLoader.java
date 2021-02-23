@@ -73,8 +73,11 @@ public class CharacterSetLoader {
                     chars = currentLine;
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
+            System.err.println("Error on CharacterSet load:");
             e.printStackTrace();
+            System.err.println("Falling back to default CharacterSet...");
+            return new DefaultCharacterSet();
         }
         // assemble everything
         return new CharacterSet(chars, name, countryCode, suffixes, charsetFileName);
