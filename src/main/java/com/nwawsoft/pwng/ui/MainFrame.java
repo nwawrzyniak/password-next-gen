@@ -75,8 +75,10 @@ public class MainFrame extends JFrame {
             iiMoveUp = new ImageIcon(ImageIO.read(iiMoveUpStream));
             InputStream iiClearStream = getClass().getResourceAsStream("/graphics/mainframe/clear.png");
             iiClear = new ImageIcon(ImageIO.read(iiClearStream));
-        } catch (IOException e) {
+        } catch (IOException | IllegalArgumentException e) {
+            System.err.println("Could not set graphics:");
             e.printStackTrace();
+            System.err.println("Continuing without them...");
         }
         for (int i = 0; i < jlblChecks.length; i++) {
             jlblChecks[i] = new JLabel(iiCross);

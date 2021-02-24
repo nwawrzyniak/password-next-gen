@@ -20,16 +20,25 @@ public class Settings {
     private Language l;
     private CharacterSet cs;
     private boolean showPresetMask;
-
-    // ToDo: Doc
+    
+    /**
+     * Creates a new Settings object from the settings file "settings.ini".
+     *
+     * If there is no such file it is created in the process.
+     */
     public Settings() {
         if (!configFileFound() || !configFileValid()) {
             createDefaults();
         }
         load();
     }
-
-    public static void createDefaults() {
+    
+    /**
+     * Creates a new config file "settings.ini" with the default settings.
+     *
+     * If this is not possible, there is no further fallback and the execution stops with exit code -1.
+     */
+    private static void createDefaults() {
         try {
             File d = new File(System.getProperty("user.home") + "/.pwng");
             if (!d.exists()) {
@@ -45,7 +54,10 @@ public class Settings {
             bw.write("SHOW_PRESET_MASK=true\n");
             bw.flush();
         } catch (IOException e) {
+            System.err.println("Could not write config file to \"" + System.getProperty("user.home") + "/.pwng\":");
             e.printStackTrace();
+            System.err.println("Aborting...");
+            System.exit(-1);
         }
     }
     
@@ -84,11 +96,14 @@ public class Settings {
         File f = new File(System.getProperty("user.home") + "/.pwng/settings.ini");
         return f.exists();
     }
-
-    // ToDo: Doc
+    
+    /**
+     * Returns whether the default config file "settings.ini" is valid.
+     *
+     * @return true if "settings.ini" is a valid config file. Else false.
+     */
     public static boolean configFileValid() {
-        // ToDo: Rewrite
-        // aka ToDo: Validate 4 real.
+        // ToDo: Validate 4 real.
         return configFileFound();
     }
 

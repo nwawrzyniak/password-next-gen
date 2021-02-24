@@ -24,8 +24,10 @@ public class ApplicationIcon {
                 images.add(ImageIO.read(ICON32));
                 images.add(ImageIO.read(ICON20));
                 images.add(ImageIO.read(ICON16));
-            } catch (IOException e) {
+            } catch (IOException |IllegalArgumentException e) {
+                System.err.println("Could not load application icon:");
                 e.printStackTrace();
+                System.err.println("Continuing without it...");
             }
         }
         return images;
