@@ -3,6 +3,7 @@ package com.nwawsoft.pwng.model;
 import com.nwawsoft.pwng.exceptions.UnknownLanguageException;
 import com.nwawsoft.pwng.model.characterset.CharacterSet;
 import com.nwawsoft.pwng.model.characterset.CharacterSetLoader;
+import com.nwawsoft.pwng.model.characterset.DefaultCharacterSet;
 import com.nwawsoft.pwng.model.language.Language;
 import com.nwawsoft.pwng.model.language.Languagizer;
 
@@ -19,18 +20,47 @@ public class Settings {
     private Language l;
     private CharacterSet cs;
     private boolean showPresetMask;
-
-    // ToDo: Doc
+    
+    /**
+     * Creates a new Settings object from the settings file "settings.ini".
+     *
+     * If there is no such file it is created in the process.
+     */
     public Settings() {
-        if (configFileFound()) {
-            if (configFileValid()) {
-                load();
+        if (!configFileFound() || !configFileValid()) {
+            createDefaults();
+        }
+        load();
+    }
+    
+    /**
+     * Creates a new config file "settings.ini" with the default settings.
+     *
+     * If this is not possible, there is no further fallback and the execution stops with exit code -1.
+     */
+    private static void createDefaults() {
+        try {
+            File d = new File(System.getProperty("user.home") + "/.pwng");
+            if (!d.exists()) {
+                if (!d.mkdir()) {
+                    throw new IOException();
+                }
             }
-        } else {
-            setDefaults();
+            File f = new File(System.getProperty("user.home") + "/.pwng/settings.ini");
+            FileWriter fw = new FileWriter(f);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write("LANG=English\n");
+            bw.write("CHARSET=en_easy\n");
+            bw.write("SHOW_PRESET_MASK=true\n");
+            bw.flush();
+        } catch (IOException e) {
+            System.err.println("Could not write config file to \"" + System.getProperty("user.home") + "/.pwng\":");
+            e.printStackTrace();
+            System.err.println("Aborting...");
+            System.exit(-1);
         }
     }
-
+    
     /**
      * Saves the current settings to a file "~/.pwng/settings.ini".
      *
@@ -66,11 +96,14 @@ public class Settings {
         File f = new File(System.getProperty("user.home") + "/.pwng/settings.ini");
         return f.exists();
     }
-
-    // ToDo: Doc
+    
+    /**
+     * Returns whether the default config file "settings.ini" is valid.
+     *
+     * @return true if "settings.ini" is a valid config file. Else false.
+     */
     public static boolean configFileValid() {
-        // ToDo: Rewrite
-        // aka ToDo: Validate 4 real.
+        // ToDo: Validate 4 real.
         return configFileFound();
     }
 
@@ -83,7 +116,7 @@ public class Settings {
             l = Language.ENGLISH;
         }
         if (cs == null) {
-            cs = new CharacterSet("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+            cs = new DefaultCharacterSet();
         }
         showPresetMask = true;
     }
@@ -106,8 +139,11 @@ public class Settings {
                     showPresetMask = Boolean.parseBoolean(currentLine.substring(currentLine.lastIndexOf("=") + 1));
                 }
             }
-        } catch (IOException | UnknownLanguageException e) {
+        } catch (IOException | UnknownLanguageException | NullPointerException e) {
+            System.err.println("Error on Settings load:");
             e.printStackTrace();
+            System.err.println("Falling back to default settings...");
+            setDefaults();
         }
     }
 
