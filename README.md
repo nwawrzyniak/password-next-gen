@@ -12,9 +12,9 @@ The software is currently available in English and German. Additional languages 
 Since pwng is written in [Java](https://www.oracle.com/java/) it will run on [all of these operating 
 systems](https://www.oracle.com/java/technologies/javase/products-doc-jdk8-jre8-certconfig.html).
 
-<img src="https://pwng.nwawsoft.com/www/res/graphics/preview_rate.png" alt="Preview of the 'rating' feature" width="546"/>
-
 <img src="https://pwng.nwawsoft.com/www/res/graphics/preview_generate.png" alt="Preview of the 'generate' feature" width="546"/>
+
+<img src="https://pwng.nwawsoft.com/www/res/graphics/preview_rate.png" alt="Preview of the 'rating' feature" width="546"/>
 
 <img src="https://pwng.nwawsoft.com/www/res/graphics/preview_cli.png" alt="Preview of the CLI feature" width="623"/>
 
