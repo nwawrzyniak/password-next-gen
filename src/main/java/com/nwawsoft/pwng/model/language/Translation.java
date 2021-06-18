@@ -4,7 +4,7 @@ import com.nwawsoft.pwng.exceptions.UnknownLanguageException;
 import com.nwawsoft.pwng.model.BuildData;
 import com.nwawsoft.util.datastructures.StringList;
 
-import static com.nwawsoft.util.realworldlanguage.MutatedVowels.*;
+import static com.nwawsoft.util.realworldlanguage.GermanMutatedVowels.*;
 
 public class Translation {
     private final Language l;
