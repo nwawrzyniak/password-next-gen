@@ -20,15 +20,15 @@ systems](https://www.oracle.com/java/technologies/javase/products-doc-jdk8-jre8-
 
 ### Generate feature
 
-<img src="https://pwng.nwawsoft.com/www/res/graphics/preview_generate.png" alt="Preview of the 'generate' feature" width="546"/>
+<img src="https://www.nwawsoft.com/pwng/www/res/graphics/preview_generate.png" alt="Preview of the 'generate' feature" width="546"/>
 
 ### Rating feature
 
-<img src="https://pwng.nwawsoft.com/www/res/graphics/preview_rate.png" alt="Preview of the 'rating' feature" width="546"/>
+<img src="https://www.nwawsoft.com/pwng/www/res/graphics/preview_rate.png" alt="Preview of the 'rating' feature" width="546"/>
 
 ### CLI Usage
 
-<img src="https://pwng.nwawsoft.com/www/res/graphics/preview_cli.png" alt="Preview of the CLI feature" width="623"/>
+<img src="https://www.nwawsoft.com/pwng/www/res/graphics/preview_cli.png" alt="Preview of the CLI feature" width="623"/>
 
 ---
 
