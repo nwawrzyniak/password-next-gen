@@ -1,6 +1,6 @@
-# password-next-gen (pwng)
-![GitHub](https://img.shields.io/github/license/nwawrzyniak/password-next-gen)
-![GitHub repo size](https://img.shields.io/github/repo-size/nwawrzyniak/password-next-gen)
+# (pwng) password-next-gen
+![GitHub](https://img.shields.io/github/license/nwawrzyniak/pwng)
+![GitHub repo size](https://img.shields.io/github/repo-size/nwawrzyniak/pwng)
 
 Password Next Gen - Your password's next generator
 
@@ -34,13 +34,13 @@ systems](https://www.oracle.com/java/technologies/javase/products-doc-jdk8-jre8-
 
 ## Download
 All stable versions can be found on the ["Releases" tab on 
-GitHub](https://github.com/nwawrzyniak/password-next-gen/releases).
+GitHub](https://github.com/nwawrzyniak/pwng/releases).
 
 ---
 
 ## Notes for developers
 If you want to help develop this application or compile from source code you should clone this repository with the 
-command ```git clone https://github.com/nwawrzyniak/password-next-gen.git --recurse-submodules```. If you do not use 
+command ```git clone https://github.com/nwawrzyniak/pwng.git --recurse-submodules```. If you do not use 
 ```--recurse-submodules``` you will have to run ```git submodule update --init``` afterwards. It is recommended to use 
 [IntelliJ IDEA](https://www.jetbrains.com/de-de/idea/download) to work on this project, as everything is already 
 preconfigured for it. If you use any other IDE you may have to specify the source, resource, test and library 
