@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="nwju">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/nwju.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

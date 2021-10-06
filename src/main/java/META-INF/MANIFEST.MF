@@ -1,3 +1,4 @@
 Manifest-Version: 1.0
 Main-Class: com.nwawsoft.pwng.Starter
+Class-Path: . lib/nwju.jar
 
