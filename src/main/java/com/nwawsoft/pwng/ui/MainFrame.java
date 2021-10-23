@@ -174,9 +174,14 @@ public class MainFrame extends JFrame {
         cp.add(jbtnMoveUp);
         JButton jbtnGenerate = new JButton();
         jbtnGenerate.setText(t.getMainGenerate());
-        jbtnGenerate.setBounds(90, 180, 120, 40);
+        jbtnGenerate.setBounds(10, 180, 120, 40);
         jbtnGenerate.addActionListener(this::jbtnGenerateActionPerformed);
         cp.add(jbtnGenerate);
+        JButton jbtnGenerateAndSave = new JButton();
+        jbtnGenerateAndSave.setText(t.getMainGenerateAndSave());
+        jbtnGenerateAndSave.setBounds(140, 180, 160, 40);
+        jbtnGenerateAndSave.addActionListener(this::jbtnGenerateAndSaveActionPerformed);
+        cp.add(jbtnGenerateAndSave);
         jbtnLowerToClipboard.setEnabled(false);
         jbtnUpperToClipboard.setEnabled(false);
         jbtnMoveUp.setEnabled(false);
@@ -234,6 +239,17 @@ public class MainFrame extends JFrame {
         }
         jbtnMoveUp.setEnabled(true);
         jbtnLowerToClipboard.setEnabled(true);
+    }
+
+    private void jbtnGenerateAndSaveActionPerformed(final ActionEvent actionEvent) {
+        try {
+            jtxtOutputField.setText(g.create());
+        } catch (LogicErrorException | UnknownCharacterTypeException e) {
+            e.printStackTrace();
+        }
+        jbtnMoveUp.setEnabled(true);
+        jbtnLowerToClipboard.setEnabled(true);
+        new UnsafePasswordSaverDialog(this, jtxtOutputField.getText());
     }
 
     private void jcbmiHiddenActionPerformed(final ActionEvent actionEvent) {

@@ -19,6 +19,7 @@ public class Translation {
     private String title;
     private String longTitle;
     private String mainGenerate;
+    private String mainGenerateAndSave;
     private String mainImprovements;
     private String mainClipboardText;
     private String mainMoveUpText;
@@ -86,6 +87,7 @@ public class Translation {
             presetStart = "Start";
             longTitle = title + " - Your Password's Next Generator";
             mainGenerate = "Generate";
+            mainGenerateAndSave = "Generate and save";
             mainImprovements = "<HTML>Use lower case letters" +
                     "<BR>" +
                     "<BR>Use upper case letters" +
@@ -147,6 +149,7 @@ public class Translation {
             presetStart = "Start";
             longTitle = title + " - Dein n" + ae + "chster Passwort-Generator";
             mainGenerate = "Generieren";
+            mainGenerateAndSave = "Generieren und speichern";
             mainImprovements = "<HTML>Verwenden Sie Kleinbuchstaben" +
                     "<BR>" +
                     "<BR>Verwenden Sie Gro" + ss + "buchstaben" +
@@ -237,6 +240,10 @@ public class Translation {
 
     public String getMainGenerate() {
         return mainGenerate;
+    }
+
+    public String getMainGenerateAndSave() {
+        return mainGenerateAndSave;
     }
 
     public String getMainImprovements() {
