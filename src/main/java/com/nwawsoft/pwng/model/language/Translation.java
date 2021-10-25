@@ -19,7 +19,6 @@ public class Translation {
     private String title;
     private String longTitle;
     private String mainGenerate;
-    private String mainGenerateAndSave;
     private String mainImprovements;
     private String mainClipboardText;
     private String mainMoveUpText;
@@ -61,6 +60,12 @@ public class Translation {
     private String hiddenWarningNoOption;
     private String hiddenWarningCancelOption;
 
+    // "k function" related text
+    private String mainGenerateAndSave;
+    private String unsafePasswordSaverDialogTitle;
+    private String unsafePasswordSaverDialogSave;
+    private String unsafePasswordSaverDialogCancel;
+
     public Translation(final Language l) {
         this.l = l;
         try {
@@ -87,7 +92,6 @@ public class Translation {
             presetStart = "Start";
             longTitle = title + " - Your Password's Next Generator";
             mainGenerate = "Generate";
-            mainGenerateAndSave = "Generate and save";
             mainImprovements = "<HTML>Use lower case letters" +
                     "<BR>" +
                     "<BR>Use upper case letters" +
@@ -142,6 +146,10 @@ public class Translation {
             hiddenWarningYesOption = "Yes, save my password to the clipboard";
             hiddenWarningNoOption = "No, clear the password field";
             hiddenWarningCancelOption = "Just cancel";
+            mainGenerateAndSave = "Generate and save";
+            unsafePasswordSaverDialogTitle = "File name";
+            unsafePasswordSaverDialogSave = "Save";
+            unsafePasswordSaverDialogCancel = "Cancel";
         } else if (l.equals(Language.GERMAN)) {
             presetGeneralSettingsTitle = "Allgemeine Einstellungen";
             presetLanguage = "Sprache";
@@ -149,7 +157,6 @@ public class Translation {
             presetStart = "Start";
             longTitle = title + " - Dein n" + ae + "chster Passwort-Generator";
             mainGenerate = "Generieren";
-            mainGenerateAndSave = "Generieren und speichern";
             mainImprovements = "<HTML>Verwenden Sie Kleinbuchstaben" +
                     "<BR>" +
                     "<BR>Verwenden Sie Gro" + ss + "buchstaben" +
@@ -205,6 +212,10 @@ public class Translation {
             hiddenWarningYesOption = "Ja, Passwort kopieren";
             hiddenWarningNoOption = "Nein, Passwort-Feld leeren";
             hiddenWarningCancelOption = "Abbrechen";
+            mainGenerateAndSave = "Generieren und speichern";
+            unsafePasswordSaverDialogTitle = "Dateiname";
+            unsafePasswordSaverDialogSave = "Speichern";
+            unsafePasswordSaverDialogCancel = "Abbrechen";
         } else {
             throw new UnknownLanguageException(l);
         }
@@ -377,5 +388,17 @@ public class Translation {
         strings.append(levelBad.substring(0, 8));
         strings.append(levelDictionary.substring(0, 8));
         return strings;
+    }
+
+    public String getUnsafePasswordSaverDialogTitle() {
+        return unsafePasswordSaverDialogTitle;
+    }
+
+    public String getUnsafePasswordSaverDialogSave() {
+        return unsafePasswordSaverDialogSave;
+    }
+
+    public String getUnsafePasswordSaverDialogCancel() {
+        return unsafePasswordSaverDialogCancel;
     }
 }
