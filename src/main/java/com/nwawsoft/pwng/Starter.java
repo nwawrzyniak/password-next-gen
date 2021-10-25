@@ -10,13 +10,8 @@ public class Starter {
         Settings s = new Settings();
         Translation t = new Translation(s.getLanguage());
         if (args.length == 0) { // GUI mode
-            if (s.getShowPresetMask()) {
-                new Preset(s, t);
-            } else {
-                new MainFrame(s, t);
-            }
-        } else { // CLI mode
-            new CLI(args, s, t);
-        }
+            if (s.getShowPresetMask()) new Preset(s, t);
+            else new MainFrame(s, t);
+        } else new CLI(args, s, t); // CLI mode
     }
 }
