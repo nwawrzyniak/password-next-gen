@@ -19,7 +19,7 @@ public class HiddenPasswordDialog extends JDialog {
         this.inputContainer = inputContainer;
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         int frameWidth = 600;
-        int frameHeight = 144;
+        int frameHeight = 160;
         setSize(frameWidth, frameHeight);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (d.width - getSize().width) / 2;
