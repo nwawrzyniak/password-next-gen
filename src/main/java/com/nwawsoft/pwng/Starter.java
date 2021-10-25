@@ -6,7 +6,6 @@ import com.nwawsoft.pwng.ui.MainFrame;
 import com.nwawsoft.pwng.ui.Preset;
 
 public class Starter {
-
     public static void main(String[] args) {
         Settings s = new Settings();
         Translation t = new Translation(s.getLanguage());
